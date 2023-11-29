@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="Re-run Failed Tests">
+        <classes>
+            <class name="TestDemo"/>
+         
+            <!-- Add more test classes or test methods here -->
+        </classes>
+    </test>
+</suite>

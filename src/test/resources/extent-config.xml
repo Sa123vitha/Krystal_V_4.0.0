@@ -1,0 +1,22 @@
+<extent-config>
+    <!-- Output directory and report file name -->
+    <outputPath>target/extent-reports/report.html</outputPath>
+    
+    <!-- Choose a theme for the report -->
+    <theme>standard</theme>
+    
+    <!-- Configure system information -->
+    <systemInfo>
+        <property>
+            <name>Environment</name>
+            <value>QA</value>
+        </property>
+        <property>
+            <name>Author</name>
+            <value>Your Name</value>
+        </property>
+    </systemInfo>
+    
+    <!-- Other configuration settings -->
+    <!-- ... -->
+</extent-config>
