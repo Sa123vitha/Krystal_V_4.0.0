@@ -19,6 +19,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,20 +40,25 @@ public class APRSettings extends ReferencefileChemotheraphy{
 		private RolePOM rol;
 		private WebElement select1;
 		APRSettingsPOM apr;
+		private Actions act;
+		private Actions action;
 
-		@BeforeClass
-			public void setUp1()  throws InterruptedException, IOException {
-			DesiredCapabilities appCapabilities = new DesiredCapabilities();
-			appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-			driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+		@Test(priority =0)
+		public void Launch()  throws InterruptedException, IOException {
+		//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+		//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+		//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 			ReferenceSigin Sign=new ReferenceSigin();
 			Sign.Login(driver);
 			Sign.APRSettings(driver);
 			apr=new APRSettingsPOM(driver);
+			act=new Actions(driver);      
+		 	action=new Actions(driver);   
 		  }
 		
 		@Test(priority =1)
 		public void GeneralSettings() throws IOException {
+		test = extent.createTest("======GENERAL SETTINGS(APR SETTINGS)=====");
 		test = extent.createTest(guiTestCaseName()+" General Settings label"," General Settings label should be present ");	
 		demo.Textcomparsion(apr.generalsettings, "General Settings", test,driver);
 		}
@@ -392,7 +398,7 @@ public class APRSettings extends ReferencefileChemotheraphy{
 			}
 			catch(Exception e)
 			{
-				 test.error("An error occurred: " + e.getMessage());
+				catchexceptionscreenshot(test,e);
 			}
 			 test = extent.createTest(funTestCaseName()+ "Click on the delete icon, Click on the OK button");
 			 Roleconfig("D:\\Help\\APR\\Delete.PNG"); 
@@ -543,7 +549,7 @@ public void Roleconfig(String Text) throws FindFailed {
 	}
 	
 
-	public void sitename()
+	public void sitename() throws IOException
 	{
 		 try {
 	            ArrayList<String> siteNames = class1.Site();
@@ -556,9 +562,9 @@ public void Roleconfig(String Text) throws FindFailed {
 	            	break;                
 	            }
 	        } catch (ClassNotFoundException e) {
-	        	 test.error("An error occurred: " + e.getMessage());
+	        	catchexceptionscreenshot(test,e);
 	        } catch (SQLException e) {
-	        	 test.error("An error occurred: " + e.getMessage());
+	        	catchexceptionscreenshot(test,e);
 	        }
 	}
 	
@@ -687,7 +693,7 @@ public void Roleconfig(String Text) throws FindFailed {
 				 }
 				 catch(Exception e)
 				 {
-					 test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 				 } 
 			 
 			 try {
@@ -698,7 +704,7 @@ public void Roleconfig(String Text) throws FindFailed {
 				 }
 				catch(Exception e)
 				 {
-					test.error("An error occurred: " + e.getMessage());
+					catchexceptionscreenshot(test,e);
 				 } 
 			 try {
 				 test = extent.createTest(funTestCaseName()+ " Entered invalid  data specialchars \\,");
@@ -708,10 +714,10 @@ public void Roleconfig(String Text) throws FindFailed {
 				 }
 				 catch(Exception e)
 				 {
-					 test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 				 }
 		 }
-		public void validcase(String Text, ExtentTest test1)
+		public void validcase(String Text, ExtentTest test1) throws IOException
 		 {
 			 try {
 				 apr.aprid.click();
@@ -721,11 +727,11 @@ public void Roleconfig(String Text) throws FindFailed {
 				 }
 				 catch(Exception e)
 				 {
-					 test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 				 } 
 		 }
 		
-		public void validcaserefersh(String Text, ExtentTest test1)
+		public void validcaserefersh(String Text, ExtentTest test1) throws IOException
 		 {
 			 try {
 				 apr.aprid.click();
@@ -734,7 +740,7 @@ public void Roleconfig(String Text) throws FindFailed {
 				 }
 				 catch(Exception e)
 				 {
-					 test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 				 } 
 		 }
 		public void saveapr() throws InterruptedException, IOException
@@ -793,8 +799,5 @@ public void Roleconfig(String Text) throws FindFailed {
 	
 	
 	
-	@AfterSuite
-	  public void tearDown() {
-	      extent.flush();
-	  }
+		
 }

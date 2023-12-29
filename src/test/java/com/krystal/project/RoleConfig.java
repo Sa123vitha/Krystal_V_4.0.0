@@ -12,6 +12,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -28,11 +29,11 @@ public class RoleConfig extends ReferencefileChemotheraphy{
 	private RolePOM rol;
 	private WebElement select1;
 
-	@BeforeClass
-		public void setUp1()  throws InterruptedException, IOException {
-		DesiredCapabilities appCapabilities = new DesiredCapabilities();
-		appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-		driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 		ReferenceSigin Sign=new ReferenceSigin();
 		Sign.Login(driver);
 		Sign.Roleconfig(driver);
@@ -1982,9 +1983,6 @@ public void savedata() throws InterruptedException, IOException
 	Rollsave("Role Save","Role data saved.","Role Save","Role data saved.", subtest,driver);
 }
 
- @AfterSuite
-	  public void tearDown() {
-	      extent.flush();
-	  }
+
 	  
 }

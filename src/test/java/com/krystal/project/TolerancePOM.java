@@ -1,5 +1,6 @@
 package com.krystal.project;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -104,11 +105,16 @@ WindowsDriver<WebElement> driver;
 	
    @FindBy (xpath = "//Button[@HelpText=\"Refresh\"]")
    WebElement Refresh;
+   
+   @FindBy (xpath = "//Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsSection2View\"]/Button[@AutomationId=\"SearchMenuButton\"]")
+   WebElement Searchdropdown;
+   @FindBy(name = "Tolerance Table Number")
+	WebElement toltablenumber;
 	
+   @FindBy(name = "Tolarence Table Name")
+	WebElement toltablename;
 	
-	
-	
-	
+  
 	
 	
 }

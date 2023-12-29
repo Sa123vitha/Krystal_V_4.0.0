@@ -3,8 +3,46 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
+      
       <class name="com.krystal.project.SiteConfigurationTest"/>
-      <class name="com.krystal.project.DesignationConfigurationtest"/>
+       <class name="com.krystal.project.DesignationConfigurationtest"/>
+       <class name="com.krystal.project.ChemotheraphyConfiguration"/>
+       
+       
+       
+       
+       
+       
+       <class name="com.krystal.project.FieldConfigurationSid"/>
+      <class name="com.krystal.project.FieldConfigurationThree"/>
+       <class name="com.krystal.project.FieldConfigTaw"/>
+      <class name="com.krystal.project.FieldConfigurationMLC"/>
+     <class name="com.krystal.project.APRSettings"/>
+      <class name="com.krystal.project.APRCBCT"/>
+      <class name="com.krystal.project.RoleConfig"/>
+      
     </classes>
   </test> <!-- Test -->
+  
+  
+   <test name="SequentialTest3" parallel="false">
+        <classes>
+               <class name="com.krystal.project.PatientDemographics"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest4" parallel="false">
+        <classes>
+                <class name="com.krystal.project.DemographicsSmoketesting"/>
+        </classes>
+    </test>
+     
+       
+          
+    <test name="SequentialTest6" parallel="false">
+        <classes>
+                  <class name="com.krystal.project.PrescriptionGUITestcases"/>
+        </classes>
+    </test>
+    
 </suite> <!-- Suite -->

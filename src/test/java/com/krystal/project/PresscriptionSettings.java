@@ -51,20 +51,29 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 	WebElement Update;
 	WebElement Userbx;
 	WebElement Pswdbox;
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	private Actions action;
+	private Actions act;
+	
+	
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.ServiceLogin(driver);
 	Sign.Prescriptionsettings(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 	@Test(priority=1)
 	public void selectmachine() throws InterruptedException
-	{   SelectMachine = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneratorSettingsMainView\"]/Custom[@ClassName=\"PrescriptionServiceSettingsView\"]/ComboBox[@ClassName=\"ComboBox\"]"));
+	{
+		 test = extent.createTest("======SS(PRESCRIPTION SETTINGS)MODULE=====");
+		
+		SelectMachine = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneratorSettingsMainView\"]/Custom[@ClassName=\"PrescriptionServiceSettingsView\"]/ComboBox[@ClassName=\"ComboBox\"]"));
 		Thread.sleep(2000);
 		Actions actions = new Actions(driver);
 		actions.moveToElement(SelectMachine).click().perform();
@@ -227,6 +236,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		{
 			test = extent.createTest(guiTestCaseName()+" To verify if enetered invalid chars it should not save the data");
 			test.pass("Save pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	@Test(priority=20)
@@ -248,6 +258,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.pass("Save pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	
@@ -266,6 +277,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.info("Save pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	@Test(priority=22)
@@ -284,6 +296,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.info("Save pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	@Test(priority=23)
@@ -301,6 +314,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	@Test(priority=24)
@@ -337,6 +351,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.fail("Update pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	@Test(priority=27)
@@ -359,6 +374,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.fail("Update pop-up is not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 
@@ -460,6 +476,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.pass("Text box contains only wholenumbers and decimals Error message not displayed");
+			catchexceptionscreenshot1(test,e);
 		}
 		
 		driver.switchTo().activeElement().clear();
@@ -488,6 +505,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		}
 		catch(Exception e){
 			test.pass(" 0 is not able to eneter");
+			catchexceptionscreenshot1(test,e);
 		}
 		driver.switchTo().activeElement().clear();
 		Invalidrange(InValidRangefractions, "100.09","Range:[1 to 100]","Range:[1 to 100]");
@@ -533,6 +551,7 @@ public class PresscriptionSettings extends ReferencefileChemotheraphy {
 		catch(Exception e)
 		{
 			test.pass("Range Error message not displayed for the valid data");
+			catchexceptionscreenshot1(test,e);
 		}
 	}
 	
@@ -561,17 +580,7 @@ public void Invalidrange(WebElement Name, String Text, String actual, String Exc
 	demo.Textcomparsion(errormsg, Excepted, test,driver);
 }
 
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
+
 }
 
 // Pending Integration With templates and Prescription module is pending

@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -31,17 +32,23 @@ DemographicsExternal demo;
 
 private int count;
 WebElement addbutton;
+
+private Actions action;
+
+private Actions act;
 	
-@BeforeClass
-public void setUp1() throws InterruptedException, IOException {
-DesiredCapabilities appCapabilities = new DesiredCapabilities();
-appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+@Test(priority =1)
+public void Launch()  throws InterruptedException, IOException {
+//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 ReferenceSigin Sign=new ReferenceSigin();
 Sign.Login(driver);
 Sign.Vitals(driver);
 vitals=new VitalsPOM(driver);
 demo=new DemographicsExternal() ;
+action=new Actions(driver);
+act=new Actions(driver);
 
 }
 //@Test(priority =1)
@@ -61,14 +68,15 @@ public void addclick1() throws IOException{
       System.out.println(element.getLocation());
       System.out.println(element.getText());
       System.out.println(count++);
-      System.out.println("********************************************");
+      System.out.println("*********************************");
       Thread.sleep(1000);
   }
 	}
 
 
-	@Test(priority =1)
+	@Test(priority =2)
 	public  void vitalsTitleLabel() throws IOException {
+		test = extent.createTest("!!!!!!!!!!VITALS MODULE!!!!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+" Vitals Title label","Vitals label should be present ");	
 	demo.Textcomparsion(vitals.vitalslabel, "Vitals", test,driver);
 	
@@ -629,10 +637,7 @@ public void Invalidrangetemp(WebElement Name, String Text) throws IOException
 	Name.click();
 	driver.switchTo().activeElement().clear();
 }
-@AfterSuite
-	    public void tearDown() {
-	        extent.flush();
-	    }
+
 
 // Note:  Vitals Thread perform Manually
  

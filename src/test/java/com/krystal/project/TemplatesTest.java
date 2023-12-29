@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,16 +21,18 @@ public class TemplatesTest extends ReferencefileChemotheraphy{
 
 	private TemplatePOM Temp;
 	private Actions act;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Templates(driver);
 	Temp=new TemplatePOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 	
@@ -520,12 +523,7 @@ public class TemplatesTest extends ReferencefileChemotheraphy{
 		demo.Textcomparsion(Temp.Save, "SAVE", test,driver);
 	}
 
-	@AfterSuite
-	public void tearDown() {
-		extent.flush();
-	}
-	
-	
+
 	
 	
 }

@@ -16,6 +16,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -32,20 +33,25 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 		private RolePOM rol;
 		private WebElement select1;
 		APRCbctPOM aprcbct;
+		private Actions action;
+		private Actions act;
 
-		@BeforeClass
-			public void setUp1()  throws InterruptedException, IOException {
-			DesiredCapabilities appCapabilities = new DesiredCapabilities();
-			appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-			driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+		@Test(priority =1)
+		public void Launch()  throws InterruptedException, IOException {
+		//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+		//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+		//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 			ReferenceSigin Sign=new ReferenceSigin();
 			Sign.Login(driver);
 			Sign.APRCBCTSettings(driver);
 			aprcbct=new APRCbctPOM(driver);
+			action=new Actions(driver);
+			act=new Actions(driver);
 		  }
 
 		@Test(priority =1)
 		public void GeneralSettings() throws IOException {
+			test = extent.createTest("======GENERAL SETTINGS(APRCBCT SETTINGS)=====");
 		test = extent.createTest(guiTestCaseName()+" General Settings label"," General Settings label should be present ");	
 		demo.Textcomparsion(aprcbct.general, "General Settings", test,driver);
 		}
@@ -570,7 +576,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 				}
 				catch(Exception e)
 				{
-					 test.error("An error occurred: " + e.getMessage());
+					catchexceptionscreenshot(test,e);
 				}
 				 test = extent.createTest(funTestCaseName()+ "Click on the delete icon, Click on the OK button");
 				 Roleconfig("D:\\Help\\APR\\Delete.PNG"); 
@@ -749,7 +755,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 				}
 				catch(Exception e)
 				{
-					test.error("An error occurred: " + e.getMessage());
+					catchexceptionscreenshot(test,e);
 				}
 				
 				try {
@@ -764,7 +770,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 				}
 				catch(Exception e)
 				{
-					test.error("An error occurred: " + e.getMessage());
+					catchexceptionscreenshot(test,e);
 				}
 			}
 			@Test(priority =85)
@@ -793,7 +799,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 					}
 					catch(Exception e)
 					{
-						test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 					}
 				}
 			
@@ -813,7 +819,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 					 }
 					 catch(Exception e)
 					 {
-						 test.error("An error occurred: " + e.getMessage());
+							catchexceptionscreenshot(test,e);
 					 } 
 				 
 				 try {
@@ -824,7 +830,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 					 }
 					catch(Exception e)
 					 {
-						test.error("An error occurred: " + e.getMessage());
+						catchexceptionscreenshot(test,e);
 					 } 
 				 try {
 					 test = extent.createTest(funTestCaseName()+ " Entered invalid  data specialchars \\,");
@@ -834,7 +840,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 					 }
 					 catch(Exception e)
 					 {
-						 test.error("An error occurred: " + e.getMessage());
+							catchexceptionscreenshot(test,e);
 					 }
 			 }
 			
@@ -917,7 +923,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 		         funAPRIDinvalid();
 		         }
 		         catch(Exception e){
-		        	  test.error("An error occurred: " + e.getMessage());
+		        		catchexceptionscreenshot(test,e);
 		         }
 		 		 funAPRIDtextbox();
 			}
@@ -984,7 +990,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 			 test = extent.createTest(funTestCaseName()+" To verify the Saved data to Database for APRDataModels");
 			dataapr(test);
 		}
-			public void validcaserefersh(String Text, ExtentTest test1)
+			public void validcaserefersh(String Text, ExtentTest test1) throws IOException
 			 {
 				 try {
 					 aprcbct.aprcbctid.click();
@@ -993,7 +999,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 					 }
 					 catch(Exception e)
 					 {
-						 test.error("An error occurred: " + e.getMessage());
+							catchexceptionscreenshot(test,e);
 					 } 
 			 }
 		
@@ -1216,10 +1222,7 @@ public class APRCBCT extends ReferencefileChemotheraphy{
 		 }
 		
 		
-	@AfterSuite
-	  public void tearDown() {
-	      extent.flush();
-	  }
+		
 	
 	// Note: Delete is enabled or disabled integration was not checked.
 }

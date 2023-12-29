@@ -181,8 +181,8 @@ public class ReferenceSigin {
 		Menucombobox.click();
 		Thread.sleep(2000);
 		WebElement DesgConfiguration = driver.findElement(By.name("Designation Configuration"));
-		actions.moveToElement(DesgConfiguration).perform();
-		DesgConfiguration.click();		
+		actions.moveToElement(DesgConfiguration).click().perform();
+			
 	}
 	
 	public void HolidaySettings(WebDriver driver) throws InterruptedException
@@ -337,7 +337,6 @@ public class ReferenceSigin {
 	public void Help(WebDriver driver) throws InterruptedException
 	{
 		WebElement Menuclick = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"NavigationTopBarView\"]/Button[@AutomationId=\"ToolTip\"]"));
-		Thread.sleep(1000);
 		Menuclick.click();
 		Thread.sleep(1000);
 		WebElement Menuitem = driver.findElement(By.name("Help"));

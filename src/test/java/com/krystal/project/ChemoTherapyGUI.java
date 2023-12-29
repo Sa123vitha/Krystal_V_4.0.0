@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,17 +21,20 @@ public class ChemoTherapyGUI extends ReferencefileChemotheraphy{
  
 	private ChemoTherapyPOM chemop;
 	private Actions act;
+	private Actions action;
+
 	
 	
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	 @Test(priority =1)
+	public void launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.ChemotheraphyPrecsription(driver);
 	chemop=new ChemoTherapyPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 	 @Test(priority =2)
@@ -264,7 +268,7 @@ public class ChemoTherapyGUI extends ReferencefileChemotheraphy{
 		test = extent.createTest(guiTestCaseName() +"  To verify the Pre-Radiation label", " Pre-Radiation label should be present"); 
 		demo.Textcomparsion( chemop.PreRadiation, "Pre-Radiation", test,driver);
 	}
-	Actions action;
+
 	@Test(priority =32)
 	public void Toverifyconcurrentlabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+"  To verify the Concurrent label", " Concurrent label should be present"); 
@@ -579,9 +583,6 @@ public class ChemoTherapyGUI extends ReferencefileChemotheraphy{
 		demo.Textcomparsion(chemop.license, "Licensed to : Hospital_Name", test,driver);	
 		Thread.sleep(2000);
 	}
-	 @AfterSuite
-	    public void tearDown() {
-	        extent.flush();
-	    }
+	
 }
 	

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  
+ 
+    <test name="SequentialTest1" parallel="false">
+        <classes>
+            <class name="com.krystal.project.SiteConfigurationTest"/>
+        </classes>
+    </test>
+  
+  <test name="SequentialTest2" parallel="false">
+        <classes>
+            <class name="com.krystal.project.DesignationConfigurationtest"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest3" parallel="false">
+        <classes>
+           <class name="com.krystal.project.ChemotheraphyConfiguration"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest4" parallel="false">
+        <classes>
+           <class name="com.krystal.project.ToleranceSettings"/>
+        </classes>
+    </test>
+     <test name="SequentialTest5" parallel="false">
+        <classes>
+            <class name="com.krystal.project.MachineQA"/>
+        </classes>
+    </test>
+  
+</suite>

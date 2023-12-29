@@ -21,6 +21,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,20 +42,27 @@ private WebElement labreportstitle;
 private WebElement Import;
 LoginPOM login;
 private char[] DateTime;
-@BeforeClass
-public void setUp1() throws InterruptedException, IOException {
-DesiredCapabilities appCapabilities = new DesiredCapabilities();
-appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+private Actions action;
+private Actions act;
+
+
+@Test(priority =1)
+public void Launch()  throws InterruptedException, IOException {
+//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 ReferenceSigin Sign=new ReferenceSigin();
 Sign.Login(driver);
 Sign.Labreports(driver);
 login= new LoginPOM(driver);
 Labreports();
+action=new Actions(driver);
+act=new Actions(driver);
 }
 
 public void Labreports() throws IOException
 {
+	test = extent.createTest("!!!!!!!!!!LAB REPORTS MODULE!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+" Lab reports label"," Lab reports label should be present ");	
 	demo.Textcomparsion(login.labreports, "LAB REPORTS", test,driver);
 	demo.isEnabled(login.labreports, "LAB REPORTS", test,driver);
@@ -120,7 +128,7 @@ public void Designationconfig(ExtentTest test1) throws IOException {
         test1.pass(MarkupHelper.createLabel(tableHtml.toString(), ExtentColor.WHITE));
 
     } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
+    	catchexceptionscreenshot(test,e);
         test1.error("Failed to retrieve data from the database.");
         extent.flush();
     }
@@ -157,7 +165,7 @@ public void deletedimport() throws IOException, FindFailed, InterruptedException
 		Rollsave("Lab Report Save","Selected Lab Report file saved.","Lab Report Save","Selected Lab Report file saved.", test,driver);
 		Thread.sleep(1000);
 	} catch (InterruptedException e) {
-		e.printStackTrace();
+		catchexceptionscreenshot(test,e);
 	} 
 }
 @Test(priority =8)
@@ -381,7 +389,7 @@ public void image(String path,ExtentTest test) throws IOException
             test.fail("PDF file is not opened!");
         }
     } catch (FindFailed e) {
-        e.printStackTrace();
+    	catchexceptionscreenshot(test,e);
     }
 }
 
@@ -441,9 +449,6 @@ public void Labreports(String Text) throws FindFailed {
      match.click();
 }
 
-@AfterSuite
-public void tearDown() {
-    extent.flush();
-}
+
 // Lab report already exits message not able to perform
 }

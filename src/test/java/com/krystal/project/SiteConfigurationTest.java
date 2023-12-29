@@ -42,26 +42,36 @@ public class SiteConfigurationTest extends ReferencefileChemotheraphy{
 	String sitedata;
 	String Exceptedsitenameexits;
 	private SitePOM site;
-   @BeforeSuite
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	private Actions action;
+	private Actions act;
+	
+	
+	
+	
+	
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Siteconfig(driver);
 	site=new SitePOM(driver);
 	setUp();
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
    
    
-@Test(priority =1)
+@Test(priority =2)
 public void SiteconfigurationLabel() throws IOException {
+test = extent.createTest("====GENERAL SETTINGS(SITE CONFIGURATION MODULE)=====");
 test = extent.createTest(guiTestCaseName()+" SITE CONFIGURATION label"," SITE CONFIGURATION label should be present ");	
 demo.Textcomparsion(site.siteconfig, "SITE CONFIGURATION", test,driver);
 
 }
-@Test(priority =2)
+@Test(priority =3)
 public void SitenameLabel() throws IOException {
 test = extent.createTest(guiTestCaseName()+" Site Name label"," Site Name label should be present ");	
 demo.Textcomparsion(site.SiteName, "Site Name", test,driver);
@@ -73,6 +83,8 @@ public void Save() throws IOException {
 test = extent.createTest(guiTestCaseName()+" SAVE label"," SAVE label should be present ");	
 demo.Textcomparsion(site.Save, "SAVE", test,driver);
 }
+
+
 @Test(priority =4)
 public void Sitelist() throws IOException {
 test = extent.createTest(guiTestCaseName()+" SITE LIST label"," SITE LIST label should be present ");	
@@ -92,6 +104,8 @@ public void saveenable() throws InterruptedException, IOException
     demo.BydefaultisEnabled(site.Save,"SAVE", test,driver);
 }
 
+
+
 //@Test(priority =7)
 public void databaseconnectionemptycheck() throws IOException
 {
@@ -105,14 +119,20 @@ public void Sitesave() throws InterruptedException, IOException
 {
 	test = extent.createTest(guiTestCaseName()+" To verify the Valid site name","Valid Site should save the data");
 	randomalpha(40);
-	Validdata(site.SiteHead,randomStringalpha,driver);
-	SiteSave();
+	Thread.sleep(1000);
+	Actions action=new Actions(driver);
+	 action.moveToElement(site.SiteHead).click().perform();
+	driver.switchTo().activeElement().sendKeys(randomStringalpha);
+	Thread.sleep(1000);
+	demo.ByValidErrormessage(site.SiteHead,randomStringalpha,test,driver);
+	Thread.sleep(1000);
+	SiteSave(test);
 }
 @Test(priority=10)
 public void Sitealreadysave() throws InterruptedException, IOException
 {
-	Validdata(site.SiteHead,randomStringalpha,driver);
 	test = extent.createTest(funTestCaseName()+" To verify the site name already exits Save button not enabled");
+	Validdata(site.SiteHead,randomStringalpha,driver);
 	demo.BydefaultisEnabled(site.Save,"SAVE", test,driver);
 	
 	test = extent.createTest(funTestCaseName()+" To verify the site name already exits error message is displayed");
@@ -125,28 +145,38 @@ public void Sitetexbox() throws InterruptedException, IOException
 {
 		randomUpper(15);
 		ValidataUpper("Site Name");
-		SiteSave();
+		Thread.sleep(1000);
+		SiteSave(test);
+		
 		randomLower(15);
 		ValidataLower("Site Name");
-		SiteSave();
+		Thread.sleep(1000);
+		SiteSave(test);
+		
 		randomalpha(15);
 		ValidataUpperLower("Site Name");
-		SiteSave();
+		Thread.sleep(1000);
+		SiteSave(test);
 		
 		randomNumber(15);
 		ValidataNumber("Site Name");
-		SiteSave();
 		Thread.sleep(1000);
-		randomstringtext(15);
+		SiteSave(test);
 		Thread.sleep(1000);
-		Validatachars("Site Name");
-		SiteSave();
 		
-		randomCharOutOfRange(15);
-		InValidataRange("Site Name");
+		Validatachars("Site Name");
+		Thread.sleep(1000);
+		SiteSave(test);
+		Thread.sleep(1000);
+	
+		InValidataRange1("Site Name");
+		Thread.sleep(1000);
+		SiteSave(test);
 		
 		InValidataspecialchars("Site Name");
 }
+
+
 
 @Test(priority =12)
 public void databaseconnectionsavecheck() throws IOException
@@ -208,8 +238,8 @@ public void delete() throws InterruptedException, IOException
 	    		 test.pass("Delete button is enabled");
 	    		 Actions action=new Actions(driver);
 	    		 action.moveToElement(element).click().perform();
-	    		 SiteDelete();
-	    		 SiteDeleteconfrimation();
+	    		 SiteDelete(test);
+	    		 SiteDeleteconfrimation(test);
 	    		 break;
 	    	  }
 	    	  else
@@ -233,10 +263,6 @@ public void viewdataserach() throws IOException, FindFailed, InterruptedExceptio
 	 test = extent.createTest(funTestCaseName() + " To verify the Search box functionality and it is cleared empty textbox");
 	 viewdataserachfun(test);
 }
-
-
-
-
 //*******************************Page Navigation**************
 @Test(priority = 19)
 public void pagefirst() throws IOException
@@ -268,7 +294,7 @@ public void pagelast() throws IOException
 	demo.BydefaultisEnabled(site.LastPageButton,"LastPage button", test,driver);
 
 }
-@Test(priority = 22, invocationCount=3)
+@Test(priority = 22, invocationCount=2)
 public void Sitenameadd() throws IOException, InterruptedException
 {
 	Sitetexbox();
@@ -370,7 +396,7 @@ public void FirstPageEnabled() throws FindFailed, IOException, InterruptedExcept
 @Test(priority = 28)
 public void Searchelementnext() throws IOException, FindFailed, InterruptedException
 {
-	test = extent.createTest(guiTestCaseName()+" To verify Serach item in the Next page button");
+	test = extent.createTest(guiTestCaseName()+" To verify Search item in the Next page button");
 	if(site.NextPageButton.isEnabled())
 	{
 		site.NextPageButton.click();
@@ -398,7 +424,6 @@ public void Searchempty() throws IOException, FindFailed, InterruptedException
     else
     {
     	 test.fail("Search Sitename displayed "+dataGridRows.size());
-    	 
     }
     Thread.sleep(1000);
     searchBox.clear();
@@ -480,17 +505,30 @@ public void ValidataNumber(String Text) throws IOException
 	 SiteName = driver.findElement(By.name(Text));
 	 validatachars(SiteName,randomStringNumber,driver);
 }
-public void Validatachars(String Text) throws IOException 
+public void Validatachars(String Text) throws IOException, InterruptedException 
 {
 	 test = extent.createTest(funTestCaseName()+ " To verify the "+Text+" textbox is accepting the Alpha,numbers, specialchars,and spaces");
 	 SiteName = driver.findElement(By.name(Text));
+	 randomstringtext(15);
+	 Thread.sleep(1000);
 	 validatachars(SiteName,randomString,driver);
 }
-public void InValidataRange(String Text) throws IOException
+public void InValidataRange(String Text) throws IOException, InterruptedException
 {
 	 test = extent.createTest(funTestCaseName()+ " To verify the "+Text+" textbox is not accepting range if above 40");
 	 SiteName = driver.findElement(By.name(Text));
-	 Invalidrange(SiteName,randomString,driver);
+	 randomCharOutOfRange(40);
+	 Thread.sleep(1000);
+	 Invalidrange(SiteName,randomcharString,driver);
+}
+
+public void InValidataRange1(String Text) throws IOException, InterruptedException
+{
+	 test = extent.createTest(funTestCaseName()+ " To verify the "+Text+" textbox is not accepting range if above 40");
+	 SiteName = driver.findElement(By.name(Text));
+	 randomCharOutOfRange1(50);
+	 Thread.sleep(1000);
+	 Invalidrange(SiteName,randomcharString,driver);
 }
 public void InValidatachars(String Text) throws IOException
 {
@@ -502,7 +540,7 @@ public void InValidataspecialchars(String Text) throws IOException
 {
 	 test = extent.createTest(funTestCaseName()+ " To verify the "+Text+" textbox is not accepting specialchars and displaying error message");
 	 SiteName = driver.findElement(By.name(Text));
-	 Specialchar(SiteName,randomString,driver);
+	 Specialchar(SiteName,randomString,driver,test);
 	 test = extent.createTest(funTestCaseName()+ " To verify the "+Text+" save button disabled when enter the specialchars");
 	 demo.BydefaultisEnabled(site.Save,"SAVE", test,driver);
 	 driver.switchTo().activeElement().clear();
@@ -529,9 +567,11 @@ public void Invalidrangeempty(WebElement Validdatachars, String Text, WebDriver 
 }
 public void Validdata(WebElement Name, String Text,WebDriver driver) throws IOException
 {
-	Name.click();
-	driver.switchTo().activeElement().sendKeys(Text);
-	demo.ByValidErrormessage(Name,Text,test,driver);
+ Actions action=new Actions(driver);
+ action.moveToElement(Name).click().perform();
+		driver.switchTo().activeElement().sendKeys(Text);
+		demo.ByValidErrormessage(Name,Text,test,driver);
+
 }
 public void Validdataempty(WebElement Name, String Text,WebDriver driver) throws IOException
 {
@@ -540,19 +580,19 @@ public void Validdataempty(WebElement Name, String Text,WebDriver driver) throws
 	demo.ByValidErrormessage(Name,Text,test,driver);
 }
 
-public void Specialchar(WebElement InValiddatachars, String Text, WebDriver driver, ExtentTest test) throws IOException, InterruptedException
+public void Specialchar(WebElement InValiddatachars, String Text, WebDriver driver, ExtentTest test) throws IOException
 {
 	InValiddatachars.click();
 	driver.switchTo().activeElement().sendKeys("\\,");
 	WebElement Specialchars=driver.findElement(By.name("Input must not contain \\ , '' , '"));
 	demo.isdisplayed(Specialchars, "Input must not contain \\ , '' , '", test,driver);
-	Thread.sleep(1000);
 	demo.Textcomparsion(Specialchars, "Input must not contain \\ , '' , '", test,driver);
 }
 
 public void ValiddataRange(WebElement Name,String Text,WebDriver driver) throws IOException
 {
 	Name.click();
+	driver.switchTo().activeElement().sendKeys(Text);
 	String data=driver.switchTo().activeElement().getText();
 	if(data.length()<=40)
 	{
@@ -563,19 +603,19 @@ public void ValiddataRange(WebElement Name,String Text,WebDriver driver) throws 
 		test.fail("Textbox accepted is:"+data.length()+"enetred range is:"+Text.length());
 	}
 }
-public void SiteSave() throws InterruptedException, IOException
+public void SiteSave(ExtentTest test) throws InterruptedException, IOException
 {
 	site.Save.click();
-	Sitesave("Site Add", "Site configuration added.", "Site Add", "Site configuration added.",0,driver);
+	Sitesave1("Site Add", "Site configuration added.", "Site Add", "Site configuration added.",0,driver,test);
 }
 
-public void SiteDelete() throws InterruptedException, IOException
+public void SiteDelete(ExtentTest test) throws InterruptedException, IOException
 {
-	Sitesave("Site Delete", "Do you want to delete the selected site?", "Site Delete", "Do you want to delete the selected site?",0,driver);
+	Sitesave1("Site Delete", "Do you want to delete the selected site?", "Site Delete", "Do you want to delete the selected site?",0,driver,test);
 }
-public void SiteDeleteconfrimation() throws InterruptedException, IOException
+public void SiteDeleteconfrimation(ExtentTest test) throws InterruptedException, IOException
 {
-	Sitesave("Site Delete", "Site configuration deleted.", "Site Delete", "Site configuration deleted.",0,driver);
+	Sitesave1("Site Delete", "Site configuration deleted.", "Site Delete", "Site configuration deleted.",0,driver,test);
 }
 
 
@@ -726,23 +766,6 @@ public void viewdataserachfun(ExtentTest Test) throws IOException, FindFailed, I
         }
     }
     }
-
-
-
-@AfterClass
-public void tearDown() throws InterruptedException {
-    // Flush the Extent Reports after all tests in the class
-	ExtendManager.getInstance().flush();
-    
-    driver.quit();
-	 Thread.sleep(5000);
-    
-}
-
-public void quit() throws InterruptedException
-{
-}
-
 
 }
 

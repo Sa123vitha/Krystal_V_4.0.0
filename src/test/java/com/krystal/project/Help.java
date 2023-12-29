@@ -11,6 +11,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -25,21 +26,23 @@ public class Help extends ReferencefileChemotheraphy{
 	private WebElement ThisPc;
 	private WebElement Desktop;
 	private WebElement OK;
+	private Actions action;
+	private Actions act;
 
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Help(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
   }
 	
 	
 	@Test(priority =2)
 	public void HelpDesk() throws IOException {
+		test = extent.createTest("!!!!!!!!!!HELP DESK MODULE!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+" Help Desk Button"," Help Desk button should be present ");	
 	HelpDesk=driver.findElement(By.name("HELP DESK"));
 	demo.Textcomparsion(HelpDesk, "HELP DESK", test,driver);
@@ -138,10 +141,7 @@ Thread.sleep(1000);
         }
 	}
 
-	@AfterSuite
-	public void tearDown() {
-	    extent.flush();
-	}
+	
 	// Deleting the fieles in the d drive and check wheather the runfail is excuted or not
 }
 

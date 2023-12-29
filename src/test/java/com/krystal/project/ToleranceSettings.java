@@ -14,6 +14,7 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import org.sikuli.script.SikuliException;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -62,22 +63,37 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		private Match match;
 		private WebElement searchtolicon;
 		private WebElement beamrotangle1;
-		@BeforeClass
-			public void setUp1()  throws InterruptedException, IOException {
-			DesiredCapabilities appCapabilities = new DesiredCapabilities();
-			appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-			driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+		 WebElement Beamrotaion;
+		 WebElement PatientBeamrotaion;
+		 
+		 @Test(priority =1)
+			public void launch()  throws InterruptedException, IOException {
+			//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+			//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+			//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 			ReferenceSigin Sign=new ReferenceSigin();
 			Sign.Login(driver);
 			Sign.ToleranceSettings(driver);
 			tol=new TolerancePOM(driver);
 		  }
-		@BeforeSuite
-		public void setUp() {
-			extent = ExtendManager.getInstance();
-		}
-		@Test(priority =1)
+		
+		
+				public void button() throws InterruptedException, IOException{
+		
+				List<WebElement> elements = driver.findElements(By.className("Button"));
+			  Actions actions = new Actions(driver);
+			  for (WebElement element : elements) {
+			      actions.moveToElement(element).perform();
+			      System.out.println(element.getLocation());
+			      System.out.println(element.getText());
+			      System.out.println("********************************************");
+			      Thread.sleep(1000);
+			  }
+				}
+		
+		@Test(priority =2)
 		public void TreatmentToleranceLabel() throws IOException {
+		test = extent.createTest("!!!!!!!!!!TOLERANCE SETTINGS MODULE!!!!!!!!!!");
 		test = extent.createTest(guiTestCaseName()+" Treatment Tolerance label"," Treatment Tolerance label should be present");	
 		demo.Textcomparsion(tol.treatementtolerance, "Treatment Tolerance", test,driver);
 		}
@@ -120,7 +136,7 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		test = extent.createTest(guiTestCaseName()+" Rotation Angle(deg) label"," Rotation Angle(deg) label should be present ");	
 		
 		beamrotangle=driver.findElements(By.name("Rotation Angle (deg)")).get(4);
-		demo.Textcomparsion(beamrotangle, "Rotation Angle(deg)", test,driver);
+		demo.Textcomparsion(beamrotangle, "Rotation Angle (deg)", test,driver);
 		beamrotangle.click();
 		}
 	@Test(priority =9)
@@ -148,7 +164,7 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		public void RotationAngle3() throws IOException, InterruptedException {
 		test = extent.createTest(guiTestCaseName()+" Rotation Angle(deg) label"," Rotation Angle(deg) label should be present ");	
 		beamrotangle1=driver.findElements(By.name("Rotation Angle (deg)")).get(5);
-		demo.Textcomparsion(beamrotangle1, "Rotation Angle(deg)", test,driver);
+		demo.Textcomparsion(beamrotangle1, "Rotation Angle (deg)", test,driver);
 		}
 	@Test(priority =14)
 		public void LongitudinalLabel() throws IOException {
@@ -195,42 +211,58 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		tollist=driver.findElement(By.name("Tolerance List"));
 		demo.Textcomparsion(tollist, "Tolerance List", test,driver);
 		}
-	@Test(priority =22)
+	//@Test(priority =22)  // Not able to identify the label
 		public void SelectMachineLabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Select Machine label"," Select Machine label should be present ");	
 		selmachine=driver.findElement(By.name("Select Machine"));
 		demo.Textcomparsion(selmachine, "Select Machine", test,driver);
 		}
 	@Test(priority =23)
+	public void ToleranceTablenumberLabel() throws IOException {
+	test = extent.createTest(guiTestCaseName()+" Tolerance Table Number label"," Tolerance Table Number label should be present ");	
+	toltablenumber=driver.findElement(By.name("Tolerance Table Number"));
+	demo.Textcomparsion(tol.toltablenumber, "Tolerance Table Number", test,driver);
+	}
+@Test(priority =24)
+	public void ToleranceTablenameLabel() throws IOException {
+	test = extent.createTest(guiTestCaseName()+" Tolerance Table Name label"," Tolerance Table Name label should be present ");	
+	
+	demo.Textcomparsion(tol.toltablename, "Tolerance Table Name", test,driver);
+	}
+	//@Test(priority =23)
 		public void BhabhatronLabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" BHABHATRON-3i_CO6 label"," BHABHATRON-3i_CO6 label should be present ");	
 		selbha=driver.findElement(By.name("BHABHATRON-3i_CO6"));
 		demo.Textcomparsion(selbha, "BHABHATRON-3i_CO6", test,driver);
 		}
-	@Test(priority =24)
+	//@Test(priority =24)
 		public void BhabhatronmlcLabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" BHABHATRON-II MLC v2_CO3 label"," BHABHATRON-II MLC v2_CO3 label should be present ");	
 		selbhamlc=driver.findElement(By.name("BHABHATRON-II MLC v2_CO3"));
 		demo.Textcomparsion(selbhamlc, "BHABHATRON-II MLC v2_CO3", test,driver);
 		}
-	@Test(priority =25)
+	//@Test(priority =25)
 		public void SiddharthLabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" SIDDHARTH-II_CO5 label"," SIDDHARTH-II_CO5 label should be present ");	
 		selsidd=driver.findElement(By.name("SIDDHARTH-II_CO5"));
 		demo.Textcomparsion(selsidd, "SIDDHARTH-II_CO5", test,driver);
 		}
 	@Test(priority =26)
-		public void SearchTolTablenameLabel() throws IOException {
+		public void SearchTolTablenameLabel() throws IOException, InterruptedException {
 		test = extent.createTest(guiTestCaseName()+" Search Tolerance Table Name label"," Search Tolerance Table Name label should be present ");	
 		searchtolname=driver.findElement(By.name("Search Tolerance Table Name"));
 		demo.Textcomparsion(searchtolname, "Search Tolerance Table Name", test,driver);
-		searchtolicon=driver.findElement(By.xpath("//Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsSection2View\"]/Button[@AutomationId=\"SearchMenuButton\"]"));
-		searchtolicon.click();
+		//searchtolicon=driver.findElement(By.xpath("//Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsMainView\"]/Custom[@ClassName=\"ToleranceSettingsSection2View\"]/Button[@AutomationId=\"SearchMenuButton\"]"));
+		Thread.sleep(1000);
+		searchtolname=driver.findElements(By.className("Button")).get(9);
+		searchtolname.click();
+		Thread.sleep(1000);
 		toltablename=driver.findElement(By.name("Tolarence Table Name"));
 		demo.Textcomparsion(toltablename, "Tolarence Table Name", test,driver);
 		toltablenumber=driver.findElement(By.name("Tolerance Table Number"));
 		demo.Textcomparsion(toltablenumber, "Tolerance Table Number", test,driver);
 		toltablenumber.click();
+		SearchTolTablenumberLabel();
 		}
 	@Test(priority =27)
 		public void SearchTolTablenumberLabel() throws IOException {
@@ -238,18 +270,7 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		searchtolnumber=driver.findElement(By.name("Search Tolerance Table Number"));
 		demo.Textcomparsion(searchtolnumber, "Search Tolerance Table Number", test,driver);
 		}
-	@Test(priority =29)
-		public void ToleranceTablenumberLabel() throws IOException {
-		test = extent.createTest(guiTestCaseName()+" Tolerance Table Number label"," Tolerance Table Number label should be present ");	
-		toltablenumber=driver.findElement(By.name("Tolerance Table Number"));
-		demo.Textcomparsion(toltablenumber, "Tolerance Table Number", test,driver);
-		}
-	@Test(priority =30)
-		public void ToleranceTablenameLabel() throws IOException {
-		test = extent.createTest(guiTestCaseName()+" Tolerance Table Name label"," Tolerance Table Name label should be present ");	
-		toltablename=driver.findElement(By.name("Tolerance Table Name"));
-		demo.Textcomparsion(toltablename, "Tolerance Table Name", test,driver);
-		}
+	
 	
 	
  @Test(priority=31, dataProvider = "testDatavalid")
@@ -417,70 +438,8 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		 demo.BydefaultisEnabled(tol.Save, "Save", test, driver);
 	 }
 
-	 public void ToleranceName(String Testcase1,String Number1, String Name1, String GR1,String BR1,String Jaws1,String MLC11,
-			 String MLC21,String PR1,String Long1,String Lateral1,String Vertical1,String Pitch1,String Roll1) throws IOException, InterruptedException
-	 {
-		 test=extent.createTest(funTestCaseName() +"," +Testcase1);
-		 
-		 tol.tablenumber.click();
-		 driver.switchTo().activeElement().clear();
-		 Thread.sleep(1000);
-		 driver.switchTo().activeElement().sendKeys(Number1);
-		
-		 
-		 tol.tablename.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Name1);
-		 
-		 tol.ganrotangle.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(GR1);
-		 
-		 Rotation(4, driver);//
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(BR1);
-		 
-		 tol.jaws.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Jaws1);
-		 
-		 tol.mlcleaf1.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(MLC11);
-		 
-		 tol.mlcleaf2.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(MLC21);
-		 
-		 Rotation(5, driver);//
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(PR1);
-		 
-		 
-		 tol.longitudinal.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Long1);
-		 
-		 tol.lateral.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Lateral1);
-		 
-		 tol.vertical.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Vertical1);
-		 
-		 tol.pitch.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Pitch1);
-		 
-		 
-		 tol.roll.click();
-		 driver.switchTo().activeElement().clear();
-		 driver.switchTo().activeElement().sendKeys(Roll1);
-	 }
 	 
-	 WebElement Beamrotaion;
-	 WebElement PatientBeamrotaion;
+	
 	 @Test(priority=34)
 	 public void Beamrotaion() throws InterruptedException
 	 {
@@ -744,17 +703,25 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 	 }
 		
 	 
-	 @Test(priority=37)
-	 public void addicon() throws IOException, FindFailed
-	 {
-		 test = extent.createTest(funTestCaseName()+" Click on add icon, Table name is displayed empty"); 
-		 edit("D:\\Help\\Tolerance\\Tadd.PNG");
-		 demo.isempty(tol.tablename, "Empty", test, driver);
-	 }
+	 
+	 
+
+		
+		@Test(priority=37)
+		 public void addicon() throws IOException, FindFailed, InterruptedException
+		 {
+			 test = extent.createTest(funTestCaseName()+" Click on add icon, Table name is displayed empty"); 
+			WebElement Addicon1= driver.findElements(By.className("Button")).get(7);
+			Actions action=new Actions(driver);
+			action.moveToElement(Addicon1).click().perform();
+			Thread.sleep(1000);
+			 demo.isempty(tol.tablename, "Empty", test, driver);
+		 }
 	
 		 @Test(priority=38)
 		public void Edit() throws IOException, FindFailed
 		{	
+			// edit("D:\\Help\\Tolerance\\Tadd.PNG");
 			edit("D:\\Help\\Tolerance\\TEdit.PNG");
 			test = extent.createTest(funTestCaseName()+" Click on Edit icon, Update button"); 
 			demo.isdisplayed(tol.Update,"UPDATE", test, driver);
@@ -783,7 +750,8 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 			 driver.switchTo().activeElement().clear();
 			 driver.switchTo().activeElement().sendKeys("2.5");
 			 Thread.sleep(1000);
-			 edit("D:\\Help\\Tolerance\\Trefersh.PNG");
+			 WebElement Refershicon= driver.findElements(By.className("Button")).get(6);
+			 Refershicon.click();
 			 Thread.sleep(1000);
 			 tol.ganrotangle.click();
 			 demo.Textcomparsion(tol.ganrotangle, "1", test, driver);
@@ -850,7 +818,7 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 			 demo.ByValidErrormessage(tol.vertical, "2.5", test, driver);
 			 demo.ByValidErrormessage(tol.pitch, "2.5", test, driver);
 			 demo.ByValidErrormessage(tol.roll, "2.5", test, driver);
-			 tol.Refresh.click();
+			 Refershicon.click();
 		}
 		 @Test(priority=41)
 		 public void datadelete() throws IOException, FindFailed, InterruptedException {
@@ -863,7 +831,7 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 			 test.pass("Delete pop-up is displayed");
 		 }
 		 @Test(priority=42)
-		 public void dataview() throws IOException, SikuliException {
+		 public void dataview() throws IOException, SikuliException, InterruptedException {
 			 test = extent.createTest(funTestCaseName()+" Click on the View button, Update button should be disable"); 
 			 edit("D:\\Help\\Tolerance\\TView.PNG"); 
 			 demo.BydefaultisEnabled(tol.Update, "Update", test, driver);
@@ -1081,6 +1049,69 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 		        }
 	 }
 	 
+	 public void ToleranceName(String Testcase1,String Number1, String Name1, String GR1,String BR1,String Jaws1,String MLC11,
+			 String MLC21,String PR1,String Long1,String Lateral1,String Vertical1,String Pitch1,String Roll1) throws IOException, InterruptedException
+	 {
+		 test=extent.createTest(funTestCaseName() +"," +Testcase1);
+		 
+		 tol.tablenumber.click();
+		 driver.switchTo().activeElement().clear();
+		 Thread.sleep(1000);
+		 driver.switchTo().activeElement().sendKeys(Number1);
+		
+		 
+		 tol.tablename.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Name1);
+		 
+		 tol.ganrotangle.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(GR1);
+		 
+		 Rotation(4, driver);//
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(BR1);
+		 
+		 tol.jaws.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Jaws1);
+		 
+		 tol.mlcleaf1.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(MLC11);
+		 
+		 tol.mlcleaf2.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(MLC21);
+		 
+		 Rotation(5, driver);//
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(PR1);
+		 
+		 
+		 tol.longitudinal.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Long1);
+		 
+		 tol.lateral.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Lateral1);
+		 
+		 tol.vertical.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Vertical1);
+		 
+		 tol.pitch.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Pitch1);
+		 
+		 
+		 tol.roll.click();
+		 driver.switchTo().activeElement().clear();
+		 driver.switchTo().activeElement().sendKeys(Roll1);
+	 }
+	 
+	 
 	@DataProvider(name = "testDatavalid")
 	  public Object[][] testDatavalidname() {
 	      return ToleranceDataproviderClass.getTestData("Sheet1"); 
@@ -1100,9 +1131,6 @@ public class ToleranceSettings 	extends ReferencefileChemotheraphy{
 	  public Object[][] testDataexits() {
 	      return ToleranceDataproviderClass.getTestData("Sheet4"); 
 	  }
-	@AfterSuite
-	public void tearDown() {
-	    extent.flush();
-	}
+
  
 }

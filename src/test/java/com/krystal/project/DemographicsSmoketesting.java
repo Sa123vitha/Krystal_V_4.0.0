@@ -52,6 +52,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 			WebElement ContactNumber;
 			WebElement Relationship;
 			WebElement Zipcode;
+			private Actions act;
 	  
 	 
 	@BeforeClass
@@ -60,6 +61,8 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
 	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	navigation();
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 	public void navigation() throws InterruptedException 
@@ -81,7 +84,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	Thread.sleep(2000);
 	}
 
-	@Test(priority =1)
+	//@Test(priority =1)
 	public void button() throws InterruptedException{
 	List<WebElement> elements = driver.findElements(By.className("TextBox"));
     Actions actions = new Actions(driver);
@@ -162,7 +165,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		savepopup();
@@ -170,7 +173,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		test = extent.createTest(funTestCaseName()+" Menu Buttons enabled or disabled during saved");
@@ -179,7 +182,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		test = extent.createTest(funTestCaseName()+" Edit button enabled when data saved");
@@ -188,26 +191,28 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		test = extent.createTest(funTestCaseName()+" Data comparsion for save details");
 		datasaved(test,driver);
+		demo.isSelected(Checkbox, "Checkbox", test, driver);
 		Thread.sleep(2000);
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
-		test = extent.createTest("========EDIT DEMOGRAPHICS=======");
+		test = extent.createTest(funTestCaseName()+" Edit the demographics data");
 		firstcaseupdate(test,driver);
+		
 		Update();
 		Thread.sleep(2000);
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		test = extent.createTest(funTestCaseName()+" Menu Buttons enabled or disabled during update");
@@ -216,7 +221,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 		test = extent.createTest(funTestCaseName()+" Edit button enabled when data upadted");
@@ -225,19 +230,23 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 		try {
 			test = extent.createTest(funTestCaseName()+" Data saved comparsion for update");
 			datasaved(test,driver);
+			demo.BydefaultisSelected(Checkbox, "Checkbox", test, driver);
 			Thread.sleep(2000);
 			Update();
 		}
 		catch(Exception e)
 		{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 		}
 	}
+	
+	
+	
 	
 	public void Buttons(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
@@ -296,16 +305,16 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		demo.ByActionclass(FN, FnText, test, driver);
 		demo.ByActionclass(MN, MnText, test, driver);
 		demo.ByActionclass(LN, LnText, test, driver);
-		demo.ByActionclass(BG, Bg, test, driver);
-	    Thread.sleep(3000);
-	    demo.ByActionclass(Nationality, NtText, test, driver);
-        demo.ByActionclass(Languages, LgText, test, driver);
-		demo.ByActionclass(Gender, Gen, test, driver);
-		Thread.sleep(2000);
-		demo.ByActionclass(IDtype, IdText, test, driver);
-		demo.ByActionclass(PatientSize, Ps, test, driver);
-		Thread.sleep(3000);
+		//demo.ByActionclass(BG, Bg, test, driver);
+		//Thread.sleep(3000);
+		//demo.ByActionclass(Gender, Gen, test, driver);
+		//Thread.sleep(2000);
+		//demo.ByActionclass(PatientSize, Ps, test, driver);
+		//Thread.sleep(3000);
 		demo.ByActionclass(PW, PwText, test, driver);
+		demo.ByActionclass(Nationality, NtText, test, driver);
+		demo.ByActionclass(Languages, LgText, test, driver);
+		demo.ByActionclass(IDtype, IdText, test, driver);
 		demo.ByActionclass(IDNumber, InText, test, driver);
 		demo.ByActionclass(Remarks, RmText, test, driver);
 		demo.ByActionclass(PhoneNumber, PnText, test, driver);
@@ -317,7 +326,8 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 		demo.ByActionclass(ContactNumber, CN, test, driver);
 		demo.ByActionclass(Relationship, RtText, test, driver);
 		demo.ByActionclass(Region, RgText, test, driver); //Addreess cannot be echeked
-		demo.isSelected(Checkbox, "Checkbox", test, driver);
+		
+		
 	}
  
  public void Update() throws IOException, InterruptedException
@@ -349,7 +359,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	DemographicsExternal demo;
 	public void OID(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+"Firstname");
+		//test = extent.createTest(guiTestCaseName()+"Firstname");
 		OID=driver.findElement(By.name("Other ID"));
 		actionsclass(OID);
 		Textelement(OID,driver);
@@ -360,7 +370,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 
 	public void fn(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+"Firstname");
+		//test = extent.createTest(guiTestCaseName()+"Firstname");
 	    FN=driver.findElement(By.name("First Name"));
 	    actionsclass(FN);
 		Textelement1(FN,driver);
@@ -372,7 +382,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	
 	public void mn(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+"Middlename");
+		//test = extent.createTest(guiTestCaseName()+"Middlename");
 		MN=driver.findElement(By.name("Middle Name"));
 		actionsclass(MN);
 		Textelement(MN,driver);
@@ -382,7 +392,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 
 	public void ln(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+"Last Name");
+		//test = extent.createTest(guiTestCaseName()+"Last Name");
 		LN=driver.findElement(By.name("Last Name"));
 		actionsclass(LN);
 		Textelement1(LN,driver);
@@ -394,7 +404,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	{
 			driver.findElement(By.name("Show Calendar")).click();
 			Thread.sleep(1000);
-			driver.findElement(By.name("November, 2023")).click();
+			driver.findElement(By.name("December, 2023")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.name("2023")).click();
 			Thread.sleep(1000);
@@ -407,7 +417,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	WebElement bloodgroup;
 	public void Bloodgroup(ExtentTest test,WebDriver driver) throws IOException
 	{
-		test = extent.createTest(guiTestCaseName()+"Bloodgroup");
+		//test = extent.createTest(guiTestCaseName()+"Bloodgroup");
 		BG = driver.findElement(By.name("Blood Group"));
 		BG.click();
 		BloodGroup();
@@ -421,7 +431,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	
 	public void gender(ExtentTest test,WebDriver driver) throws IOException
 	{
-		test = extent.createTest(guiTestCaseName()+"Gender");
+		//test = extent.createTest(guiTestCaseName()+"Gender");
 		Gender();
 		Gender=driver.findElement(By.name(selectedGender));
 		Gen=selectedGender;
@@ -432,7 +442,7 @@ public class DemographicsSmoketesting extends ReferencefileChemotheraphy{
 	
 	public void Patientsize(ExtentTest test,WebDriver driver) throws IOException
 	{
-		test = extent.createTest(guiTestCaseName()+"Patient Size");
+		//test = extent.createTest(guiTestCaseName()+"Patient Size");
 		PatientSizedropdown = driver.findElement(By.name("Patient Size"));
 		PatientSizedropdown.click();
 		PatientSize();
@@ -450,7 +460,7 @@ public void actionsclass(WebElement element)
 }
 	public void Patientweight(ExtentTest test,WebDriver driver) throws IOException
 	{
-		test = extent.createTest(guiTestCaseName()+"Patient weight");
+		//test = extent.createTest(guiTestCaseName()+"Patient weight");
 		PW = driver.findElement(By.name("Patient Weight (kg)"));
 		actionsclass(PW);
 		Validweightrange(1, 300);
@@ -461,7 +471,7 @@ public void actionsclass(WebElement element)
 	}
 	
 	public  void Nationality(ExtentTest test,WebDriver driver) throws IOException, InterruptedException  {
-		test = extent.createTest(guiTestCaseName()+" Nationality Name");
+		//test = extent.createTest(guiTestCaseName()+" Nationality Name");
 		Nationality = driver.findElement(By.name("Nationality"));
 		actionsclass(Nationality);
 		Textelement1(Nationality,driver);
@@ -470,7 +480,7 @@ public void actionsclass(WebElement element)
 		}
 	
 	public  void Languages(ExtentTest test,WebDriver driver) throws IOException, InterruptedException  {
-		test = extent.createTest(guiTestCaseName()+" Languages Known");
+		//test = extent.createTest(guiTestCaseName()+" Languages Known");
 		Languages = driver.findElement(By.name("Languages Known"));
 		actionsclass(Languages);
 		Textelement(Languages,driver);
@@ -479,7 +489,7 @@ public void actionsclass(WebElement element)
 		}
 	
 	public  void IDtype(ExtentTest test,WebDriver driver) throws IOException, InterruptedException  {
-		test = extent.createTest(guiTestCaseName()+" IDtype Known");
+		//test = extent.createTest(guiTestCaseName()+" IDtype Known");
 		IDtype = driver.findElement(By.name("ID Type"));
 		actionsclass(IDtype);
 		Textelement1(IDtype,driver);
@@ -488,7 +498,7 @@ public void actionsclass(WebElement element)
 		}
 	
 	public  void IDNumber(ExtentTest test,WebDriver driver) throws IOException, InterruptedException  {
-		test = extent.createTest(guiTestCaseName()+" IDNumber");
+		//test = extent.createTest(guiTestCaseName()+" IDNumber");
 		IDNumber = driver.findElement(By.name("ID Number"));
 		actionsclass(IDNumber);
 		TextNumber(IDNumber,driver);
@@ -498,7 +508,7 @@ public void actionsclass(WebElement element)
 		}
 	
 	public  void Remarks(ExtentTest test,WebDriver driver) throws IOException, InterruptedException  {
-		test = extent.createTest(guiTestCaseName()+" Remarks");
+		//test = extent.createTest(guiTestCaseName()+" Remarks");
 		Remarks = driver.findElement(By.name("Remarks"));
 		actionsclass(Remarks);
 		Textelement1(Remarks,driver);
@@ -508,7 +518,7 @@ public void actionsclass(WebElement element)
 		}
 	
 	public  void PhoneNumber(ExtentTest test,WebDriver driver) throws IOException  {
-		test = extent.createTest(guiTestCaseName()+" Phone Number");
+		//test = extent.createTest(guiTestCaseName()+" Phone Number");
 		PhoneNumber = driver.findElement(By.name("Phone Number"));
 		actionsclass(PhoneNumber);
 		randomstringtext();
@@ -521,7 +531,7 @@ public void actionsclass(WebElement element)
 	}
 	
 	public  void AlternatePhoneNumber(ExtentTest test,WebDriver driver) throws IOException  {
-		test = extent.createTest(guiTestCaseName()+" Alternate Number");
+		//test = extent.createTest(guiTestCaseName()+" Alternate Number");
 		AlternateNumber = driver.findElement(By.name("Alternate Number"));
 		actionsclass(AlternateNumber);
 		randomstringtext();
@@ -532,7 +542,7 @@ public void actionsclass(WebElement element)
 	}
 
 	public  void Email(ExtentTest test,WebDriver driver) throws IOException, InterruptedException {
-		test = extent.createTest(guiTestCaseName()+" Email ID label");
+		//test = extent.createTest(guiTestCaseName()+" Email ID label");
 		EmailID = driver.findElement(By.name("Email ID"));
 		actionsclass(EmailID);
 		randomemail();
@@ -545,18 +555,18 @@ public void actionsclass(WebElement element)
 
 	public void currentAddress(ExtentTest test,WebDriver driver) throws InterruptedException, IOException
 	{
-		test = extent.createTest(funTestCaseName()+" Current Address enetred valid data");
+		//test = extent.createTest(funTestCaseName()+" Current Address enetred valid data");
 		Address("//Text[@Name='Address']",2);
 	}
 	public void permanentAddress(ExtentTest test,WebDriver driver) throws InterruptedException, IOException
 	{
-		test = extent.createTest(funTestCaseName()+" Pernament Address enetred valid data");
+		//test = extent.createTest(funTestCaseName()+" Current Address enetred valid data");
 		Address("//Text[@Name='Address']",5);
 	}
 
 	public void Region(ExtentTest test,WebDriver driver)throws InterruptedException, IOException
 	{
-		test = extent.createTest(guiTestCaseName()+" Region");
+		//test = extent.createTest(guiTestCaseName()+" Region");
 		Region = driver.findElement(By.name("Region"));
 		actionsclass(Region);
 		Textelement1(Region,driver);
@@ -567,7 +577,7 @@ public void actionsclass(WebElement element)
 
 	public void Zipcode(ExtentTest test,WebDriver driver)throws InterruptedException, IOException
 	{
-		test = extent.createTest(guiTestCaseName()+" Zipcode");
+		//test = extent.createTest(guiTestCaseName()+" Zipcode");
 		Zipcode = driver.findElement(By.name("Zip Code"));
 		actionsclass(Zipcode);
 		TextNumber(Zipcode,driver);
@@ -577,7 +587,7 @@ public void actionsclass(WebElement element)
 	
 	public void caretakername(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+" Care taker name label");
+		//test = extent.createTest(guiTestCaseName()+" Care taker name label");
 	   Caretakername = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"MainContainerView\"]/Custom[@ClassName=\"DemographicsMainView\"]/Custom[@ClassName=\"DemographicsSection2View\"]/Edit[@AutomationId=\"TextBoxViewModelCaretakerName\"]"));
 	   Thread.sleep(1000);
 	   actionsclass(Caretakername);
@@ -590,7 +600,7 @@ public void actionsclass(WebElement element)
 	
 	public void caretakernumber(ExtentTest test,WebDriver driver) throws IOException
 	{
-		test = extent.createTest(guiTestCaseName()+" Care taker number label");
+		//test = extent.createTest(guiTestCaseName()+" Care taker number label");
 		ContactNumber = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"MainContainerView\"]/Custom[@ClassName=\"DemographicsMainView\"]/Custom[@ClassName=\"DemographicsSection2View\"]/Edit[@AutomationId=\"TextBoxViewModelCtContactNum\"]"));
 		actionsclass(ContactNumber);
 		randomstringtext();
@@ -602,7 +612,7 @@ public void actionsclass(WebElement element)
 
 	public void caretakerrelationshiplabel(ExtentTest test,WebDriver driver) throws IOException, InterruptedException
 	{
-		test = extent.createTest(guiTestCaseName()+" Relationship label");
+		//test = extent.createTest(guiTestCaseName()+" Relationship label");
 		Relationship = driver.findElement(By.name("Relationship"));
 		actionsclass(Relationship);
 		Textelement(Relationship,driver);
@@ -612,7 +622,7 @@ public void actionsclass(WebElement element)
 	
 	public void CareTakeraddress(ExtentTest test,WebDriver driver) throws InterruptedException, IOException
 	{
-		test = extent.createTest(funTestCaseName()+" Caretaker Address enetred valid ");
+		//test = extent.createTest(funTestCaseName()+" Caretaker Address enetred valid ");
 		Address("//Text[@Name='Address']",1);
 	}
 	public void savepopup() throws InterruptedException, IOException

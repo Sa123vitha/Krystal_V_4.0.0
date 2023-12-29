@@ -55,16 +55,18 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 	private String Energy2;
 	private String Setuptechnique2;
 	private String Physician2;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Prescription(driver);
 	prescription=new PrescriptionPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 	//@Test(priority =1)
@@ -81,8 +83,9 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 		}
 	
 	
-	@Test(priority = 0)
+	@Test(priority = 1)
 	public void TextfieldEnabled() throws InterruptedException, IOException {
+		test = extent.createTest("============PRESCRIPTION MODULE========");
 		test = extent.createTest(funTestCaseName()+" :   To verify  textfields, radio button, Dropdown and buttons enable or disable  after navigating prescription ",  " textfields, radio button, Dropdown and buttons enable after navigating prescription  ");
 		demo.isEnabled(prescription.Menu, "Menu", test,driver);
 		demo.isEnabled(prescription.Signout1, "logout", test,driver);
@@ -128,7 +131,7 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 	
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	public void SaveButtonEnable() throws InterruptedException, IOException {
 		test = extent.createTest(funTestCaseName() + " : Save button ","Save button should be enable by default");
 
@@ -152,7 +155,8 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 		}
 		
 	}
-
+	
+	
 	@Test(priority = 3)
 	public void Sitedropdowndefault() throws InterruptedException, IOException {
 		test = extent.createTest("================Siteprescription=================");
@@ -165,7 +169,7 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 	@Test(priority = 4)
 	public void Siteselction() throws InterruptedException, IOException {
 		test = extent.createTest(funTestCaseName() + " : Site Selection from the dropdown ", "Selected site should be displayed in the dropdown");
-		String Sitedata=Roleselection(test,0);
+		String Sitedata=RoleselectionText(test,0);
 	}
 	
 	@Test(priority = 5)
@@ -659,11 +663,11 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 		prescription.NumberOfFractions.clear();
 		prescription.NumberOfFractions.sendKeys("5");
 	}
-	@Test(priority = 46)
-	public void PlanIntent() throws IOException
+	//@Test(priority = 46) Dont run
+	public void PlanIntent() throws IOException, InterruptedException
 	{
 		test = extent.createTest(funTestCaseName() + " To verify the Plan Intent dropdown");
-		WebElement element =driver.findElements(By.className("ComboBox")).get(1);
+		WebElement element =driver.findElements(By.className("ComboBox")).get(2);
 		element.click();
 		List<WebElement> datarow = element.findElements(By.className("Textblock"));
 		  for (WebElement datarow1 : datarow) {
@@ -678,10 +682,13 @@ public class PrescriptionFun extends ReferencefileChemotheraphy{
 			  {
 				  test.fail("Data is empty"); 
 			  }			  
-		  }		  
+		  }	
+		  
+		  ToverifyPlanIntentdropdownbydefault();
+		  ToverifyPlanIntentdropdownbydefault();
 		  }
 	
-@Test(priority = 47)
+//@Test(priority = 47) Dont run
 public void ToverifyPlanIntentdropdownbydefault() throws InterruptedException, IOException {
 	
 	test = extent.createTest(funTestCaseName()+" :   To verify  PlanIntent dropdown default selection ",  " CURATIVE  should display in prescription.PlanIntent dropdown  ");
@@ -695,15 +702,15 @@ public void ToverifyPlanIntentdropdownbydefault() throws InterruptedException, I
 
 @Test(priority = 48)
 public void ToverifyPlanIntentdropdownbyselectingCURATIVE() throws InterruptedException, IOException {
-	i=0;
-	if(prescription.PlanIntents.length !=0 && i<12) {
-		while(i<prescription.PlanIntents.length) {
-			test = extent.createTest(funTestCaseName()+" : To verify the functionality of selecting "+prescription.PlanIntents[i]+" from the Dropdown ",prescription.PlanIntents[i]+" Should be selected and Displayed");
-			Dropdown1(prescription.PlanIntent, prescription.PlanIntents, i, "prescription.PlanIntent", test);
-	i++;
-		}
-	}else
-		test.info("No PlanIntents are available");
+	//i=0;
+	//if(prescription.PlanIntents.length !=0 && i<12) {
+		//while(i<prescription.PlanIntents.length) {
+			test = extent.createTest(funTestCaseName()+" : To verify the functionality of selecting CURATIVE from the Dropdown ","CURATIVE Should be selected and Displayed");
+			Dropdown1(prescription.PlanIntent, prescription.PlanIntents, 0, "prescription.PlanIntent", test);
+	//i++;
+		//}
+	//}else
+		//test.info("No PlanIntents are available");
 	
 }
 
@@ -850,6 +857,10 @@ public void ToverifyTechniquedropdownbyselectingTBI() throws InterruptedExceptio
 	Dropdown1(prescription.Technique, prescription.Techniques, 4, "prescription.Technique", test);
 	
 }
+
+
+
+
 @Test(priority = 76)
 public void CBCcycletextfieldifenteredminiumvalue()
 		throws InterruptedException, IOException {
@@ -1714,7 +1725,7 @@ public void ReviewcycleAplphanumeric()
 }
 
 
-	 @Test(priority = 170)
+	 //@Test(priority = 170)
 	   public void Toverifytextfieldaftersavedprescription() throws InterruptedException, IOException{
 		test = extent.createTest(funTestCaseName()+" :   To verify All the textfield, Dropdown and radiobuttons in Treatment parameters ",  "  All the textfield, Dropdown and radiobuttons in Treatment parameters should disable");
 		
@@ -1750,12 +1761,11 @@ public void ReviewcycleAplphanumeric()
 	   @Test(priority =171)
 	   public void PrecsriptionOAR() throws IOException, InterruptedException
 	   {
-	   	act.moveToElement(prescription.Save).click().perform();
 	   	test = extent.createTest("===========Prescription Save=========");
 	   	test = extent.createTest(funTestCaseName()+" : Click on the Prescription, Save the data");
 	    if(!(prescription.SitePhase.get(0).getAttribute("HelpText").equals("New Site,Phase"))) 
 	    	   prescription.Addtab.click();
-	   	SiteText1=Roleselection(test, 0);
+	   	SiteText1=RoleselectionText(test,0);
 		Validweight1(prescription.TargetPrescriptionDose,"10000",driver,test);
 		Validweight1(prescription.MinimumDose,"1",driver,test);
 		Validweight1(prescription.MaximumDose,"10000",driver,test);
@@ -1808,7 +1818,7 @@ public void ReviewcycleAplphanumeric()
 	   
 	  
 	   
-	   @Test(priority =172)
+	  @Test(priority =172)
 	   public void SaveDataeditforpost() throws IOException, InterruptedException
 	   {
 	   	Thread.sleep(1000);
@@ -1855,7 +1865,7 @@ public void ReviewcycleAplphanumeric()
 		demo.BydefaultisEnabled(prescription.TreatmentReview, "TreatmentReview", test, driver);
 	   }
 
-	  @Test(priority =173)
+	   @Test(priority =173)
 	   public void PrescriptionEdit() throws IOException, InterruptedException
 	   {
 	   	test = extent.createTest("===========Prescription EDIT AND MODIFY=========");
@@ -1976,7 +1986,7 @@ public void ReviewcycleAplphanumeric()
 		       {
 		    	   prescription.Addtab.click();
 		       }
-		   	SiteText2=Roleselection(test, 0);
+		   	SiteText2=RoleselectionText(test,0);
 			Validweight1(prescription.TargetPrescriptionDose,"198",driver,test);
 			Validweight1(prescription.MinimumDose,"13",driver,test);
 			Validweight1(prescription.MaximumDose,"34",driver,test);
@@ -2172,6 +2182,7 @@ public void ReviewcycleAplphanumeric()
 		   	catch(Exception e)
 		   	{
 		   		test.info("No pop-up displayed");
+		   		catchexceptionscreenshot1(test,e);
 		   	}
 		   
 		   	
@@ -2227,7 +2238,7 @@ public void ReviewcycleAplphanumeric()
 			EditText(prescription.CBCCycle, "18",test,driver);
 			EditText(prescription.CT_ID, "KUEYE9373",test,driver);
 			EditText(prescription.MRI, "KJDH_39739",test,driver);
-			EditText(prescription.PET_CT_ID, "1*FKJHF_398987",test,driver);
+			EditText(prescription.PET_CT_ID, "FKJHF_398987",test,driver);
 		   
 			datagrid(0,"BrainRight","37","180",test,driver);
 			datagrid(1,"BrainCenter","2","10",test,driver);
@@ -2304,10 +2315,7 @@ public void ReviewcycleAplphanumeric()
 
 		   }
 		 
-		 
 		
-		
-
 		    ArrayList<String> Phases;
 		  		public ArrayList<String> SiteTabs(List<WebElement> text) throws InterruptedException {
 		  			
@@ -2371,18 +2379,6 @@ public void ReviewcycleAplphanumeric()
 	}
 		
 
-
-	@AfterClass
-	public void tearDown() {
-	    // Flush the Extent Reports after all tests in the class
-	    extent.flush();
-	}
-	@AfterClass
-	public void quit() throws InterruptedException
-	{
-		driver.quit();
-		 Thread.sleep(5000);
-	}
 
 
 

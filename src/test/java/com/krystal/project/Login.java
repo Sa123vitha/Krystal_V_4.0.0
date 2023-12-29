@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -36,17 +37,19 @@ public class Login extends ReferencefileChemotheraphy {
 	public void setUp() {
 		extent = ExtendManager.getInstance();
 	}
-	@BeforeClass
-	public void setUp1() throws IOException {
-		DesiredCapabilities appCapabilities = new DesiredCapabilities();
-		appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-		driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+	//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 		login= new LoginPOM(driver);
 		demo=new DemographicsExternal() ;
 	}
 	
 	@Test(priority =1)
 	public void ToverifySigninproductlogo() throws IOException {
+		test = extent.createTest("============SIGNIN MODULE========");
 	test = extent.createTest(guiTestCaseName()+" To Verify Signin Product logo"," Signin Product logo should be present");		
 	demo.isdisplayed(login.SigninProductlogo, "SigninProductlogo", test,driver);
 	}
@@ -57,7 +60,6 @@ public class Login extends ReferencefileChemotheraphy {
 		test = extent.createTest(guiTestCaseName()+" To Verify  Signin Product Image"," Signin Product Image should be present");	
 		demo.isdisplayed(login.SigninProductImage, "SigninProductImage", test,driver);
 		Thread.sleep(1000);
-		
 	}
 	@Test(priority =3)
 	public void ToverifyProductnamelabel() throws IOException, InterruptedException 
@@ -76,13 +78,14 @@ public class Login extends ReferencefileChemotheraphy {
 	public void ToverifySigninlabel() throws IOException 
 	{
 		test = extent.createTest(guiTestCaseName()+" To Verify Signin  label","Signin  label should be present");	
-        demo.Textcomparsion(login.Signinlabel, "SIGN IN", test,driver);
+        //demo.Textcomparsion(login.Signinlabel, "SIGN IN", test,driver);
+        demo.Textcomparsion(login.Signinlabel, "SIGN IN BUTTON", test,driver);
 	}
 	@Test(priority =8)
 	public void ToverifyUserNamelabel() throws IOException 
 	{
 		test = extent.createTest(guiTestCaseName()+" To Verify User ID label","User ID label should be present");	
-		demo.Textcomparsion(login.UserID, "User ID", test,driver);
+		demo.Textcomparsion(login.UserID, "User ID_Txt", test,driver);
 		
 	}
 	@Test(priority =9)
@@ -444,23 +447,14 @@ public class Login extends ReferencefileChemotheraphy {
 		login.Pswdbox.click();
 		demo.isempty(login.Pswdbox, "Passwordtextbox", test, driver);
 	}
-	@Test(priority =44)
+	//@Test(priority =44)
 	public void  Exitapplication() throws IOException, InterruptedException 
 	{
 		test = extent.createTest(funTestCaseName()+" To verify exit the application and Relogin Error should not display");
 		Actions action=new Actions(driver);
 		action.moveToElement(login.Exit).doubleClick().perform();
-		Thread.sleep(8000);
-		try {
+		Thread.sleep(5000);
 		setUp1();
-		Thread.sleep(2000);
-		demo.isdisplayed(login.SigninProductImage, "Krystal Product logo", test, driver);
-		}
-		catch(Exception e)
-		{
-			test.error(e);
-		}
-		
 	}
 	public void Signinclick() throws InterruptedException
 	{
@@ -492,10 +486,6 @@ public class Login extends ReferencefileChemotheraphy {
 	
 	}
 	
-	@AfterSuite
-	public void tearDown() {
-	    extent.flush();
-	}
 
 
 

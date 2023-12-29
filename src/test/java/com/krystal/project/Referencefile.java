@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -18,18 +20,18 @@ import com.aventstack.extentreports.ExtentTest;
 
 import io.appium.java_client.windows.WindowsDriver;
 
-public class Referencefile extends Main {
+public class Referencefile {
 	public ExtentReports extent;
 	public ExtentTest test;
 	public static int testCaseCount = 1;
 	public WindowsDriver<WebElement> driver;
 
 	
-	public void setUp1()  throws InterruptedException, IOException {
+	 @BeforeClass
+		public void setUp1()  throws InterruptedException, IOException {
 		DesiredCapabilities appCapabilities = new DesiredCapabilities();
 		appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
 		driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
-
 		}
 	public String guiTestCaseName() throws IOException {
 	    return "STC_GUI_" + String.format("%02d", testCaseCount++);
@@ -106,9 +108,9 @@ public class Referencefile extends Main {
 	    }
 	    driver.switchTo().window(mainWindowHandle);
 	}
-	public void editupdatedata(WebElement element, String text,WebDriver driver) throws IOException
+	public void editupdatedata(WebElement element, String text,WebDriver driver,ExtentTest test) throws IOException
 	{
-		demo.ByErrormessage(element, text, test,driver);
+		demo.ByErrormessage(element, text,test,driver);
 	}
 
 	public void InValidRangeAngle(WebElement InValidrange,WebDriver driver) throws IOException
@@ -265,6 +267,18 @@ public class Referencefile extends Main {
 		demo.isEnabled(Name, Text, test,driver);
 	}
 	
+
+	 @AfterClass
+	   public void tearDown() {
+	       // Flush the Extent Reports after all tests in the class
+	       extent.flush();
+	   }
+	 @AfterClass
+	   public void quit() throws InterruptedException
+	   {
+	   	driver.quit();
+	   	 Thread.sleep(7000);
+	   }
 
 	
 	

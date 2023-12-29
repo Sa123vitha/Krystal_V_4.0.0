@@ -31,6 +31,9 @@ public class SitePOM {
 	@FindBy(name = "Site Name")
 	WebElement SiteHead;
 	
+	//@FindBy(className = "TextBox")
+	//WebElement SiteHead;
+	
 	@FindBy(name = "Site Name")
 	WebElement sitenamelist;
 	

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,16 +24,18 @@ public class PrescriptionGUITestcases extends ReferencefileChemotheraphy{
 	private PrescriptionPOM prescription;
 	private WebElement TemplateG1;
 	private WebElement Add;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Prescription(driver);
 	prescription=new PrescriptionPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 	
@@ -558,7 +561,7 @@ public void Toverifypatientimmobilizationlabel() throws IOException {
 @Test(priority = 86)
 public void ToverifyPrescribedDeviceTitleButtonlabel() throws IOException,InterruptedException {
 //Template.ButtonNames.get(6).click();
-	action.moveToElement(prescription.IMDdevice).click().perform();
+	act.moveToElement(prescription.IMDdevice).click().perform();
 	Thread.sleep(7000);
 	test = extent.createTest(guiTestCaseName() + " :  To verify the PRESCRIBED DEVICES label",
 			"PRESCRIBED DEVICES label should be present");
@@ -568,7 +571,7 @@ public void ToverifyPrescribedDeviceTitleButtonlabel() throws IOException,Interr
 
 @Test(priority = 90)
 public void ToverifyBellyBoardlabel() throws IOException {
-	action.moveToElement(prescription.IMDdevice).doubleClick().perform();
+	act.moveToElement(prescription.IMDdevice).doubleClick().perform();
 	test = extent.createTest(guiTestCaseName() + " :  To verify the Belly Board label",
 			"Belly Board label should be present");
 	WebElement Belly_Board = driver.findElement(By.name("Belly Board"));
@@ -654,10 +657,6 @@ public void ToverifyFeetfix() throws IOException {
 }
 
 	
-	 @AfterSuite
-	    public void tearDown() {
-	        extent.flush();
-	    }
 // @Test(priority =77) and 78 need to check 
 	
 	

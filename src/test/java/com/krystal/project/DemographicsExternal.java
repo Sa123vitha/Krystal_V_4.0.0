@@ -28,6 +28,8 @@ import io.appium.java_client.windows.WindowsDriver;
 public class DemographicsExternal extends Main {
 	public void isdisplayed(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	if(Text.isDisplayed()) {
 	        	
 	    	 	test1.log(Status.PASS,"RUN PASS:" +Expected+ " is Displayed");
@@ -50,6 +52,8 @@ public class DemographicsExternal extends Main {
 	
 	public void isnotdisplayed(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	if(!Text.isDisplayed()) {
 	        	
 	    	 	test1.log(Status.PASS,"RUN PASS:" +Text.getText()+ "is not Displayed");
@@ -73,6 +77,8 @@ public class DemographicsExternal extends Main {
 	public void isempty(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException
 	{
 		try {
+			Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 			Text.click();
 	    	String actualtext=driver.switchTo().activeElement().getText();
 	    	if(actualtext.isEmpty()) {
@@ -98,6 +104,8 @@ public class DemographicsExternal extends Main {
 	public void isemptynoclick(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException
 	{
 		try {
+			Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	String actualtext=Text.getText();
 	    	if(actualtext.isEmpty()) {
 	        	
@@ -122,6 +130,8 @@ public class DemographicsExternal extends Main {
 	public void isnotempty(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException
 	{
 		try {
+			Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 			Text.click();
 	    	String actualtext=driver.switchTo().activeElement().getText();
 	    	if(!actualtext.isEmpty()) {
@@ -146,6 +156,8 @@ public class DemographicsExternal extends Main {
 	}
 	public void isdisplayedvalid(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	if(Text.isDisplayed() && Text.equals(Expected) ) {
 	        	
 	        	test1.log(Status.PASS,"RUN PASS: Actual is " +Text.getText()+ "\n Excepted is " +Expected+ " Same as Excepeted");
@@ -168,8 +180,10 @@ public class DemographicsExternal extends Main {
 	}
 	
 	public void isEnabled(WebElement Text, String Expected, ExtentTest test1,WebDriver driver) throws IOException {
-	    try {
+	    try {	
 	    	if(Text.isEnabled()) {
+	    		Actions action=new Actions(driver);
+		    	action.moveToElement(Text).perform();
 	        	
 	        	test1.log(Status.PASS,"RUN PASS: " +Expected+ " is Enabled");
 	        	
@@ -192,7 +206,8 @@ public class DemographicsExternal extends Main {
 	public void BydefaultisEnabled(WebElement Text, String Expected, ExtentTest test1,WebDriver driver) throws IOException {
 	    try {
 	    	if(!Text.isEnabled()) {
-	        	
+	    		Actions action=new Actions(driver);
+		    	action.moveToElement(Text).perform();
 	        	test1.log(Status.PASS,"RUN PASS: " +Text.getText()+ " is not  Enabled");
 	        	
 	        } else {
@@ -215,7 +230,8 @@ public class DemographicsExternal extends Main {
 	public void isSelected(WebElement Text, String Expected, ExtentTest test1,WebDriver driver) throws IOException {
 	    try {
 	    	if(Text.isSelected()) {
-	        	
+	    		Actions action=new Actions(driver);
+		    	action.moveToElement(Text).perform();
 	    		test1.log(Status.PASS,"RUN PASS: " +Text.getText()+ " is Selected");
 	        	
 	        } else {
@@ -235,6 +251,8 @@ public class DemographicsExternal extends Main {
 	}
 	public void BydefaultisSelected(WebElement Text,String Expected, ExtentTest test1,WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	if(!Text.isSelected()) {
 	        	
 	    		test1.log(Status.PASS,"RUN PASS: " +Text.getText()+ " is not  Selected");
@@ -257,6 +275,8 @@ public class DemographicsExternal extends Main {
 	
 	public void ByErrormessage(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	Text.click();
 	    	String actualtext=driver.switchTo().activeElement().getText();
 	    	if(actualtext.equals(Expected)) {
@@ -284,6 +304,8 @@ public class DemographicsExternal extends Main {
 	
 	public void ByInvalidErrormessage(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	Text.click();
 	    	String actualtext=driver.switchTo().activeElement().getText();
 	    	if(!actualtext.equals(Expected)) {
@@ -309,6 +331,8 @@ public class DemographicsExternal extends Main {
 	}
 	public void ByValidErrormessage(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	Text.click();
 	    	String actualtext=driver.switchTo().activeElement().getText();
 	    	if(actualtext.equals(Expected)) {
@@ -375,6 +399,7 @@ public class DemographicsExternal extends Main {
 	public void ByActionclass(WebElement Text, String Expected, ExtentTest test1, WebDriver driver) throws IOException {
 	    try {
 	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Text).perform();
 	    	Text.click();
 	    	//action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).click().perform();
 	    	String actualtext=driver.switchTo().activeElement().getText();

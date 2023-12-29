@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -24,27 +25,29 @@ public class TemplatesFun extends ReferencefileChemotheraphy{
 
 	private TemplatePOM Temp;
 	private Actions act;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Templates(driver);
 	Temp=new TemplatePOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 
 	
 
 	
-	@Test(priority = 0)
+	@Test(priority = 1)
 	public void SaveButtonEnable() throws InterruptedException, IOException {
 		test = extent.createTest(funTestCaseName() + " : Save button ","Save button should be enable by default");
-Temp.OARAdd.click();
-Temp.OARCloseButton.click();
+        Temp.OARAdd.click();
+        Temp.OARCloseButton.click();
 		demo.isEnabled(Temp.Save, "SAVE", test,driver);
 	}
 	
@@ -56,7 +59,7 @@ Temp.OARCloseButton.click();
 		if(Temp.Save.isEnabled())
 		{
 		Temp.Save.click();
-		demo.isdisplayed(Temp.Siteerror, "Please Select any site",test, driver);
+		demo.isdisplayed(Temp.Siteerror1, "Please Select any site",test, driver);
 		demo.isdisplayed(Temp.Templateerror, "Please enter a name for the template",test, driver);
 		demo.isdisplayed(Temp.Inputblank, "Input cannot be blank",test, driver);
 		}
@@ -80,7 +83,7 @@ Temp.OARCloseButton.click();
 	@Test(priority = 4)
 	public void Siteselction() throws InterruptedException, IOException {
 		test = extent.createTest(funTestCaseName() + " : Site Selection from the dropdown ", "Selected site should be displayed in the dropdown");
-		Roleselection(test,0);
+		RoleselectionText(test,0);
 	}
 	
 	
@@ -1529,14 +1532,17 @@ Temp.OARCloseButton.click();
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		finally {
 		//Temp.Save.click();
 		act.moveToElement(Temp.PatientImmobilzationsetupbutton).click().perform();
 		Thread.sleep(5000);
+		 Temp.OARAdd.click();
+	     Temp.OARCloseButton.click();
 		}
 	}	
+	
 	
 	@Test(priority=198, dataProvider = "testDatavalid")
 	public void Templateadd(String Testcase, String Name, String Dose, String MinDose, String MaxDose, String Fractions, String IGRT, String Review, String CBC,String Bolus,String Gating) throws IOException, InterruptedException
@@ -1566,22 +1572,27 @@ Temp.OARCloseButton.click();
 		
 		TemplateText(Testcase, Name, Dose, MinDose, MaxDose, Fractions, IGRT, Review, CBC,Bolus,Gating);
 		TemplateOAR(OARName,OARMin,OARMax,OARDescription);
+		Thread.sleep(1000);
 		Temp.Save.click();
+	   
 		test = extent.createTest(funTestCaseName()+"Template Save Popup","Template Popup should display");
 		Sitesave1("Template Add","Template Added for selected Site.", "Template Add","Template Added for selected Site.", 0, driver,test);	
 	}
+		
+	
 	@Test(priority=201, dataProvider = "testDataEmpty")
 	public void EmptyData(String Testcase, String Name, String Dose, String MinDose, String MaxDose, String Fractions, String IGRT, String Review, String CBC,String Bolus,String Gating,String E1) throws IOException, InterruptedException
 	{
 		
 		TemplateText(Testcase, Name, Dose, MinDose, MaxDose, Fractions, IGRT, Review, CBC,Bolus,Gating);
-		test=extent.createTest("==================Empty Data==========");
 		Temp.Save.click();
-		demo.isdisplayed(Temp.Inputblank, E1, test, driver);	 
+		demo.isdisplayed(Temp.Inputblank, E1, test, driver);
+		
 	}
 	@Test(priority=202, dataProvider = "testDataReset")
 	public void TemplateAddfield(String Testcase, String Name, String Dose, String MinDose, String MaxDose, String Fractions, String IGRT, String Review, String CBC,String Bolus,String Gating) throws IOException, InterruptedException
 	{
+		test=extent.createTest("==================Add Field==========");
 		TemplateText(Testcase, Name, Dose, MinDose, MaxDose, Fractions, IGRT, Review, CBC,Bolus,Gating);
 		test = extent.createTest(funTestCaseName()+"Click on Addfield, Data should be Reset","All the data should get reseted");
 		Temp.Addfield.click();
@@ -1591,12 +1602,13 @@ Temp.OARCloseButton.click();
 	@Test(priority=203, dataProvider = "testDataReset")
 	public void TemplateReset(String Testcase, String Name, String Dose, String MinDose, String MaxDose, String Fractions, String IGRT, String Review, String CBC,String Bolus,String Gating) throws IOException, InterruptedException
 	{
+		test=extent.createTest("==================Reset Template==========");
 		TemplateText(Testcase, Name, Dose, MinDose, MaxDose, Fractions, IGRT, Review, CBC,Bolus,Gating);
 		test = extent.createTest(funTestCaseName()+"Click on Reset, Data should be Reseted","All the data should get reseted");
 		Temp.Reset.click();
 		Textempty(test,driver);
 	}
-	
+
 	@Test(priority=204)
 	public void Viewdata() throws IOException, InterruptedException
 	{
@@ -1819,9 +1831,6 @@ Temp.OARCloseButton.click();
 	}
 	
 	
-	
-
-	
 	public void ReferenceText(WebElement element,String Text,ExtentTest test,WebDriver driver) throws IOException
 	{
 		element.clear();
@@ -1855,7 +1864,7 @@ Temp.OARCloseButton.click();
 	{
 		
 		test=extent.createTest(guiTestCaseName()+","+Testcase1);
-		Roleselection(test,0);
+		RoleselectionText(test,0);
 		Temp.TemplateName.clear();
 		Temp.TemplateName.sendKeys(Name1);
 		Temp.TargetPrescriptionDose.clear();
@@ -1897,8 +1906,11 @@ Temp.OARCloseButton.click();
 		Temp.OARMaxDose.clear();
 		Temp.OARMaxDose.sendKeys(OARMax1);
 		
-		Temp.OARMaxDose.clear();
-		Temp.OARMaxDose.sendKeys(OARDescription1);
+		Temp.OARDescription.clear();
+		Temp.OARDescription.sendKeys(OARDescription1);
+		Temp.OARInsertButton.click();
+		Temp.OARCloseButton.click();
+		
 	}
 	
 	@DataProvider(name = "testDatavalid")   // Active
@@ -1913,21 +1925,17 @@ Temp.OARCloseButton.click();
 	
 	@DataProvider(name = "testDataEmpty")   // Active
 	  public Object[][] testDatavalidEmpty() {
-	      return ToleranceDataproviderClass.getUserTemplates("Sheet7"); 
+	      return ToleranceDataproviderClass.getUserTemplates("Sheet6"); 
 	  }
 	
 	@DataProvider(name = "testDataReset")   // Active
 	  public Object[][] testDatavalidReset() {
-	      return ToleranceDataproviderClass.getUserTemplates("Sheet6"); 
+	      return ToleranceDataproviderClass.getUserTemplates("Sheet5"); 
 	  }
 	
 	
 	
-	
-	@AfterSuite
-	public void tearDown() {
-		extent.flush();
-	}
+
 	
 }
 

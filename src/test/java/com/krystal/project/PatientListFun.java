@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -32,20 +33,24 @@ public class PatientListFun extends ReferencefileChemotheraphy {
 	private WebElement Age;
 	private WebElement create;
 	private WebElement modify;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Patientlist(driver);
 	patientlist=new PatientListPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
+	
 
 	@Test(priority = 3)
 	public void Patienttablelist() throws IOException {
+		 test = extent.createTest("!!!!!!!!!!PATEINT LIST FUN!!!!!!!");
 		test=extent.createTest("====== GRID ======");
 		test = extent.createTest(funTestCaseName()+ "Customization click", "CustomizationClick");  
 		patientlist.cust.click();
@@ -740,10 +745,7 @@ public void searchbyotherid() throws IOException, FindFailed, InterruptedExcepti
 	     test1.addScreenCaptureFromPath(screenshotName);
 	}
 
-	@AfterSuite
-	public void tearDown() {
-	    extent.flush();
-	}
+	 
 
 
 }

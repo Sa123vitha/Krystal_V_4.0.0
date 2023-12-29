@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sikuli.script.FindFailed;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -26,16 +27,20 @@ import io.appium.java_client.windows.WindowsDriver;
 public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	 
 	private FieldConfigurationPOM field;
+	private Actions act;
+	private Actions action;
 	   
-	   @BeforeClass
-	 	public void setUp1()  throws InterruptedException, IOException {
-	 	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	 	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	 	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	// 	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	// 	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	 //	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	 	ReferenceSigin Sign=new ReferenceSigin();
 	 	Sign.Login(driver);
 	 	Sign.fieldconfigsid(driver,"BHABHATRON-II MLC v2_C03");
 	 	field=new FieldConfigurationPOM(driver);
+	 	act=new Actions(driver);      
+	 	action=new Actions(driver);   
 	   }
 	  @Test(priority=1, dataProvider = "testDatavalidfieldname")
 		  public void ValidFieldname(String FieldnameValid,String Fieldname,String Fx, String Fy, String Colliangle) throws IOException, InterruptedException
@@ -46,62 +51,62 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		 	 }
 		 	 catch(Exception e)
 		 	 {
-		 	 test.error(e);
+		 		 catchexceptionscreenshot(test,e) ;
 		 	 }
 		  }
 		
 	  @Test(priority=2)
-	  public void Additionalsearch() throws InterruptedException
+	  public void Additionalsearch() throws InterruptedException, IOException
 	   {
 		   try {
 		 		 FieldSearch();
 		   }
 	 		 catch(Exception e)
 	 		 {
-	 			 test.error(e);
+	 			 catchexceptionscreenshot(test,e) ;
 	 		 }  
 		 		 try {
 					FieldView();
 				} catch (Exception e) {
 					
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Fieldviewclick();
 				} catch (Exception e) {
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Addclick();
 				} catch (Exception e) {
 					
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					FieldEdit();
 				} catch (Exception e) {
 					
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Fieldeditclick();
 				} catch (Exception e) {
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Addclick();
 				} catch (Exception e) {
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Fielddelete();
 				} catch (Exception e) {
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 		 		 try {
 					Fielddeleteclick();
 				} catch (Exception e) {
-					 test.error(e);
+					 catchexceptionscreenshot(test,e) ;
 				}
 	   }
 	  
@@ -163,6 +168,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		             } catch (NumberFormatException e) {
 		                 // Handle the case where excelValue is not a valid number
 		            	 test1.fail("excelValue is not a valid number: " + excelValue);
+		            	 catchexceptionscreenshot1(test,e) ;
 		             }
 		         } else {
 		             // Handle the case where excelValue is null
@@ -210,6 +216,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	 	 catch(Exception e)
 	 	 {
 	 		 test.fail("Not found the elemnt");
+	 		 catchexceptionscreenshot1(test,e) ;
 	 	 }
 	  }
 	  
@@ -265,6 +272,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	 	 catch(Exception e)
 	 	 {
 	 		 test.pass("No Error messages get displayed "+Errormessage);
+	 		 catchexceptionscreenshot1(test,e) ;
 	 	 }
 	 }
 	 
@@ -286,6 +294,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	 	 catch(Exception e)
 	 	 {
 	 		 test.fail("Not able to save the data for fieldname:"+Fieldname);
+	 		 catchexceptionscreenshot1(test,e) ;
 	 	 }
 	 }
 	@Test(priority=8)
@@ -344,38 +353,39 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	 	 catch(Exception e)
 	 	 {
 	 		 test.pass("No Error messages get displayed ");
+	 		 catchexceptionscreenshot1(test,e) ;
 	 	 }
 	 }
 	
-	 public void Fielddata()
+	 public void Fielddata() throws IOException
 	 {
 		 try {
 		 FieldView();
 		 }
 		 catch(Exception e)
 		 {
-			 test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		 }
 		 try {
 			 FieldEdit();
 			 }
 			 catch(Exception e)
 			 {
-				 test.error(e);
+				 catchexceptionscreenshot(test,e) ;
 			 }
 		 try {
 			 Fielddelete();
 			 }
 			 catch(Exception e)
 			 {
-				 test.error(e);
+				 catchexceptionscreenshot(test,e) ;
 			 }
 		 try {
 			 FieldSearch();
 			 }
 			 catch(Exception e)
 			 {
-				 test.error(e);
+				 catchexceptionscreenshot(test,e) ;
 			 }
 	 }
 	
@@ -448,6 +458,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		           		 }
 		           		 catch(Exception e){
 		           			 test.fail("Element not found");
+		           			 catchexceptionscreenshot(test,e) ;
 		           		 }
 		           		 try {
 		           			 demo.isdisplayed(field.apply, "APPLY", test, driver);
@@ -456,6 +467,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		           			 }
 		           			 catch(Exception e){
 		           				 test.fail("Element not found");
+		           				 catchexceptionscreenshot(test,e) ;
 		           			 }
 		           		 break;
 		        	}
@@ -480,7 +492,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		 }
 		 catch(Exception e)
 		 {
-			 test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		 }
 		 
 		 try {
@@ -490,7 +502,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 			 }
 			 catch(Exception e)
 			 {
-				 test.error(e);
+				 catchexceptionscreenshot(test,e) ;
 			 }
 		 try {
 			 demo.isdisplayed(field.fieldsave, "SAVE", test, driver);
@@ -500,6 +512,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 			 catch(Exception e)
 			 {
 				 test.error(e);// Collimator empty not checking
+				 catchexceptionscreenshot(test,e) ;
 			 }
 	 }
 	 
@@ -524,6 +537,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		           		 }
 		           		 catch(Exception e){
 		           			 test.fail("Element not found");
+		           			 catchexceptionscreenshot(test,e) ;
 		           		 }
 		            try {
 	           			 demo.isdisplayed(field.apply, "APPLY", test, driver);
@@ -532,6 +546,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	           			 }
 	           			 catch(Exception e){
 	           				 test.fail("Element not found");
+	           				 catchexceptionscreenshot(test,e) ;
 	           			 }
 		            try {
 	           			 field.apply.click();
@@ -541,6 +556,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	           		 catch(Exception e)
 	           		 {
 	           			 test.fail("No element found");
+	           			 catchexceptionscreenshot(test,e) ;
 	           		 }
 	           		 break;
 		     
@@ -571,6 +587,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		                	}
 		                	catch(Exception e){
 		                		test.fail("Element not found");
+		                		 catchexceptionscreenshot(test,e) ;
 		                	}
 		                	
 		                	try {
@@ -581,6 +598,7 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 		                	}
 				                	catch(Exception e){
 				                		test.fail("Element not found");
+				                		 catchexceptionscreenshot(test,e) ;
 				                	}
 		                    }
 		                else {
@@ -737,9 +755,6 @@ public class FieldConfigurationMLC extends ReferencefileChemotheraphy{
 	       return DataProviderclass.getTestMlc("Sheet7"); 
 	   }
 	   
-	   @AfterSuite
-	   public void tearDown() {
-	       extent.flush();
-	    
-	   }
+	 
 }
+

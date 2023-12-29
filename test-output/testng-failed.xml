@@ -3,38 +3,27 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.krystal.project.TemplatesFun">
+      <class name="com.krystal.project.DesignationConfigurationtest">
         <methods>
-          <include name="EditandUpdate"/>
-          <include name="Searchbytemplateinvalid"/>
-          <include name="EditandAddicon"/>
-          <include name="deleteok"/>
-          <include name="SearchSiteInvalid"/>
-          <include name="deleteCancel"/>
-          <include name="TemplatetextfieldifenteringsameTemplateName"/>
-          <include name="setUp"/>
-          <include name="EditClick"/>
-          <include name="Modifydatacheck"/>
-          <include name="Searchbyinvaliddata"/>
-          <include name="delete"/>
-          <include name="Viewdata"/>
-          <include name="ModifyandAdd"/>
-          <include name="ModifyandReset"/>
-          <include name="Searchbytemplatename"/>
-          <include name="TemplateaddOAR" invocation-numbers="0 1"/>
-          <include name="Editdatacompasrion"/>
-          <include name="TemplateReset" invocation-numbers="0"/>
-          <include name="EmptyData"/>
+          <include name="Lastpageenabled"/>
+          <include name="pagesecond"/>
           <include name="setUp1"/>
-          <include name="ModifyandSave"/>
-          <include name="Searchbysitename"/>
+          <include name="pageenabled"/>
+          <include name="pagelast"/>
+          <include name="pagefirst"/>
+          <include name="Sitenameadd"/>
+          <include name="setUp"/>
+          <include name="quit"/>
+          <include name="Searchelementnext"/>
+          <include name="pageNext"/>
+          <include name="viewdataserach"/>
+          <include name="Searchempty"/>
+          <include name="FirstPageEnabled"/>
           <include name="tearDown"/>
-          <include name="TemplateAddfield" invocation-numbers="0"/>
-          <include name="Templateadd" invocation-numbers="5 6"/>
-          <include name="EditandReseticon"/>
-          <include name="Sitedropdowndefault"/>
+          <include name="previouspageenabled"/>
+          <include name="Nextpageenable"/>
         </methods>
-      </class> <!-- com.krystal.project.TemplatesFun -->
+      </class> <!-- com.krystal.project.DesignationConfigurationtest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

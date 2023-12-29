@@ -17,32 +17,34 @@ import org.testng.annotations.Test;
 import io.appium.java_client.windows.WindowsDriver;
 public class PlanApproval extends ReferencefileChemotheraphy{
 	private PlanApprovalPOM plan;
-	private Actions act;
 	private WebElement field1;
 	private WebElement Patientposition;
+	private Actions act;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.PlanApproval(driver);
 	plan=new PlanApprovalPOM(driver);
-	act=new Actions(driver);
+	act=new Actions(driver);      
+ 	action=new Actions(driver);   
 	}
 
 
 
 	
-	@Test(priority =0)
+	@Test(priority =1)
 	public void ToverifyplanapprovalLabel() throws IOException , IOException 
 	{
 	test=extent.createTest(guiTestCaseName()+ "To verify Plan Approval label","Plan Approval label should be present ");	
 	demo.Textcomparsion(plan.planapproval, "Plan Approval", test,driver);
 	}
 
-@Test(priority =1)
+@Test(priority =2)
 
 	public void ToverifyimporqaLabel() throws IOException , IOException {
 	test=extent.createTest(guiTestCaseName()+"To verify Import QA Plan label "," Import QA Plan label should be present ");	
@@ -292,6 +294,7 @@ demo.Textcomparsion(plan.description, "Plan Description", test,driver);
 @Test(priority =44)
 public void ToverifypatientpositionLabel() throws IOException , InterruptedException {
 test=extent.createTest(guiTestCaseName()+" To verify the patient position label ","patient position label  should be present ");	
+Actions act=new Actions(driver);
 act.moveToElement(Patientposition).moveByOffset(-65, -13).perform();
 Thread.sleep(3500);
 demo.Textcomparsion(plan.position, "Patient Position", test,driver);
@@ -351,7 +354,7 @@ demo.Textcomparsion(plan.time, "Treatment Time (MINUTE)", test,driver);
 @Test(priority =54)
 public void ToverifyfieldtypeLabel() throws IOException , InterruptedException {
 test=extent.createTest(guiTestCaseName()+" To verify the field type label "," field type label  should be present ");	
-
+Actions act=new Actions(driver);
 act.moveToElement(field1).moveByOffset(-65, -13).perform();
 Thread.sleep(3000);
 demo.Textcomparsion(plan.field, "Field Type", test,driver);
@@ -364,7 +367,7 @@ demo.Textcomparsion(plan.bolus, "Bolus (cm)", test,driver);
 @Test(priority =56)
 public void ToverifyfxcmLabel() throws IOException , InterruptedException {
 test=extent.createTest(guiTestCaseName()+" To verify the FX(cm)[Min:0,Max:30] label "," FX(cm)[Min:0,Max:20] label  should be present ");	
-demo.Textcomparsion(plan.fxcm, "FX(cm) [Min:0,Max:30]", test,driver);
+demo.Textcomparsion(plan.fxcm, "FX(cm) [Min:0,Max:25]", test,driver);
 
 
 }
@@ -372,7 +375,7 @@ demo.Textcomparsion(plan.fxcm, "FX(cm) [Min:0,Max:30]", test,driver);
 public void ToverifyfycmLabel() throws IOException , InterruptedException {
 	
 test=extent.createTest(guiTestCaseName()+" To verify the FY(cm)[Min:0,Max:20] label "," FY(cm)[Min:0,Max:20] label  should be present ");	
-demo.Textcomparsion(plan.fycm, "FY(cm) [Min:0,Max:30]", test,driver);
+demo.Textcomparsion(plan.fycm, "FY(cm) [Min:0,Max:25]", test,driver);
 }
 
 @Test(priority =58)
@@ -394,7 +397,7 @@ demo.Textcomparsion(plan.doserate1, "Dose Rate(MU/MINUTE)", test,driver);
 public void ToverifyfilterttypeLabel() throws IOException , InterruptedException {
 	
 test=extent.createTest(guiTestCaseName()+" To verify the Filter Type  label "," Filter Type label  should be present ");	
-demo.Textcomparsion(plan.filter, "Filter Type", test,driver);
+demo.Textcomparsion(plan.Filter, "Filter Type", test,driver);
 }
 
 
@@ -695,11 +698,6 @@ test=extent.createTest(guiTestCaseName()+" To verify Fraction Group dropdown Rea
 
 
 
-@AfterSuite
-public void tearDown() {
-	extent.flush();
-}
-	
 
 
 

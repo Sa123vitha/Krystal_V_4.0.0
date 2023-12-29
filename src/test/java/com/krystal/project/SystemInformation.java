@@ -27,22 +27,27 @@ import io.appium.java_client.windows.WindowsDriver;
 public class SystemInformation extends ReferencefileChemotheraphy {
 	
 	private SystemInformationPOM system;
+	private Actions action;
+	private Actions act;
 	
 	
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.ServiceLogin(driver);
 	Sign.SystemInformation(driver);
 	system= new SystemInformationPOM (driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 	
 	@Test(priority =1)
 	public void Systeminformation() throws IOException, InterruptedException {
+	test = extent.createTest("!!!!!!!!!!SYSTEM INFORMATION!!!!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+"System Information label"," System Information label should be present ");	
 	demo.Textcomparsion(system.systeminfo, "System Information", test,driver);
 	Thread.sleep(2000);	
@@ -250,7 +255,7 @@ public class SystemInformation extends ReferencefileChemotheraphy {
 	catch(Exception e)
 	{
 		test.fail("Hospital Name"+"Element not found");
-		demo.captureScreenshot("Capture",driver);
+		catchexceptionscreenshot1(test,e);
 		Thread.sleep(1000);
 	}
 	}
@@ -264,7 +269,7 @@ public class SystemInformation extends ReferencefileChemotheraphy {
 	catch(Exception e)
 	{
 		test.fail("Hospital Address"+"Element not found");
-		demo.captureScreenshot("Capture",driver);
+		catchexceptionscreenshot1(test,e);
 		Thread.sleep(1000);
 	}
 	}
@@ -340,17 +345,6 @@ demo.captureScreenshot("Capture",driver);
 Thread.sleep(1000);
 }
 
-}
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
 }
 
 public void captureScreenshot(String screenshotName, WebDriver driver) {

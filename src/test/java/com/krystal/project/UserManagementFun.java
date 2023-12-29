@@ -22,6 +22,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.FindBy;
 import org.sikuli.script.FindFailed;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -39,21 +40,24 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 	private String m;
 	private WebElement User;
 	ReferenceSigin Sign;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.UserManagement(driver);
 	user=new UserManagementPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 
 	@Test(priority = 1)
 	public void UserEmptyTextbox() throws InterruptedException, IOException, ClassNotFoundException, SQLException {
+		test = extent.createTest("!!!!!!!!!!USER MANAGEMENT MODULE!!!!!!!!!!");
 		
 		test = extent.createTest(funTestCaseName() +" Check default Textbox is Empty");	
 		 demo.isempty(user.User_ID, "User_ID", test,driver);
@@ -101,7 +105,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		
 	}
@@ -761,7 +765,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		 }
 		 catch(Exception e)
 	 	 {
-	 	test.error(e);
+	 	 catchexceptionscreenshot(test,e);
 	 	 }
 	 }
 	
@@ -784,7 +788,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		 }
 		 catch(Exception e)
 	 	 {
-	 	test.error(e);
+	 	 catchexceptionscreenshot(test,e);
 	 	 }
 	 }
 	
@@ -811,7 +815,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		 }
 		 catch(Exception e)
 	 	 {
-	 	test.error(e);
+	 	 catchexceptionscreenshot(test,e);
 	 	 }
 	 }
 	
@@ -826,13 +830,13 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		 }
 		 catch(Exception e)
 	 	 {
-	 	test.error(e);
+	 	 catchexceptionscreenshot(test,e);
 	 	 }
 	 }
 	
 	//*************************Edit***************************
 	@Test(priority=70)
-	public void Editenable()
+	public void Editenable() throws IOException
 	{
 		try {
 			test = extent.createTest("=======EDIT=======");
@@ -842,6 +846,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 			catch(Exception e)
 			{
 				test.fail("Edit Button is not enabled");
+				catchexceptionscreenshot(test,e);
 			}
 	}
 	
@@ -857,6 +862,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 			catch(Exception e)
 			{
 				test.fail("Edit Button is not enabled");
+				catchexceptionscreenshot1(test,e);
 			}
 		/*  It is showing as not displayed
 		try {
@@ -883,7 +889,8 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-			test.fail(e);
+			
+			catchexceptionscreenshot(test,e);
 		}		
 	}
 	@Test(priority=72)
@@ -897,7 +904,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-			test.error(m);
+			catchexceptionscreenshot(test,e);
 		}
 	
 	}
@@ -916,12 +923,12 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 			}
 			catch(Exception e)
 			{
-				test.error(m);
+				catchexceptionscreenshot(test,e);
 			}
 		}
 		catch(Exception e)
 		{
-			test.error(m);
+			catchexceptionscreenshot(test,e);
 		}
 	
 	}
@@ -987,7 +994,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		}
 		catch(Exception e)
 		{
-			test.error(m);
+			catchexceptionscreenshot(test,e);
 		}
 		
 	}
@@ -1006,6 +1013,7 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 	@Test(priority=77)
 	public void ResetPasswordactive() throws IOException, InterruptedException
 	{
+		try {
 		test = extent.createTest("=======RESET PASSWORD======");
 		test = extent.createTest(funTestCaseName()+" To Verify Click on Edit, Reset Password should be Enable");
 		Editdrug(test,"Edit", 0,0);
@@ -1018,14 +1026,25 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		user.Signout.click();
 		Thread.sleep(1000);
 		Sitesave1("Sign Out","Do you want to Sign out?","Sign out","Do you want to Sign out?", 1, driver,test);
-		Sign.Login(driver);
-		Thread.sleep(10000);
+		}
+		catch(Exception e)
+		{
+			test.error(e);
+		}
+		finally {
+			user.Userbx.clear();
+			user.Pswdbox.clear();
+			Thread.sleep(1000);
+		    Sign.Login(driver);
+		    Thread.sleep(10000);
+		}
 	}
 	
 	@Test(priority=78)
 	public void ResetPasswordInactive() throws IOException, InterruptedException
 	{
 		test = extent.createTest(funTestCaseName()+"Click on Edit, Inactive user, Click on the Reset Password");
+		try {
 		Sign.UserManagement(driver);
 		Thread.sleep(1000);
 		Editdrug(test,"Edit", 0,0);
@@ -1040,16 +1059,23 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 		Editdrug(test,"Edit", 0,0);
 		user.ResetPassword.click();
 		Sitesave1("Password Reset","Password has been reset for the selected user.","Password Reset","Password has been reset for the selected user.",0,driver,test);
+		}
+		catch(Exception e)
+		{
+			test.error(e);
+		}
+		finally {
 		SignoutLogin();
 		demo.isdisplayed(user.UserInactive,"User Inactive Mode", test, driver);
 		demo.Textcomparsion(user.UserInactive,"User Inactive Mode", test, driver);
 		user.Userbx.clear();
 		user.Pswdbox.clear();
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		Sign.Login(driver);
 		Thread.sleep(100000);
 		Sign.UserManagement(driver);
 		Thread.sleep(100000);
+		}
 	}
 	public void  SignoutLogin() throws IOException, InterruptedException 
 	{
@@ -1317,18 +1343,6 @@ public class UserManagementFun extends ReferencefileChemotheraphy{
 	  public Object[][] testDataEmpty() {
 	      return ToleranceDataproviderClass.getUserData("Sheet4"); 
 	  }
-	
-	@AfterSuite
-	public void tearDown() {
-		extent.flush();
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

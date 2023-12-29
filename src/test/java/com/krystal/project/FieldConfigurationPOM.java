@@ -30,7 +30,7 @@ public class FieldConfigurationPOM extends ReferencefileChemotheraphy{
 	@FindBy(name = "Field Name")
 	WebElement fieldname;
 	
-	@FindBy(name = "Regular Field Configuration")
+	@FindBy(name = "Regular Field Creation")
 	WebElement regfieldconfig;
 	
 	@FindBy(name = "Collimator Type")
@@ -151,6 +151,43 @@ public class FieldConfigurationPOM extends ReferencefileChemotheraphy{
 	
 	@FindBy(name = "FY2(cm) [Min:0,Max:12.5]")
 	WebElement MASymfY2;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection3View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+	WebElement selmachine;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection1View\"]/RadioButton[@ClassName=\"RadioButton\"][@Name=\"Asymmetric\"]")
+	WebElement Assy;
+	
+//	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection3View\"]/Edit[@ClassName=\"TextBox\"]/Edit[starts-with(@AutomationId,\"presenter\")]")
+//	WebElement Search;
+	
+	@FindBy(name = "Search Field Name")
+	WebElement Search;	
+	
+	@FindBy(name = "Search Field Type")
+	WebElement searchfieldType;	
+	
+	@FindBy(name = "FX(cm) [Min:0,Max:30]")
+	WebElement fxcm;	
+	
+	@FindBy(name = "FY(cm) [Min:0,Max:30]")
+	WebElement fycm;	
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection3View\"]/Button[@AutomationId=\"SearchMenuButton\"]")
+	WebElement selection;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/RadioButton[@ClassName=\"RadioButton\"][@Name=\"Field Name\"]/Text[@Name=\"Field Name\"][@AutomationId=\"RadioLabel\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Field Name\"]")
+	WebElement fieldName;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/RadioButton[@ClassName=\"RadioButton\"][@Name=\"Field Type\"]/Text[@Name=\"Field Type\"][@AutomationId=\"RadioLabel\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Field Type\"]")
+    WebElement fieldType;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection3View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+	WebElement select;
+	
+//	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"FieldConfigurationMainView\"]/Custom[@ClassName=\"FieldConfigurationSection3View\"]/Edit[@ClassName=\"TextBox\"]/Edit[starts-with(@AutomationId,\"presenter\")]")
+//    WebElement searchfieldType;
+	
 	
 	
 	//Error	

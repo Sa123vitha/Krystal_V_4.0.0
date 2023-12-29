@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -33,6 +33,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 import io.appium.java_client.windows.WindowsDriver;
 
+
 public class ChemotheraphyConfiguration extends ReferencefileChemotheraphy{
 	
 	protected ChemotheraphyPOM chemo;
@@ -52,17 +53,20 @@ public class ChemotheraphyConfiguration extends ReferencefileChemotheraphy{
 	private WebElement Edit;
 	private WebElement Delete;
 	ChemotheraphyPOM page;
-	  @BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	private Actions action;
+	private Actions act;
+	@Test(priority =1)
+	public void launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.Chemoconfig(driver);
 	chemo=new ChemotheraphyPOM(driver);
-	action=new Actions(driver);
 	setUp();
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 	//@Test(priority =1)
@@ -82,6 +86,7 @@ public class ChemotheraphyConfiguration extends ReferencefileChemotheraphy{
 	@Test(priority =10)
 public void classificationConfigurationGui() throws InterruptedException, IOException
 	{
+		test = extent.createTest("====GENERAL SETTINGS(CHEMOTHERAPHY CONFIGURATION MODULE)====");
 		test = extent.createTest(guiTestCaseName()+"To verify the classification Configuration label");
 		demo.Textcomparsion(chemo.classificationConfiguration, "CLASSIFICATION CONFIGURATION", test,driver); 
 		
@@ -99,6 +104,7 @@ public void classificationListGui() throws InterruptedException, IOException
        test = extent.createTest(guiTestCaseName()+"To verify the classification List label");
        demo.Textcomparsion(chemo.ClassificationList, "CLASSIFICATION LIST", test,driver);
 }
+
 
 
 @Test(priority =13)
@@ -204,7 +210,7 @@ public void testSearchTextBox() throws IOException, FindFailed, InterruptedExcep
 }
 
 @Test(priority=25)
-public void deleteenable()
+public void deleteenable() throws IOException
 {
 	try {
 		viewdeleteenable("ChemotherapyConfigurationSection1View"); 
@@ -212,6 +218,7 @@ public void deleteenable()
 		catch(Exception e)
 		{
 			test.fail("Delete Button is not enabled");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 String Actualtext;
@@ -230,6 +237,7 @@ public void deletecancel() throws InterruptedException, IOException, FindFailed
 		catch(Exception e)
 		{
 			test.fail("Classification cancel pop-up window not found");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 @Test(priority=27)
@@ -244,6 +252,7 @@ public void deleteok() throws InterruptedException, IOException, FindFailed
 		catch(Exception e)
 		{
 			test.fail("Classification ok pop-up window not found");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 
@@ -609,6 +618,7 @@ public void deleteRadionok() throws InterruptedException, IOException, FindFaile
 		catch(Exception e)
 		{
 			test.fail("Classification ok pop-up window not found");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 
@@ -643,15 +653,49 @@ public void DeletedatabaseaddRadio() throws FindFailed, ClassNotFoundException, 
       compareDataWithDatabaseRadio(test,"ChemotherapyConfigurationSection3View");
 }
 
-
-
-
-public void Drugsave() throws InterruptedException
+public void ClassificationSave() throws InterruptedException, IOException
 {
-	Save(3,driver);
+	Chemosave();
+	Sitesave("Classification Configuration", "Classification data saved.", "Classification Configuration","Classification data saved.",0,driver);
 }
 
 
+public void RegimenSavemsg() throws InterruptedException, IOException
+{
+	Regimensave();
+	Sitesave("Regimen Configuration", "Regimen data saved.", "Regimen Configuration", "Regimen data saved.",1,driver);
+}
+public void RadioSavemsg() throws InterruptedException, IOException
+{
+	Radiosave();
+	Thread.sleep(1000);
+	Sitesave("Radio Sensitizers Configuration", "Radio Sensitizers data saved.", "Radio Sensitizers Configuration", "Radio Sensitizers data saved.",2,driver);
+}
+
+
+
+
+	public void Editclick1() throws IOException
+	{
+	WebElement element1 = driver.findElements(By.className("Button")).get(18);
+	randomdecimalnumber();
+	Actions action=new Actions(driver);
+	action.moveToElement(element1).click().perform();
+	}
+String drugdose;
+
+public void Dosevaliddata(int i) throws IOException, InterruptedException
+{
+randomdecimalnumber();
+Drugbox = driver.findElements(By.className("TextBox")).get(i);
+Drugbox.click();
+driver.switchTo().activeElement().sendKeys(selectedOption1);
+drugdose=selectedOption1;
+Thread.sleep(1000);
+}
+
+String Unitdose;
+private WebElement DrugEdit1;
 
 
 @Test(priority=97)
@@ -682,34 +726,10 @@ DrugSavemsg();
 }
 
 
-public void Editclick1() throws IOException
-{
-WebElement element1 = driver.findElements(By.className("Button")).get(18);
-randomdecimalnumber();
-Actions action=new Actions(driver);
-action.moveToElement(element1).click().perform();
-}
-
-
-String drugdose;
-
-public void Dosevaliddata(int i) throws IOException, InterruptedException
-{
-randomdecimalnumber();
-Drugbox = driver.findElements(By.className("TextBox")).get(i);
-Drugbox.click();
-driver.switchTo().activeElement().sendKeys(selectedOption1);
-drugdose=selectedOption1;
-Thread.sleep(1000);
-}
-String Unitdose;
-private WebElement DrugEdit1;
-
 
 @Test(priority=101)
 public void Drugalreadysave() throws InterruptedException, IOException
 {
-	try {
 		chemo.DrugName.click();
 		driver.switchTo().activeElement().sendKeys(Drugname);
 		Editclick1();
@@ -719,11 +739,7 @@ public void Drugalreadysave() throws InterruptedException, IOException
 		test = extent.createTest(funTestCaseName()+" To verify the Drug name already exits error message is displayed");
 		demo.isdisplayed(chemo.DrugNameexits, "Drug Name already exists.", test,driver);
 		demo.Textcomparsion(chemo.DrugNameexits, "Drug Name already exists.", test,driver);
-		}
-		catch(Exception e)
-		{
-			test.error(e);
-		}
+		
 }
 //To verify the DrugDosepop-up window
 
@@ -761,6 +777,7 @@ public void DrugAddicon() throws InterruptedException, IOException, FindFailed
 try {
 test = extent.createTest(funTestCaseName()+" To verify the Click on the Addicon, DrugName and Dose and Unit data get reseted");
 WebElement DrugAddicon = driver.findElements(By.className("Button")).get(17);
+Actions action=new Actions(driver);
 action.moveToElement(DrugAddicon).click().perform();
 Thread.sleep(1000);
 demo.isempty(chemo.DrugName, "DrugName", test, driver);
@@ -783,9 +800,10 @@ else
 }
 catch(Exception e)
 {
-	test.error(e);
+	catchexceptionscreenshot(test,e) ;
 }
 CloseButton = driver.findElements(By.className("Button")).get(4);
+Actions action=new Actions(driver);
 action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 }
 
@@ -806,12 +824,13 @@ public void DrugUpperCase() throws IOException, InterruptedException
 }
 @Test(priority=105)
 public void Druglowercase() throws IOException, InterruptedException
-{
+{  
 	randomLower(20);
 	ValidataLower("Drug Name");
 	Thread.sleep(1000);
 	Editclick1();
 	Dosevaliddata(0);
+	Thread.sleep(1000);
 	EditUpdate(1);
 	Thread.sleep(1000);
 	DrugSavemsg();
@@ -824,6 +843,7 @@ public void DrugUpperlower() throws IOException, InterruptedException
 	Thread.sleep(1000);
 	Editclick1();
 	Dosevaliddata(0);
+	Thread.sleep(1000);
 	EditUpdate(1);
 	Thread.sleep(1000);
 	DrugSavemsg();	
@@ -836,6 +856,7 @@ public void DrugNumber() throws IOException, InterruptedException
 	Thread.sleep(1000);
 	Editclick1();
 	Dosevaliddata(0);
+	Thread.sleep(1000);
 	EditUpdate(1);
 	Thread.sleep(1000);
 	DrugSavemsg();
@@ -848,6 +869,7 @@ public void DrugChars() throws IOException, InterruptedException
 	Thread.sleep(1000);
 	Editclick1();
 	Dosevaliddata(0);
+	Thread.sleep(1000);
 	EditUpdate(1);
 	Thread.sleep(1000);
 	DrugSavemsg();	
@@ -855,24 +877,36 @@ public void DrugChars() throws IOException, InterruptedException
 @Test(priority=109)
 public void DrugSpecialchars() throws InterruptedException, IOException
 {
-	randomCharOutOfRange(20);
+	
 	InValidataRange("Drug Name");
 	Thread.sleep(1000);
 	Editclick1();
 	Dosevaliddata(0);
+	Thread.sleep(1000);
 	EditUpdate(1);
 	Thread.sleep(1000);
 	DrugSavemsg();
 }
+@Test(priority=110)
+public void DrugInvalid() throws IOException, InterruptedException
+{
+	test = extent.createTest(funTestCaseName()+" To verify the  textbox is not accepting specialchars \\,' and displaying error message");
+	chemo.DrugName.click();
+	driver.switchTo().activeElement().sendKeys("\\,");
+	Drugsave();
+	WebElement Specialchars=driver.findElement(By.name("Input must not contain \\ , '' , '"));
+	demo.isdisplayed(Specialchars, "Input must not contain \\ , '' , '", test,driver);
+	chemo.DrugName.clear();
+}
 
 
-@Test(priority =110)
+@Test(priority =111)
 public void databaseconnectionsavecheckDrug() throws IOException
 {
 	test = extent.createTest(dataTestCaseName()+" To verify the Saved Database for Drug and Dose Name Configuration");
 	Drugconfig(test);
 }
-@Test(priority =111)
+@Test(priority =112)
 public void AppdatagridelementsDrug() throws IOException, FindFailed, InterruptedException, ClassNotFoundException, SQLException
 {
 	test = extent.createTest(guiTestCaseName() + "To verify the Drug and Dose Name datagrid elements");
@@ -892,10 +926,8 @@ public void testSearchTextBoxDrug() throws IOException, FindFailed, InterruptedE
     test = extent.createTest(funTestCaseName()+" To verify the Drug and Dose Name Search box functionality");
     viewDataSearchDrug("D:\\Help\\Chemo\\SearchDrug.PNG",test,"ChemotherapyConfigurationSection4View",driver);  
 }
-
-
 @Test(priority=114)
-public void deleteenableDrug()
+public void deleteenableDrug() throws IOException
 {
 	try {
 		viewdeleteenabledrug("ChemotherapyConfigurationSection4View"); 
@@ -903,12 +935,11 @@ public void deleteenableDrug()
 		catch(Exception e)
 		{
 			test.fail("Delete Button is not enabled");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 
 String Actualtext5;
-
-
 private String Actualtext7;
 @Test(priority=115)
 public void deletecancelDrug() throws InterruptedException, IOException, FindFailed
@@ -925,6 +956,7 @@ public void deletecancelDrug() throws InterruptedException, IOException, FindFai
 		catch(Exception e)
 		{
 			test.fail("Regimen cancel pop-up window not found");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 
@@ -940,12 +972,13 @@ public void deleteDrugok() throws InterruptedException, IOException, FindFailed
 		catch(Exception e)
 		{
 			test.fail("Drug Configuration ok pop-up window not found");
+			catchexceptionscreenshot1(test,e) ;
 		}
 	
 	
 }
 
-public void DrugEditenable()
+public void DrugEditenable() throws IOException
 {
 	try {
 		vieweditenabledrug("ChemotherapyConfigurationSection4View"); 
@@ -953,6 +986,7 @@ public void DrugEditenable()
 		catch(Exception e)
 		{
 			test.fail("Edit Button is not enabled");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
 
@@ -966,6 +1000,7 @@ public void EditDrugok() throws InterruptedException, IOException, FindFailed
 		catch(Exception e)
 		{
 			test.fail("Drug Configuration not able to edit");
+			catchexceptionscreenshot1(test,e) ;
 		}
 	try {
 		demo.isdisplayed(chemo.Update, "UPDATE", test, driver);
@@ -975,7 +1010,7 @@ public void EditDrugok() throws InterruptedException, IOException, FindFailed
 	}
 	catch(Exception e)
 	{
-		test.fail(e);
+		catchexceptionscreenshot(test,e) ;
 	}	
 }
 
@@ -1007,6 +1042,7 @@ public void EditDrugmodify() throws InterruptedException, IOException, FindFaile
 		catch(Exception e)
 		{
 			test.fail("Drug Configuration not able to edit");
+			catchexceptionscreenshot1(test,e) ;
 		}
 		
 }
@@ -1058,6 +1094,7 @@ public void Doseanddurgfun() throws IOException
 @Test(priority=123)
 public void Addiconlabel() throws IOException
 {
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	 DrugEdit.click();
 	 test = extent.createTest(guiTestCaseName()+" To verify Drug Add icon label");
 	 Addicon = driver.findElements(By.className("Button")).get(6);
@@ -1152,6 +1189,7 @@ public void Editanddelete() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Input cannot be blank error element not found");
+		catchexceptionscreenshot1(test,e) ;
 	}
 
 }
@@ -1160,7 +1198,7 @@ public void Editanddelete() throws IOException
 public void Errormessageclose() throws IOException, InterruptedException
 {
 	test = extent.createTest(guiTestCaseName()+" Click on the Drug Close and Open Errormessage should not display");
-	action=new Actions(driver);
+	Actions action=new Actions(driver);
 	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 	try {
 		if(!chemo.blankmessage.isDisplayed())
@@ -1175,41 +1213,53 @@ public void Errormessageclose() throws IOException, InterruptedException
 		catch(Exception e)
 		{
 			test.pass("Error message is not displaying");
+			catchexceptionscreenshot1(test,e) ;
 		}
 }
+
+
 
 
 @Test(priority=135)
 public void Drugtextbox() throws IOException, InterruptedException
 {
-	test = extent.createTest(guiTestCaseName()+" Enter only  DrugDose and Drugname  error message is displayed");
+	
+	
 	randomUpper(20);
 	Thread.sleep(1000);
 	ValidataUpper("Drug Name");
-	Thread.sleep(1000); 
+	Thread.sleep(1000);
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Thread.sleep(1000);
 	Dosevaliddata(0);
 	Thread.sleep(1000);
 	chemo.Update.click();
-	//demo.isdisplayed(chemo.SelectAny, "Select Any", test, driver);
-	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();// Not able to identify the error message
+	test = extent.createTest(guiTestCaseName()+" Enter only  DrugDose and Drugname error message is displayed");
+	demo.isdisplayed(chemo.SelectAny, "Select Any", test, driver);
+	Thread.sleep(1000);
+   Actions action=new Actions(driver);
+    CloseButton = driver.findElements(By.className("Button")).get(4);
+    action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 }
 
 @Test(priority=136)
 public void Unittextbox() throws IOException, InterruptedException
 {
 	test = extent.createTest(guiTestCaseName()+" Enter only  Unit and Empty Dosetextbox  error message is displayed");
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	EditUpdate(1);
 	demo.isdisplayed(chemo.blankmessage, "Input cannot be blank", test, driver);
-	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
+	 Actions action=new Actions(driver);
+	 CloseButton = driver.findElements(By.className("Button")).get(4);
+	 action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 }
 
 
 
 
-@Test(priority=137)
+//@Test(priority=137)
 public void DrugDoseElements1() throws InterruptedException
 {
 	
@@ -1241,6 +1291,7 @@ public void DrugDoseElements1() throws InterruptedException
 public void DrugandUnittextbox() throws IOException, InterruptedException
 {
 	test = extent.createTest(guiTestCaseName()+" Enter both Drug and Doseunit and Update the data");
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Dosevaliddata(0);
 	EditUpdate1(1);
@@ -1252,13 +1303,14 @@ public void DrugandUnittextbox() throws IOException, InterruptedException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		catchexceptionscreenshot(test,e) ;
 	}
 	finally {
-	
+		 Actions action=new Actions(driver);
 	action.moveToElement(chemo.Update).click().perform();
 	}
 }
+
 
 @Test(priority=139)
 public void Drugdoseadd() throws IOException, InterruptedException
@@ -1266,9 +1318,11 @@ public void Drugdoseadd() throws IOException, InterruptedException
 	test = extent.createTest(guiTestCaseName()+" Click on the Drug Addicon, Edit and delete button are enabled");
 	for(int i=1;i<=10;i++)
 	{
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	//demo.isEnabled(Addicon, "Addicon", test, driver);
 	Addicon = driver.findElements(By.className("Button")).get(6);
+	 Actions action=new Actions(driver);
 	action.moveToElement(Addicon).click().perform();
 	Edit = driver.findElements(By.className("Button")).get(8);
 	demo.isEnabled(Edit, "Edit", test, driver);
@@ -1281,15 +1335,18 @@ public void Drugdoseadd() throws IOException, InterruptedException
 	if(i==2)
 	{
 		chemo.DrugName.click();
+		chemo.DrugName.clear();
 		driver.switchTo().activeElement().sendKeys("Dose and Drug");
 		DrugSavemsg();
 		break;
 	}
 	}
 }
+
 @Test(priority=140)
 public void Drugnameinvalid() throws IOException, InterruptedException
 {
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Thread.sleep(1000);
 	Drugbox = driver.findElements(By.className("TextBox")).get(0);
@@ -1306,12 +1363,14 @@ public void Drugnameinvalid() throws IOException, InterruptedException
 	Invaliddata(Drugbox,  "shgdjdgd&^&%&",test);
 	Thread.sleep(1000);
 	CloseButton = driver.findElements(By.className("Button")).get(4);
+	 Actions action=new Actions(driver);
 	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();	
 }
 
 @Test(priority=141)
 public void DrugnameRangevalidation() throws IOException
 {
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Drugbox = driver.findElements(By.className("TextBox")).get(0);
 try
@@ -1322,7 +1381,7 @@ try
      }
 catch(Exception e)
       {
-	test.error(e);
+	catchexceptionscreenshot1(test,e) ;
      }
 
 try
@@ -1332,9 +1391,10 @@ InvalidRange(Drugbox, "100000","Range:[0.1 to 10000]","Range:[0.1 to 10000]",tes
  }
 catch(Exception e)
   {
-test.error(e);
+	catchexceptionscreenshot1(test,e) ;
  }
 CloseButton = driver.findElements(By.className("Button")).get(4);	
+Actions action=new Actions(driver);
 action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();	
 }
 
@@ -1342,6 +1402,7 @@ action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 public void Samenameexits() throws IOException, InterruptedException
 {
 	test = extent.createTest(funTestCaseName()+" To verify enetred same drugname errormessage is displayed");
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Thread.sleep(1000);
 	Drugbox = driver.findElements(By.className("TextBox")).get(0);
@@ -1349,6 +1410,7 @@ public void Samenameexits() throws IOException, InterruptedException
 	driver.switchTo().activeElement().sendKeys("0.9");
 	Thread.sleep(1000);
 	EditUpdate1(1);
+	Addicon = driver.findElements(By.className("Button")).get(6);
 	Addicon.click();
 	Drugbox = driver.findElements(By.className("TextBox")).get(1);
 	Drugbox.click();
@@ -1358,6 +1420,8 @@ public void Samenameexits() throws IOException, InterruptedException
 	WebElement SameDosemessage=driver.findElement(By.name("Same Dose and Unit already exist"));
 	demo.isdisplayed(SameDosemessage, "Same Dose and Unit already exist", test, driver);
 	demo.Textcomparsion(SameDosemessage, "Same Dose and Unit already exist", test, driver);
+	CloseButton = driver.findElements(By.className("Button")).get(4);	
+	 Actions action=new Actions(driver);
 	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
 }
 
@@ -1366,6 +1430,7 @@ public void EditandUpdatedrug() throws InterruptedException, IOException
 {
 	test = extent.createTest(funTestCaseName()+" To verify Drug data edited and updated is displayed correctly or not");
 	int j=0;
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	for(int i=0;i<=20;i++)
 	{
@@ -1374,7 +1439,7 @@ public void EditandUpdatedrug() throws InterruptedException, IOException
 	String Drugdata=drugdose;
 	String DrugUnitdata=selectedOption;
 	chemo.Update.click();
-	
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Editdrug(i+8+j,test);
 	
@@ -1393,7 +1458,7 @@ public void EditandUpdatedrug() throws InterruptedException, IOException
 	String Drugdata1=drugdose;
 	String DrugUnit2=selectedOption;
 	chemo.Update.click();
-	
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Editdrug(i+8+j,test);
 	Thread.sleep(1000);
@@ -1417,6 +1482,7 @@ public void EditandUpdatedrug() throws InterruptedException, IOException
 		DrugSavemsg();
 		break;
 	}
+	Addicon = driver.findElements(By.className("Button")).get(6);
 	Addicon.click();
 	}
 }
@@ -1425,6 +1491,7 @@ public void Drugdelete() throws IOException, InterruptedException
 {
 	test = extent.createTest(funTestCaseName()+" To verify Drugdata deleted and Updated");
 	int j=0;
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Dosevaliddata(0);
 	EditUpdate1(1);
@@ -1432,6 +1499,7 @@ public void Drugdelete() throws IOException, InterruptedException
 	demo.BydefaultisEnabled(Delete, "Delete", test, driver);
 	for(int i=1;i<=20;i++)
 	{
+	Addicon = driver.findElements(By.className("Button")).get(6);
 	Addicon.click();
 	Delete = driver.findElements(By.className("Button")).get(9);
 	Thread.sleep(1000);
@@ -1441,6 +1509,7 @@ public void Drugdelete() throws IOException, InterruptedException
 	Editdrug(i+10,test);
 	Thread.sleep(1000);
 	chemo.Update.click();
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	demo.BydefaultisEnabled(Delete, "Delete", test, driver);
 	chemo.Update.click();
@@ -1460,15 +1529,18 @@ public void Drugdeleteclose() throws IOException, InterruptedException
 	ValidataUpperLower("Drug Name");
 	test = extent.createTest(funTestCaseName()+" To verify Drugdata deleted and closed without update the data");
 	int j=0;
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	Dosevaliddata(0);
 	EditUpdate1(1);
 	Delete = driver.findElements(By.className("Button")).get(9);
 	demo.BydefaultisEnabled(Delete, "Delete", test, driver);
 	chemo.Update.click();
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	for(int i=1;i<=20;i++)
 	{
+	Addicon = driver.findElements(By.className("Button")).get(6);
 	Addicon.click();
 	Thread.sleep(1000);
 	Dosevaliddata(i);
@@ -1476,7 +1548,9 @@ public void Drugdeleteclose() throws IOException, InterruptedException
 	Thread.sleep(1000);
 	Editdrug(i+10,test);
 	Thread.sleep(1000);
+	 Actions action=new Actions(driver);
 	action.moveToElement(CloseButton).moveByOffset(-2, 0).click().perform();
+	DrugEdit = driver.findElements(By.className("Button")).get(18);
 	DrugEdit.click();
 	chemo.Update.click();
 	Thread.sleep(1000);
@@ -1485,6 +1559,8 @@ public void Drugdeleteclose() throws IOException, InterruptedException
 	}
 	
 }// Delete the doe in the middle
+
+
 
 public void Editdrug(int i, ExtentTest test) throws InterruptedException, IOException
 {
@@ -1552,24 +1628,7 @@ public void InvalidRange(WebElement Name, String Text,String Aelement,String Eel
 	driver.switchTo().activeElement().clear();
 }
 
-public void ClassificationSave() throws InterruptedException, IOException
-{
-	Chemosave();
-	Sitesave("Classification Configuration", "Classification data saved.", "Classification Configuration","Classification data saved.",0,driver);
-}
 
-
-public void RegimenSavemsg() throws InterruptedException, IOException
-{
-	Regimensave();
-	Sitesave("Regimen Configuration", "Regimen data saved.", "Regimen Configuration", "Regimen data saved.",1,driver);
-}
-public void RadioSavemsg() throws InterruptedException, IOException
-{
-	Radiosave();
-	Thread.sleep(1000);
-	Sitesave("Radio Sensitizers Configuration", "Radio Sensitizers data saved.", "Radio Sensitizers Configuration", "Radio Sensitizers data saved.",2,driver);
-}
 public void DrugSavemsg() throws InterruptedException, IOException
 {
 	Drugsave();
@@ -1606,6 +1665,10 @@ Sitesave("Drug Configuration", "Selected Drug data deleted.", "Drug Delete", "Se
 }
 
 
+public void Drugsave() throws InterruptedException
+{
+	Save(3,driver);
+}
 
 
 
@@ -1739,6 +1802,7 @@ public void errormessagedisplayed1(String Text,String ExceptedMsgDescription, Ex
 	}
 	catch(Exception e) {
 		test.fail(ExceptedMsgDescription+" Error message not displayed");
+		catchexceptionscreenshot1(test,e) ;
 	}
 }
 
@@ -1964,19 +2028,6 @@ public void compareDataWithDatabaseDrugname(
 
 
 
-
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
-		// Serach with delete one testcase is pending
 
 
 

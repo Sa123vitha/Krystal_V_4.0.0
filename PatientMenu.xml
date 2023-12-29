@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite"> 
+   
+<test name="SequentialTest1" parallel="false">
+        <classes>
+             <class name="com.krystal.project.HolidaySettings"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest2" parallel="false">
+        <classes>
+              <class name="com.krystal.project.UserMangementTest"/>
+        </classes>
+    </test>
+  <test name="SequentialTest3" parallel="false">
+        <classes>
+               <class name="com.krystal.project.UserManagementFun"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest4" parallel="false">
+        <classes>
+              <class name="com.krystal.project.TemplatesTest"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest5" parallel="false">
+        <classes>
+              <class name="com.krystal.project.TemplatesFun"/>
+        </classes>
+    </test>
+     
+     <test name="SequentialTest6" parallel="false">
+        <classes>
+                  <class name="com.krystal.project.ThemeSettings"/>
+        </classes>
+    </test>
+    <test name="SequentialTest7" parallel="false">
+        <classes>
+                   <class name="com.krystal.project.PasswordChange"/>
+     
+        </classes>
+    </test>
+  
+    
+</suite> <!-- Suite -->

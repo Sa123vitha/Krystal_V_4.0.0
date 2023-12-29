@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sikuli.script.FindFailed;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -29,22 +30,25 @@ public class PatientListGUI extends ReferencefileChemotheraphy{
 	private WebElement create;
 	private WebElement modify;
 	private Object user;
+	private Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Patientlist(driver);
 	patientlist=new PatientListPOM(driver);
+	action=new Actions(driver);
 	act=new Actions(driver);
 	}
 
 	
- @Test(priority =0)
+ @Test(priority =1)
 		public void Menu() throws InterruptedException, IOException
 		{
+	       test = extent.createTest("!!!!!!!!!!PATEINT LIST!!!!!!!");
 			 test = extent.createTest("=======Title Bar========");
 			 test = extent.createTest(guiTestCaseName()+" To Verify Menu icon displayed and enabled");
 			 demo.isdisplayed(patientlist.Menu, "Menu icon", test, driver);
@@ -429,10 +433,7 @@ demo.BydefaultisEnabled(patientlist.LastPageButton,"Last page button", test,driv
 		
 }
 
-@AfterSuite
-public void tearDown() {
-    extent.flush();
-}
+
 
 
 }

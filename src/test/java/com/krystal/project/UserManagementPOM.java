@@ -338,6 +338,7 @@ public class UserManagementPOM {
 	
 	//UserId
 	@FindBy(xpath ="//Pane[@ClassName=\"ScrollViewer\"]/Edit[@ClassName=\"TextBox\"]/Text[@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"]")
+	
 	List<WebElement> warnmsg;// User iD =0 and first Name=1 index values
 	@FindBy(xpath ="//Custom[@ClassName=\"UserManagementSection1View\"]/Pane[@ClassName=\"ScrollViewer\"]/Edit[@AutomationId=\"NewPassword\"]/Text[@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"]")
 	@CacheLookup

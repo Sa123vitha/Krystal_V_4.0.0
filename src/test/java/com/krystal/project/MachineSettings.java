@@ -30,22 +30,26 @@ import io.appium.java_client.windows.WindowsDriver;
 public class MachineSettings extends ReferencefileChemotheraphy{
  
 	private MachineSettingsPOM machine;
+	private Actions act;
 	
 	
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	Thread.sleep(1000);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.ServiceLogin(driver);
 	Sign.Machinesettings(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
 	
 	machine=new MachineSettingsPOM(driver);
 	}
 	@Test(priority =1)
 	public void Machinelist() throws IOException {
+		test = extent.createTest("!!!!!!!!!!SS(MACHINE SETTINGS MODULE)!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+" To Verify Machine List Label "," Machine List label should be present ");	
 	demo.Textcomparsion(machine.machinelist, "Machine List", test,driver);
 	}
@@ -305,15 +309,5 @@ public void guilabelindex(String Text, int i,ExtentTest test) throws Interrupted
    	    element.click();
    	}
 }
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
+
 }

@@ -28,19 +28,24 @@ import com.aventstack.extentreports.ExtentTest;
 import io.appium.java_client.windows.WindowsDriver;
 
 public class GeneratorSettingsTest extends ReferencefileChemotheraphy {
-	public WindowsDriver<WebElement> driver;
+
 	WebElement Userbx;
 	WebElement Pswdbox;
-	
 	private GeneratorSettingsPOM gen;
+	private Actions action;
+	private Actions act;
 	public static int testCaseCount = 1;
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	
+	
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+	//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+	//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+	//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	navigation();
 	gen=new GeneratorSettingsPOM(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 		public void navigation() throws InterruptedException 
@@ -83,6 +88,7 @@ public class GeneratorSettingsTest extends ReferencefileChemotheraphy {
 	
 	@Test(priority =1)
 	public void ToverifygeneratorsettingsLabel() throws IOException {
+		test = extent.createTest("======SS(GENERATOR SETTINGS)========");
 	test = extent.createTest(guiTestCaseName()+" Service Settings label"," Service Settings label should be present ");	
 	demo.Textcomparsion(gen.generatorSettings, "Service Settings", test,driver);
 	}
@@ -210,7 +216,7 @@ demo.Textcomparsion(gen.XRaytube, "X-Ray tube filter thickness", test,driver);
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	EditmASettings.click();
@@ -232,7 +238,7 @@ demo.Textcomparsion(gen.XRaytube, "X-Ray tube filter thickness", test,driver);
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	gen.Cancel.click();
@@ -259,7 +265,7 @@ private WebElement EditFrameSettings;
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	EditmsSettings.click();
@@ -281,7 +287,7 @@ private WebElement EditFrameSettings;
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	gen.Cancel.click();
@@ -306,7 +312,7 @@ demo.Textcomparsion(gen.frameRate, "Frame Rate Settings", test,driver);
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	EditFrameSettings.click();
@@ -328,7 +334,7 @@ demo.Textcomparsion(gen.frameRate, "Frame Rate Settings", test,driver);
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	finally {
 	gen.Cancel.click();
@@ -354,7 +360,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
  
 	try {
@@ -363,14 +369,14 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	try {
 		InvalidData(gen.Minms,driver,"Minimum ms");
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}
 	
 	try {
@@ -379,7 +385,7 @@ public void Invalidchars() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}	
 	
 	try {
@@ -389,7 +395,7 @@ public void Invalidchars() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}
 	
 	try {
@@ -399,7 +405,7 @@ public void Invalidchars() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}
 	
 	try {
@@ -408,7 +414,7 @@ public void Invalidchars() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}
 	
 	try {
@@ -417,7 +423,7 @@ public void Invalidchars() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e) ;
 		}
 	
 	
@@ -428,7 +434,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 
 	
@@ -438,7 +444,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	
 	try {
@@ -447,7 +453,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	try {
 		WebElement EditmASettings=driver.findElements(By.className("Button")).get(5);
@@ -458,7 +464,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	
 	try {
@@ -470,7 +476,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 	
 	try {
@@ -482,7 +488,7 @@ public void Invalidchars() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
 }
 
@@ -497,7 +503,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e) ;
 	}
  
 	try {
@@ -507,14 +513,14 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 		InValidRangeSettings(gen.Minms,"Minimum ms");
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	try {
@@ -523,7 +529,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}	
 	
 	try {
@@ -533,7 +539,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	try {
@@ -543,7 +549,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	try {
@@ -552,7 +558,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	try {
@@ -561,7 +567,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	
@@ -572,7 +578,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 
 	
@@ -582,7 +588,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -590,7 +596,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 
 	
@@ -603,7 +609,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -615,7 +621,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -627,7 +633,7 @@ public void InvalidRangeAngle() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	
@@ -659,7 +665,7 @@ public void MingreaterRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -679,7 +685,7 @@ public void BothequalRange() throws InterruptedException, IOException
 	}
 	catch(Exception e) {
 		
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 	WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -688,7 +694,7 @@ public void BothequalRange() throws InterruptedException, IOException
 	}
 	catch(Exception e) {
 		
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -698,7 +704,7 @@ public void BothequalRange() throws InterruptedException, IOException
 		}
 		catch(Exception e) {
 			
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	try {
 		Rangeequal(gen.XRaytube,gen.Maxms,driver,"X-ray tube Specification");
@@ -718,14 +724,14 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 	Rangevalid(gen.Minms,gen.Maxms,"0.1","100",driver);
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 	WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -734,7 +740,7 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 		WebElement CBCTminKv=driver.findElements(By.className("TextBox")).get(4);
@@ -743,7 +749,7 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 		WebElement RadioKvSteps=driver.findElements(By.className("TextBox")).get(8);
@@ -752,14 +758,14 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 		Rangevalid(gen.XRaytube,gen.XRaytube,"0.1","0.1",driver);
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	
 	
@@ -775,7 +781,7 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	
 	try {
@@ -789,7 +795,7 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	try {
 		test = extent.createTest(guiTestCaseName()+" Enter Valid Frame Rate Settings Update button is enabled");
@@ -802,7 +808,7 @@ public void ValidRange() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	test = extent.createTest(guiTestCaseName()+" Enter Valid Range save button enabled");
 	demo.isEnabled(gen.Save,"SAVE", test,driver);
@@ -829,6 +835,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	
 	try {
@@ -837,6 +844,7 @@ public void editdisable() throws IOException
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
+			 catchexceptionscreenshot1(test,e) ;
 		}
 	try {
 		WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -846,6 +854,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement CBCTminKv=driver.findElements(By.className("TextBox")).get(4);
@@ -855,6 +864,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement RadioKvSteps=driver.findElements(By.className("TextBox")).get(8);
@@ -864,6 +874,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement XRaytube=driver.findElements(By.className("TextBox")).get(10);
@@ -872,6 +883,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement EditmASettings=driver.findElements(By.className("Button")).get(5);
@@ -881,6 +893,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	
 	try {
@@ -891,6 +904,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	
 	try {
@@ -901,6 +915,7 @@ public void editdisable() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 }
 
@@ -916,14 +931,14 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 		Rangevalid(gen.Minms,gen.Maxms,"0.2","99",driver);
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 		WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -932,7 +947,7 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 			WebElement CBCTminKv=driver.findElements(By.className("TextBox")).get(4);
@@ -941,7 +956,7 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 			WebElement RadioKvSteps=driver.findElements(By.className("TextBox")).get(8);
@@ -950,14 +965,14 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 			Rangevalid(gen.XRaytube,gen.XRaytube,"0.2","0.2",driver);
 			}
 			catch(Exception e)
 			{
-				test.error(e);
+				 catchexceptionscreenshot(test,e);
 			}
 		
 		
@@ -974,7 +989,7 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		
 		try {
@@ -989,7 +1004,7 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		try {
 			
@@ -1003,7 +1018,7 @@ public void DataUpdatebutton() throws IOException, InterruptedException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 		
 }
@@ -1017,7 +1032,7 @@ public void Updatebutton() throws IOException
 	}
 	catch(Exception e)
 	{
-	 test.error(e);
+	  catchexceptionscreenshot(test,e);
 	}
 	try {
 	demo.isEnabled(gen.Update, "UPDATE", test,driver);
@@ -1025,7 +1040,7 @@ public void Updatebutton() throws IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 }
 @Test(priority=40)
@@ -1041,7 +1056,7 @@ public void UpdateCancel() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		 catchexceptionscreenshot(test,e);
 	}
 	finally {
 		WebElement Generatorsettings = driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneratorSettingsMainView\"]/Custom[@ClassName=\"GeneratorSettingsSection1View\"]/ComboBox[@ClassName=\"ComboBox\"]"));
@@ -1060,7 +1075,7 @@ public void UpdateCancel() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-			test.error(e);
+			 catchexceptionscreenshot(test,e);
 		}
 	gen.Edit.click();
 	Updateddatavalid();
@@ -1106,6 +1121,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 	editupdatedata(gen.Minms,"0.2",driver);
@@ -1114,6 +1130,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -1124,6 +1141,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement CBCTminKv=driver.findElements(By.className("TextBox")).get(4);
@@ -1134,6 +1152,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement RadioKvSteps=driver.findElements(By.className("TextBox")).get(8);
@@ -1144,6 +1163,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement XRaytube=driver.findElements(By.className("TextBox")).get(10);
@@ -1152,6 +1172,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	
 	try {
@@ -1165,6 +1186,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement EditmsSettings=driver.findElements(By.className("Button")).get(6);
@@ -1176,6 +1198,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement EditFrameSettings=driver.findElements(By.className("Button")).get(7);
@@ -1187,6 +1210,7 @@ public void UpdateCompare() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	}
 
@@ -1201,6 +1225,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 	editupdatedata(gen.Minms,"0.1",driver);
@@ -1209,6 +1234,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement RadiominKv=driver.findElements(By.className("TextBox")).get(3);
@@ -1219,6 +1245,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement CBCTminKv=driver.findElements(By.className("TextBox")).get(4);
@@ -1229,6 +1256,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement RadioKvSteps=driver.findElements(By.className("TextBox")).get(8);
@@ -1239,6 +1267,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement XRaytube=driver.findElements(By.className("TextBox")).get(10);
@@ -1247,6 +1276,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	
 	try {
@@ -1260,6 +1290,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement EditmsSettings=driver.findElements(By.className("Button")).get(6);
@@ -1271,6 +1302,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	try {
 		WebElement EditFrameSettings=driver.findElements(By.className("Button")).get(7);
@@ -1282,6 +1314,7 @@ public void Updateddatavalid() throws IOException
 	catch(Exception e)
 	{
 		test.fail("Save pop-up is not displayed");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	}
 public void editupdatedata(WebElement element, String text,WebDriver driver) throws IOException
@@ -1375,6 +1408,7 @@ public void InValidRangeKV(WebElement InValidrange, String Text) throws IOExcept
 	catch(Exception e)
 	{
 		test.fail("-1 is not accepting, Missmatch from compared to all textboxes");
+		 catchexceptionscreenshot1(test,e) ;
 		driver.switchTo().activeElement().clear();
 	}
 	try {
@@ -1383,6 +1417,7 @@ public void InValidRangeKV(WebElement InValidrange, String Text) throws IOExcept
 	catch(Exception e)
 	{
 		test.fail("0 is not accepting, Missmatch from compared to all textboxes");
+		 catchexceptionscreenshot1(test,e) ;
 		driver.switchTo().activeElement().clear();
 	}
 }
@@ -1488,6 +1523,7 @@ public void InvalidDataSettings(WebElement Invaliddata, String Text) throws IOEx
 	catch(Exception e)
 	{
 		test.fail("Error message not displaying");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 	test = extent.createTest(funTestCaseName()  +Invaliddata.getText()+" textbox should not accept the alphanumeric");
 	Invaliddatasettings(Invaliddata,  "shgdjdgd&^&%&","Only digits with comma allowed","Only digits with comma allowed");
@@ -1509,6 +1545,7 @@ public void Validdata(WebElement Name, String Text,String actual, String Excepte
 	catch(Exception e)
 	{
 		test.pass("Range Error message not displayed for the valid data");
+		 catchexceptionscreenshot1(test,e) ;
 	}
 }
 
@@ -1542,19 +1579,5 @@ public void Invalidrange(WebElement Name, String Text, String actual, String Exc
 	driver.switchTo().activeElement().clear();
 }
 
-
-
-	
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
 	
 }

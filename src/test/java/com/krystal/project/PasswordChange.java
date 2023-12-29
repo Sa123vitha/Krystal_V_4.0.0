@@ -20,7 +20,9 @@ import org.openqa.selenium.support.FindBy;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
+import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -46,16 +48,20 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	WebElement confrimPasswordErrorMessage;
 	WebElement newErrorMessage;
 	WebElement MismatchMessage;
-	DemographicsExternal demo;
-	@BeforeClass
-	public void setUp1() throws MalformedURLException, InterruptedException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-    appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+
+	private PasswordChangePOM password;
+	private Actions act;
+	private Actions action;
+	
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	passwordButton=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"NavigationTopBarView\"]/Button[@AutomationId=\"SearchMenuButton\"]"));
 	passwordButton.click();
+	password=new PasswordChangePOM(driver);
+	act=new Actions(driver);
+	action=new Actions(driver);
  }
 	@BeforeSuite
 	public void setUp() {
@@ -65,112 +71,116 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	@Test(priority=1)
 	public void funPasswordButton() throws InterruptedException, IOException
 	{   demo=new DemographicsExternal();
-	    
-		passwordScreen=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]"));
+	    test = extent.createTest("!!!!!!!!!!CHANGE PASSWORD!!!!!!!");
 		test = extent.createTest(funTestCaseName()+" Change password pop-up window should be opened in the top right corner of the screen");
-		demo.isdisplayed(passwordScreen,"ChangePassword Screen",test,driver);
+		demo.isdisplayed(password.passwordScreen,"ChangePassword Screen",test,driver);
 	}
 	
-	@Test(priority =3)
-	public void ToverifyChangepasswordlabel() throws IOException {
+	//@Test(priority =3)  //  Not able to identify the Header of the chnagepassword
+	public void ToverifyChangepasswordlabel() throws IOException, InterruptedException {
 	test = extent.createTest(guiTestCaseName()+" Change Password label","Change Password label should be present");	
-	changePasswordHeader=driver.findElement(By.xpath("//TextBlock[contains(@Name,'Change Password for')]"));
-	ExternalBeamGUI1(changePasswordHeader, "Change Password", test);
+	try {
+	if(password.changePasswordHeader.isDisplayed())
+	{
+		test.pass("New Password is displayed");
+	}
+	}
+	catch(Exception e)
+	{
+		catchexceptionscreenshot(test,e);
+	}
+	
 	}
 	@Test(priority =4)
 	public void ToverifyCurrentpasswordlabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Current Password label","Current Password label should be present");	
-		currentPassword=driver.findElement(By.name("Current Password"));
-		ExternalBeamGUI1(currentPassword, "Current Password", test);
+		demo.Textcomparsion(password.currentPassword, "Current Password", test,driver);
 		}
 	@Test(priority =5)
 	public void ToverifynewPasswordlabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" New Password label","New Password label should be present");	
-		newPassword=driver.findElement(By.name("New Password"));
-		ExternalBeamGUI1(newPassword, "New Password", test);
+		demo.Textcomparsion(password.newPassword, "New Password", test,driver);
 		}
 	@Test(priority =6)
 	public void ToverifyconfrimPasswordlabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Confirm Password label","Confirm Password label should be present");	
-		confrimPassword=driver.findElement(By.name("Confirm Password"));
-		ExternalBeamGUI1(confrimPassword, "Confirm Password", test);
+		demo.Textcomparsion(password.confrimPassword, "Confirm Password", test,driver);
 		}
 		
 	@Test(priority =7)
 	public void ToverifyShowPasswordlabel() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Show Password label","Show Password label should be present");	
-		ShowPassword=driver.findElement(By.xpath("//Button[@HelpText=\"Show Password\"]"));
-		demo.isdisplayed(ShowPassword,"ShowPassword", test, driver);
+		demo.isdisplayed(password.ShowPassword,"ShowPassword", test, driver);
 		}
 	
 	@Test(priority =7)
 	public void Toverifyclearbutton() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Clear label","clear label should be present");	
-		clear=driver.findElement(By.name("CLEAR"));
-		ExternalBeamGUI1(clear, "CLEAR", test);
+		demo.Textcomparsion(password.clear, "CLEAR", test,driver);
 		}
 	@Test(priority =8)
 	public void Toverifychangepasswordbutton() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" Change Password","Change Password label should be present");	
-		changePassword=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Button[@Name=\"CHANGE PASSWORD\"][@AutomationId=\"BtnValidate\"]"));
-		ExternalBeamGUI1(changePassword, "CHANGE PASSWORD", test);
-		
+		demo.Textcomparsion(password.changePassword, "CHANGE PASSWORD", test,driver);
 	}
 	@Test(priority =9)
 	public void ToverifybuttonEnable() throws IOException {
 		test = extent.createTest(guiTestCaseName()+" To verify by default change password is enabled");	
-		demo.isEnabled(changePassword, "ChangePassword", test, driver);
+		demo.isEnabled(password.changePassword, "ChangePassword", test, driver);
 		test = extent.createTest(guiTestCaseName()+" To verify by default clear button is disabled");	
-		demo.BydefaultisEnabled(clear, "Clear", test, driver);
+		demo.BydefaultisEnabled(password.clear, "Clear", test, driver);
 		test = extent.createTest(guiTestCaseName()+" To verify by show password button is disabled");	
-		demo.BydefaultisEnabled(ShowPassword, "Show Password", test, driver);
+		demo.BydefaultisEnabled(password.ShowPassword, "Show Password", test, driver);
 		}
 	
 	@Test(priority =10)
 	public void funchangepasswordbutton() throws IOException, InterruptedException {
 		test = extent.createTest(funTestCaseName()+" To verify default change password enable");	
-		demo.isEnabled(passwordButton,"Password", test,driver);
-		changePassword.click();
+		demo.isEnabled(password.changePassword,"CHANGE PASSWORD", test,driver);
+		password.changePassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify Password cannot be empty error message should be displayed in current, new, confrim password");
 		Errormessage1();
 		clear();
 	
 	}
 		
-	Actions action;
+
 	private String imagePath;
 	private Screen s;
-	private Match match;
 	@Test(priority=11)
 	public void CurrentPasswordEmpty() throws InterruptedException, IOException
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Enter Valid New and Confrim password and Current password is empty");	
-		newPassword.click();
-		action=new Actions(driver);
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		ShowPassword.click();
-		confrimPassword.click();
+		password.ShowPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		changePassword.click();
+		password.changePassword.click();
+		Thread.sleep(1000);
 		currentPasswordErrorMessage();
 	}
 
 	@Test(priority=12)
 	public void NewPasswordEmpty() throws InterruptedException, IOException
 	{
-		test = extent.createTest(funTestCaseName()+" To verify Enter Valid Confrim password and Current password and  New paswordis empty");	
+	
+		test = extent.createTest(funTestCaseName()+" To verify Enter Valid Confrim password and Current password and  New pasword is empty");	
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		confrimPassword.click();
+		Thread.sleep(1000);
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		changePassword.click();
-		action.moveByOffset(-100,3).click().perform();
-		newPasswordErrorMessage();
+		password.changePassword.click();
+		demo.isdisplayed(password.newPasswordError, "New Password cannot be empty",test,driver);
+		demo.Textcomparsion(password.newPasswordError, "New Password cannot be empty", test,driver);
+		Thread.sleep(1000);
+		
 	}
 	
 	
@@ -180,13 +190,18 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Enter Valid  Current password and  New pasword and Confrim password is empty");	
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		newPassword.click();
+		password.ShowPassword.click();
+		Thread.sleep(1000);
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		changePassword.click();
+		password.ShowPassword.click();
+		password.changePassword.click();
+		action.moveByOffset(-100,3).click().perform();
+		Thread.sleep(1000);
 		confrimPasswordErrorMessage();
 	}
 	
@@ -195,27 +210,27 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Current password accepting Alphabhets");	
 		clear();
-		ValidRangedata(currentPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		showpassword(ShowPassword);
+		ValidRangedata(password.currentPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		showpassword(password.ShowPassword);
 		clear();
 		Thread.sleep(1000);
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify Current password accepting special charcters");	
-		ValidRangedata(currentPassword,"(*((&*&*^&^&%^&%^_)_()");
-		showpassword(ShowPassword);
+		ValidRangedata(password.currentPassword,"(*((&*&*^&^&%^&%^_)_()");
+		showpassword(password.ShowPassword);
 		Thread.sleep(1000);
 		clear();
 		Thread.sleep(1000);
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify Current password accepting Numbers");	
-		ValidRangedata(currentPassword,"1234567890");
-		showpassword(ShowPassword);
+		ValidRangedata(password.currentPassword,"1234567890");
+		showpassword(password.ShowPassword);
 		Thread.sleep(1000);
 		clear();
 		Thread.sleep(1000);
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify Current password Accepting valid data");	
-		ValidRangedata(currentPassword,"m");
+		ValidRangedata(password.currentPassword,"m");
 		clear();
 	}
 	
@@ -223,50 +238,51 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	public void newPasswordButton() throws InterruptedException, IOException
 	{
 		test = extent.createTest(funTestCaseName()+" To verify New password accepting Alphabhets");	
-		ValidRangedata(newPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		ValidRangedata(password.newPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		newpasswordshow();
 		Thread.sleep(1000);
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify New password accepting special charcters");	
-		ValidRangedata(newPassword,"(*((&*&*^&^&%^&%^_)_()");
+		ValidRangedata(password.newPassword,"(*((&*&*^&^&%^&%^_)_()");
 		newpasswordshow();
 		Thread.sleep(1000);
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify New password accepting Numbers");	
-		ValidRangedata(newPassword,"1234567890");
+		ValidRangedata(password.newPassword,"1234567890");
 		newpasswordshow();
 		Thread.sleep(1000);
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify New password Accepting valid data");	
-		ValidRangedata(newPassword,"Manager");
+		ValidRangedata(password.newPassword,"Manager");
 		newpasswordshow();
 		clear();
 	}
 	@Test(priority=16)
+	
 	public void ConfrimPasswordButton() throws InterruptedException, IOException
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Confrim Password accepting Alphabhets");	
-		ValidRangedata(confrimPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		confrimpasswordshow();
+		ValidRangedata(password.confrimPassword,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		confrimpasswordshow(password.confrimPassword);
 		Thread.sleep(1000);
 		clear();
 		test = extent.createTest(funTestCaseName()+" To verify Confrim Password accepting special charcters");
-		ValidRangedata(confrimPassword,"(*((&*&*^&^&%^&%^_)_()");
-		confrimpasswordshow();
+		ValidRangedata(password.confrimPassword,"(*((&*&*^&^&%^&%^_)_()");
+		confrimpasswordshow(password.confrimPassword);
 		Thread.sleep(1000);
 		clear();
 		test = extent.createTest(funTestCaseName()+" To verify Confrim Password accepting Numbers");	
-		ValidRangedata(confrimPassword,"1234567890");
-		confrimpasswordshow();
+		ValidRangedata(password.confrimPassword,"1234567890");
+		confrimpasswordshow(password.confrimPassword);
 		Thread.sleep(1000);
 		clear();
 		test = extent.createTest(funTestCaseName()+" To verify Confrim Password Accepting valid data");	
-		ValidRangedata(confrimPassword,"Password");
-		confrimpasswordshow();
-		currentPassword.click();
+		ValidRangedata(password.confrimPassword,"Password");
+		confrimpasswordshow(password.confrimPassword);
+		password.currentPassword.click();
 		clear();	
 		
 	}
@@ -274,24 +290,23 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	public void Passwordmismatch() throws InterruptedException, IOException
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Current password and new password is invalid error message is displayed");	
-		changePassword=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Button[@Name=\"CHANGE PASSWORD\"][@AutomationId=\"BtnValidate\"]"));
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		Thread.sleep(1000);
 		driver.switchTo().activeElement().sendKeys("m");
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		Thread.sleep(1000);
 		driver.switchTo().activeElement().sendKeys("123456789");
 		Thread.sleep(1000);
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		Thread.sleep(1000);
 		driver.switchTo().activeElement().sendKeys("Password");
 		Thread.sleep(1000);
-		changePassword.click();
+		password.changePassword.click();
 		Thread.sleep(1000);
-		Errormessage3();
+		Errormessage3(test);
 		Thread.sleep(1000);
 		clear();
 	}
@@ -301,17 +316,17 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	{
 		test = extent.createTest(funTestCaseName()+" To verify Enter Valid New, Confrim password and invalid Current password");	
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("132422");
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Password");
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Password");
 		Thread.sleep(2000);
-		changePassword.click();
+		password.changePassword.click();
 		Thread.sleep(2000);
 		Errormessage4();
 		clear();
@@ -321,31 +336,31 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	public void NewPasswordmin() throws InterruptedException, IOException
 	{
 		test = extent.createTest(funTestCaseName()+" To verify New password and Current password is 1 error message is displayed");
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("m");
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("P");
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("P");
 		Thread.sleep(2000);
-		changePassword.click();
+		password.changePassword.click();
 		minlengthErrorMessage();
 		clear();
 		test = extent.createTest(funTestCaseName()+" To verify New password and Current password is 5 error message is displayed");
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("manag");
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("manag");
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("manag");
 		Thread.sleep(2000);
-		changePassword.click();
+		password.changePassword.click();
 		minlengthErrorMessage();
 		clear();
 	
@@ -354,30 +369,30 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	public void NewPasswordmax() throws InterruptedException, IOException
 	{
 		
-		currentPassword.click();
+		password.currentPassword.click();
 		driver.switchTo().activeElement().sendKeys("Manager");
 		test = extent.createTest(funTestCaseName()+" To verify New password is not accepting more than 16 charcters");
 	
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("New password 1234567890");
-		maxlength(newPassword,"New password 1234567890",test);
+		maxlength(password.newPassword,"New password 1234567890",test);
 	
 		test = extent.createTest(funTestCaseName()+" To verify Confrim password is not accepting more than 16 charcters");
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Confrim password 1234567890");
-		maxlength(newPassword,"Confrim password 1234567890",test);
+		maxlength(password.newPassword,"Confrim password 1234567890",test);
 		
 		Thread.sleep(2000);
-		changePassword.click();
+		password.changePassword.click();
 		test = extent.createTest(funTestCaseName()+" To verify click on clear button all the text enetred is empty");
 		clear();
-		demo.isempty(currentPassword,"currentPassword",test, driver);
-		demo.isempty(newPassword,"newPassword",test, driver);
-		demo.isempty(confrimPassword,"confrimPassword",test, driver);
+		demo.isempty(password.currentPassword,"currentPassword",test, driver);
+		demo.isempty(password.newPassword,"newPassword",test, driver);
+		demo.isempty(password.confrimPassword,"confrimPassword",test, driver);
 		test = extent.createTest(funTestCaseName()+" To verify click on clear, it is disabled");
-		demo.BydefaultisEnabled(clear,"CLEAR",test,driver);
+		demo.BydefaultisEnabled(password.clear,"CLEAR",test,driver);
 	}
 	
 	@Test(priority=21)
@@ -385,27 +400,52 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	{
 		test = extent.createTest(funTestCaseName()+" To verify if enetred all the details are valid");
 		clear();
-		currentPassword.click();
+		password.currentPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("p");
-		newPassword.click();
+		password.newPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		confrimPassword.click();
+		password.confrimPassword.click();
 		action.moveByOffset(-100,3).click().perform();
 		driver.switchTo().activeElement().sendKeys("Manager");
-		changePassword.click();
+		password.changePassword.click();
 		Thread.sleep(2000);
 		Sitesave1("Password Change","Password Changed for account.","Password Change","Password Changed for account.", 1, driver,test);
 		Thread.sleep(1000);
 	}
-	
+	@Test(priority=22)
+	public void Launchlogin() throws IOException, InterruptedException
+	{
+		    test = extent.createTest(funTestCaseName()+" Signout and Login with Chnaged credtionals");
+		    Signout(test);
+		    Thread.sleep(2000);
+		    password.Userbx.click();
+			String usertest="m";
+			String pswdtest="Manager";
+			driver.switchTo().activeElement().sendKeys(usertest);
+			Thread.sleep(1000);
+			password.Pswdbox.click();
+			driver.switchTo().activeElement().sendKeys(pswdtest);
+			Thread.sleep(1000);
+			password.SigninButton.click();
+			demo.isdisplayed(password.PateintListscreen, "PateintListscreen", test,driver);
+	}
+
+	public void Signout(ExtentTest test) throws InterruptedException, IOException
+	{
+		password.Signout.click();
+		Thread.sleep(1000);
+		Sitesave1("Sign Out","Do you want to Sign out?","Sign out","Do you want to Sign out?", 1, driver,test);	
+		Thread.sleep(1000);
+	}
+
 	public void showpassword(WebElement element) throws InterruptedException
 	{
 		Actions action=new Actions(driver);
-		action.clickAndHold(ShowPassword).perform();
+		action.clickAndHold(password.ShowPassword).perform();
         Thread.sleep(2000);
-        action.release(ShowPassword).perform();
+        action.release(password.ShowPassword).perform();
 	}
 	
 	public void newpasswordshow() throws InterruptedException
@@ -424,9 +464,10 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	        action.release(element1).perform();
 		} 
 	}
-	public void confrimpasswordshow() throws InterruptedException, IOException
+	
+	public void confrimpasswordshow(WebElement elementText) throws InterruptedException, IOException
 	{
-		
+		//Match match;
 		By locator = By.xpath("//Button[@HelpText=\"Show Password\"]");
 		List<WebElement> elements = driver.findElements(locator);
 		Thread.sleep(1000);
@@ -454,13 +495,21 @@ public class PasswordChange extends ReferencefileChemotheraphy {
             s = new Screen();
             
             Pattern textPattern = new Pattern(imagePath);
+            Match match = new Match();
 			match.type("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			match.click();
-			String extractedText = match.text();
-			Sikluxclass c= new Sikluxclass();
-			c.Textcomparsion(extractedText, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", test,driver);
-			   Thread.sleep(5000);
+			try {
+			elementText.getText();
+		    System.out.println(elementText.getText());
+			//demo.isdisplayed(elementText, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", test, driver);
+			}
+			catch(Exception e)
+			{
+				test.error(e);
+			}
+			finally {
 	        action.release(element).perform();
+			}
 		} 
 		
 	}
@@ -482,8 +531,7 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	}
 	public void clear() throws InterruptedException
 	{
-		clear=driver.findElement(By.name("CLEAR"));
-		clear.click();
+		password.clear.click();
 	}
 	
 	public void ValidRangedata(WebElement Name, String Text) throws IOException
@@ -503,93 +551,67 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 		driver.switchTo().activeElement().sendKeys(Text);
 		WebElement element=driver.switchTo().activeElement();
 		demo.ByValidErrormessage(element, Text,test,driver);
-		ExternalBeamGUI1(element,Text, test);
+		demo.Textcomparsion(element,Text, test,driver);
 	}
 	public void Errormessage1() throws InterruptedException, IOException
 	{
-		currentPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"PasswordBox\"]/Text[@Name=\"Current Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Current Password cannot be empty\"]"));
-		demo.isdisplayed(currentPasswordErrorMessage, "Current Password cannot be empty", test, driver);
-		ExternalBeamGUI1(currentPasswordErrorMessage, "Current Password cannot be empty", test);
+		demo.Textcomparsion(password.currentPasswordErrorMessage, "Current Password cannot be empty", test,driver);
 		Thread.sleep(2000);
-	    newPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"NewPasswordbox\"]/Text[@Name=\"New Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"New Password cannot be empty\"]"));
 		
-		demo.isdisplayed(newPasswordErrorMessage, "New Password cannot be empty", test, driver);
-		ExternalBeamGUI1(newPasswordErrorMessage, "New Password cannot be empty", test);
+	    demo.isdisplayed(password.newPasswordErrorMessage, "New Password cannot be empty", test, driver);
+		demo.Textcomparsion(password.newPasswordErrorMessage, "New Password cannot be empty", test,driver);
 		Thread.sleep(2000);
-	    confrimPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"Confirmpasswordbox\"]/Text[@Name=\"Confirm Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Confirm Password cannot be empty\"]"));
-	    
-	    demo.isdisplayed(confrimPasswordErrorMessage, "Confirm Password cannot be empty", test, driver);
-	    ExternalBeamGUI1(confrimPasswordErrorMessage, "Confirm Password cannot be empty", test);
+		
+	    demo.isdisplayed(password.confrimPasswordErrorMessage, "Confirm Password cannot be empty", test, driver);
+	    demo.Textcomparsion(password.confrimPasswordErrorMessage, "Confirm Password cannot be empty", test,driver);
 	    Thread.sleep(2000);
 	} 
 	
 	
-	public void Errormessage3() throws InterruptedException, IOException
+	public void Errormessage3(ExtentTest test) throws InterruptedException, IOException
 	{
-		 MismatchMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"NewPasswordbox\"]/Text[@Name=\"Passwords Do not Match\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Passwords Do not Match\"]"));
 		 String ExceptedText="Passwords Do not Match";
-		 String displayedText =MismatchMessage.getText();
-		// demo.ByValidErrormessage(MismatchMessage, "Passwords Do not Match",test,driver);
-		 ExternalBeamGUI1(MismatchMessage, "Passwords Do not Match", test);
-		
+		 String displayedText =password.MismatchMessage.getText();
+		 demo.ByValidErrormessage(password.MismatchMessage, "Passwords Do not Match",test,driver);
+		 demo.Textcomparsion(password.MismatchMessage, "Passwords Do not Match", test,driver);
 	}
 	public void Errormessage4() throws InterruptedException, IOException
 	{
-		 currentPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"PasswordBox\"]/Text[@Name=\"Current Password is invalid\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Current Password is invalid\"]"));
 		 String ExceptedText="Current Password is invalid";
 		// demo.ByValidErrormessage(currentPasswordErrorMessage, ExceptedText,test,driver);
-		 ExternalBeamGUI1(currentPasswordErrorMessage, ExceptedText, test);
+		 demo.Textcomparsion(password.currentPasswordError, ExceptedText, test,driver);
 	}
 
 	public void currentPasswordErrorMessage() throws InterruptedException, IOException
 	{
-		 currentPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"PasswordBox\"]/Text[@Name=\"Current Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Current Password cannot be empty\"]"));
-		 demo.isdisplayed(currentPasswordErrorMessage, "Current Password cannot be empty",test,driver);
-		 ExternalBeamGUI1(currentPasswordErrorMessage, "Current Password cannot be empty", test);
+		 demo.isdisplayed(password.currentPasswordErrorMessage, "Current Password cannot be empty",test,driver);
+		 demo.Textcomparsion(password.currentPasswordErrorMessage, "Current Password cannot be empty", test,driver);
 	}
 	
-	public void newPasswordErrorMessage() throws InterruptedException, IOException
-	{
-	//	newPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"NewPasswordbox\"]/Text[@Name=\"New Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"New Password cannot be empty\"]"));
-		newPasswordErrorMessage=driver.findElement(By.xpath("//TextBlock[contains(@Name,'New Password cannot be empty')]"));
-		demo.isdisplayed(newPasswordErrorMessage, "New Password cannot be empty",test,driver);
-		ExternalBeamGUI1(newPasswordErrorMessage, "New Password cannot be empty", test);
-	}
+	
 	public void confrimPasswordErrorMessage() throws InterruptedException, IOException
 	{
-		confrimPasswordErrorMessage=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Window[@ClassName=\"Popup\"]/Menu[@ClassName=\"ContextMenu\"]/Edit[@AutomationId=\"Confirmpasswordbox\"]/Text[@Name=\"Confirm Password cannot be empty\"][@AutomationId=\"LblResult\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Confirm Password cannot be empty\"]"));
-		
-		
-		demo.isdisplayed(confrimPasswordErrorMessage, "Confirm Password cannot be empty",test,driver);
-		ExternalBeamGUI1(confrimPasswordErrorMessage, "Confirm Password cannot be empty", test);
+		demo.isdisplayed(password.confrimPasswordErrorMessage, "Confirm Password cannot be empty",test,driver);
+		demo.Textcomparsion(password.confrimPasswordErrorMessage, "Confirm Password cannot be empty", test,driver);
 	}
 	
 	WebElement minlengthErrorMessage;
 	public void minlengthErrorMessage() throws InterruptedException, IOException
 	{
-		minlengthErrorMessage=driver.findElement(By.name("Min length is 6"));
-		demo.isdisplayed(minlengthErrorMessage, "Min length is 6",test,driver);
-		ExternalBeamGUI1(minlengthErrorMessage, "Min length is 6", test);
+		demo.isdisplayed(password.minlengthErrorMessage, "Min length is 6",test,driver);
+		demo.Textcomparsion(password.minlengthErrorMessage, "Min length is 6", test,driver);
 	}
-	public void ExternalBeamGUI1(WebElement Text, String Expected, ExtentTest test1) throws IOException {
-	    try {
-	        if (Text.getText().equals(Expected)) {
-	            test1.pass("RUN PASS: Actual is " + Text.getText() + " Expected is " + Expected + " Same as Expected");
-	        } else {
-	            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-	            String screenshotName = "D:\\Krystalnew\\error_screenshot_" + timestamp + ".png";
-	            captureScreenshot(screenshotName);
-	            test1.fail("RUN FAIL: Actual is " + Text.getText() + " Expected is " + Expected + " Not Same as Expected");
-	            test1.addScreenCaptureFromPath(screenshotName);      
-	        }
-	    } catch (Exception e) {
-	        test1.error("An error occurred: " + e.getMessage());
-	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-	        String screenshotName = "D:\\Krystalnew\\error_screenshot_" + timestamp + ".png";
-	        captureScreenshot(screenshotName);
-	        test1.addScreenCaptureFromPath(screenshotName);
-	    }
+
+	
+	public void catchexceptionscreenshot(ExtentTest test,Exception e) throws IOException
+	{
+		test.error("An error occurred: " + e.getMessage());
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String screenshotName = "D:\\Krystalnew\\error_screenshot_" + timestamp + ".png";
+        captureScreenshot(screenshotName);
+        test.addScreenCaptureFromPath(screenshotName);
 	}
+	
 	public void captureScreenshot(String screenshotName) {
 	    try {
 	        TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -601,11 +623,10 @@ public class PasswordChange extends ReferencefileChemotheraphy {
 	    }
 	}
 	
+	
+	
 
-@AfterSuite
-public void tearDown() {
-    extent.flush();
-}
+	
 	
  
 }

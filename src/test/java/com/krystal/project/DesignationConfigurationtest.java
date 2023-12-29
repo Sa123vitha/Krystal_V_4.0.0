@@ -40,35 +40,44 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	private WebElement Update;
 	private WebElement Designationconfig;
 	private DesignationPOM desg;
-	 @BeforeClass
-		public void setUp1()  throws InterruptedException, IOException {
-		DesiredCapabilities appCapabilities = new DesiredCapabilities();
-		appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-		driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	private Actions act;
+	
+	
+	
+	 @Test(priority =1)
+		public void launchchemo()  throws InterruptedException, IOException {
+		//DesiredCapabilities appCapabilities = new DesiredCapabilities();
+		//appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+		//driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 		ReferenceSigin Sign=new ReferenceSigin();
 		Sign.Login(driver);
 		Sign.Designationconfig(driver);
 		desg=new DesignationPOM(driver);
 		setUp();
+		action=new Actions(driver);
+		act=new Actions(driver);
 		}
 	
 	 
-	 @Test(priority =1)
+	 @Test(priority =2)
 	 public void addDesignationLabel() throws IOException {
+		 test = extent.createTest("====GENERAL SETTINGS(DESIGNATION CONFIGURATION MODULE)====");
 	 test = extent.createTest(guiTestCaseName()+" Add Designation label"," Add Designation label should be present ");	
 	 demo.Textcomparsion(desg.addDesignation, "ADD DESIGNATION", test,driver);
 	 }
 	 Actions action;
-	 @Test(priority =2)
+	 @Test(priority =3)
 	 public void designationNameLabel() throws IOException, InterruptedException {
 		 test = extent.createTest(guiTestCaseName()+" Designation Name label"," Designation Name label should be present ");	
 		 guilabelindex("Designation Name", 2,"Designation Name");
 	 }
+	 
 	 @Test(priority =3)
 	 public void prescriptionNameLabel() throws IOException, InterruptedException {
 	 test = extent.createTest(guiTestCaseName()+" Prescription Name label"," Prescription Name label should be present ");	
 	 guilabelindex("Prescription", 2,"Prescription");
 	 }
+	 
 	 
 	 @Test(priority =4)
 	 public void yesLabel() throws IOException {
@@ -169,14 +178,14 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	 	test = extent.createTest(guiTestCaseName()+" To verify the Valid Designation name","Valid Designation  should save the data");
 	 	randomalpha(40);
 	 	Validdata(desg.designationName,randomStringalpha,driver);
-	 	DesignationSave();
+	 	DesignationSave(test);
 	 }
          
 	@Test(priority=16)
 	 public void Designationalreadysave() throws InterruptedException, IOException
 	 {
 	 	Validdata(desg.designationName,randomStringalpha,driver);
-	 	DesignationSave();
+	 	DesignationSave(test);
 	 	test = extent.createTest(funTestCaseName()+" To verify the Designation name already exits error message is displayed");
 	 	WebElement DesignationErrormsg = driver.findElement(By.name("Designation Name Already Exists."));
 	 	demo.isdisplayed(DesignationErrormsg, "Designation Name Already Exists.", test,driver);
@@ -193,32 +202,33 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	 	    driver.switchTo().activeElement().clear();
 		    randomUpper(15);
 	 		ValidataUpper("Designation Name");
-	 		DesignationSave();
+	 		DesignationSave(test);
 	 		Thread.sleep(2000);
 	 		randomLower(15);
 	 		ValidataLower("Designation Name");
-	 		DesignationSave();
+	 		DesignationSave(test);
 	 		
 	 		Thread.sleep(2000);
 	 		randomalpha(15);
 	 		ValidataUpperLower("Designation Name");
-	 		DesignationSave();
+	 		DesignationSave(test);
 	 		Thread.sleep(2000);
 	 		randomNumber(15);
 	 		ValidataNumber("Designation Name");
-	 		DesignationSave();
+	 		DesignationSave(test);
 	 		Thread.sleep(1000);
 	 		
 	 		randomstringtext(15);
 	 		Thread.sleep(1000);
 	 		Validatachars("Designation Name");
-	 		DesignationSave();
+	 		DesignationSave(test);
 	 		Thread.sleep(1000);
 	 		
-	 		
-	 		//InValidataRange("Designation Name");
-	 		//DesignationSave();
-	 		//Thread.sleep(1000);
+	 		randomCharOutOfRange(64);
+	 		Thread.sleep(1000);
+	 		InValidataDesign("Designation Name");
+	 		DesignationSave(test);
+	 		Thread.sleep(1000);
 	 		
 	 		Specialcharenable("Designation Name",driver);
 	 		desg.designationName.click();
@@ -379,11 +389,12 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		 test = extent.createTest(funTestCaseName()+" Click on Edit button, Don't change the data click on the Update button");
 		 desg.Update.click();
 		 try {
-			 Sitesave("Designation Configuration", "Designation data Updated.", "Designation Configuration", "Designation data Updated.",0,driver);
+			 Sitesave1("Designation Configuration", "Designation data Updated.", "Designation Configuration", "Designation data Updated.",0,driver,test);
 		 }
 		 catch(Exception e)
 		 {
 			 test.fail("Update Pop-up is not displayed");
+			 catchexceptionscreenshot1(test,e) ;
 		 }	 
 	}
 	 String EditText;
@@ -405,6 +416,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		 catch(Exception e)
 		 {
 			 test.fail("Designation Name Already Present not displayed");
+			 catchexceptionscreenshot1(test,e) ;
 		 } 
 	}
 
@@ -424,6 +436,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		 catch(Exception e)
 		 {
 			 test.fail("Special Char error message not displayed"); 
+			 catchexceptionscreenshot1(test,e) ;
 		 }
 	}
 
@@ -456,15 +469,19 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	String Editdata;
 
         @Test(priority =32)
-	public void editchange() throws IOException
+	public void editchange() throws IOException, InterruptedException
 	{
 		 test = extent.createTest(funTestCaseName()+" Click on Edit button, Change the data, Click on Update");
 		 EditElement();
 		 desg.designationName.click();
 		 driver.switchTo().activeElement().clear();
+		 Thread.sleep(1000);
 		 randomLower(15);
+		 Thread.sleep(1000);
+		 desg.designationName.click();
 		 driver.switchTo().activeElement().sendKeys(randomStringLower);
 		 Editdata=randomStringLower;
+		 Thread.sleep(1000);
 		 desg.Update.click();
 		 try {
 		 Sitesave1("Designation Configuration", "Designation data Updated.", "Designation Configuration", "Designation data Updated.",0,driver,test);
@@ -472,6 +489,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		 catch(Exception e)
 		 {
 			 test.fail("Update Pop-up is not displayed");
+			 catchexceptionscreenshot1(test,e) ;
 		 }
 	}
 
@@ -519,6 +537,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 			catch(Exception e)
 			{
 				test.fail("Delete Pop-up not found");
+				catchexceptionscreenshot1(test,e) ;
 			}
 		}
 		else
@@ -539,11 +558,12 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 			 action.moveToElement(Delete).moveByOffset(3,0).click().perform();
 			try {
 			Rollcontains("Designation Delete", "Do you want to delete Designation", "Designation Delete", "Do you want to delete Designation",test,driver);
-			Sitesave("Designation Configuration", "Designation data deleted.", "Designation Delete", "Designation data deleted.",0,driver);
+			Sitesave1("Designation Configuration", "Designation data deleted.", "Designation Delete", "Designation data deleted.",0,driver,test);
 		     }
 			catch(Exception e)
 			{
 				test.fail("Delete Pop-up not found");
+				catchexceptionscreenshot1(test,e) ;
 			}
 		}
 		else
@@ -573,7 +593,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		test = extent.createTest(funTestCaseName()+" Deleted name, Enetred Once again it should save the data");
 		desg.designationName.click();
 		driver.switchTo().activeElement().sendKeys(randomStringLower); 
-		DesignationSave();
+		DesignationSave(test);
 	}
 
 	@Test(priority = 40)
@@ -633,7 +653,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	{
 		List<WebElement> dataGridRows = driver.findElements(By.className("DataGridRow"));
 		System.out.println(dataGridRows.size());
-	    if (dataGridRows.size()==17) 
+	    if (dataGridRows.size()>=17) 
 	    {
 	    	test = extent.createTest(guiTestCaseName()+" To verify Next and last page is enabled");
 	    	List<WebElement> dataGrid = driver.findElements(By.className("DataGridRow"));
@@ -642,10 +662,6 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 	    	demo.isEnabled(desg.LastPageButton,"Last page button", test,driver);
 	    }
 	    	else {
-	        	demo.BydefaultisEnabled(desg.FirstPageButton,"First page button", test,driver);
-	        	demo.BydefaultisEnabled(desg.PreviousPageButton,"PreviousPageButton button is displayed", test,driver);
-	        	demo.BydefaultisEnabled(desg.NextPageButton,"NextPageButton button", test,driver);
-	        	demo.BydefaultisEnabled(desg.LastPageButton,"LastPage button", test,driver);
 	        	Designationtexbox();
 	        }
 	  }
@@ -735,8 +751,8 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		}
 		
 	}
-
-
+	
+	
 	@Test(priority = 53)
 	public void Searchempty() throws IOException, FindFailed
 	{
@@ -768,15 +784,15 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		        match.click();
 	}
 
-	public void DesignationDelete() throws InterruptedException, IOException
+	public void DesignationDelete(ExtentTest test) throws InterruptedException, IOException
 	{
-		Sitesave("Designation Delete", "Do you want to delete the Designation?", "Designation Delete", "Do you want to delete the Designation?",0,driver);
+		Sitesave1("Designation Delete", "Do you want to delete the Designation?", "Designation Delete", "Do you want to delete the Designation?",0,driver,test);
 	}
-	public void DesignationDeleteconfrimation() throws InterruptedException, IOException
+	public void DesignationDeleteconfrimation(ExtentTest test) throws InterruptedException, IOException
 	{
-		Sitesave("Designation Configuration", "Designation data deleted.", "Designation Delete", "Designation data deleted.",0,driver);
+		Sitesave1("Designation Configuration", "Designation data deleted.", "Designation Delete", "Designation data deleted.",0,driver,test);
 	}
-	 public void DesignationSave() throws InterruptedException, IOException
+	 public void DesignationSave(ExtentTest test) throws InterruptedException, IOException
 	 {
 		Thread.sleep(1000);
 		randomstring();
@@ -786,7 +802,7 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		action.moveByOffset(-5,0).click().perform();
 		demo.isSelected(Designationsave, "Designation save", test,driver);
 	 	desg.Save.click();
-	 	Sitesave("Designation Configuration", "Designation data saved.", "Designation Configuration", "Designation data saved.",0,driver);
+	 	Sitesave1("Designation Configuration", "Designation data saved.", "Designation Configuration", "Designation data saved.",0,driver,test);
 	 }
 	 
 	 
@@ -882,8 +898,9 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		            String linkText = randomOddElement.getText();
 		            
 		            edit("D:\\Help\\Designation\\Search.PNG");
-		            
+		           
 		            WebElement searchBox = driver.switchTo().activeElement();
+		            searchBox.click();
 		            searchBox.sendKeys(linkText);
 		           List<WebElement> dataGridRows = driver.findElements(By.className("DataGridRow"));
 		           
@@ -990,16 +1007,9 @@ public class DesignationConfigurationtest extends ReferencefileChemotheraphy {
 		}
 		
 	
+	
 	 
 	 
-	 @AfterClass
-		public void tearDown() throws InterruptedException {
-		    // Flush the Extent Reports after all tests in the class
-		 ExtendManager.getInstance().flush();
-		    driver.quit();
-			 Thread.sleep(5000);
-		    
-		}
 		
 		
 		

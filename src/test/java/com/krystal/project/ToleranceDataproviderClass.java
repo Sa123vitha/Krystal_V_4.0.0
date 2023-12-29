@@ -81,7 +81,7 @@ public class ToleranceDataproviderClass {
 	    }
 		
 		
-		 private static final String FILE_PATH3 = "D:\\Field\\Templates.xlsx";
+		 private static final String FILE_PATH3 = "D:\\Field\\TemplatesNew.xlsx";
 			public static Object[][] getUserTemplates(String sheetName) {
 		        Object[][] data = null;
 		        try (FileInputStream fis = new FileInputStream(FILE_PATH3);

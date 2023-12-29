@@ -56,23 +56,26 @@ public class MachineQA extends ReferencefileChemotheraphy{
 	private WebElement PlanID;
 	private WebElement PlanName;
 	private WebElement Ddrivefile;
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	private Actions action;
+	private Actions act;
+	@Test(priority =1)
+	public void launch()  throws InterruptedException, IOException {
+	
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.MachineQA(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
   }
 	
-	@Test(priority =1)
+	@Test(priority =2)
 	public void Machineqa() throws IOException {
+	test = extent.createTest("====GENERAL SETTINGS(MACHINE QA MODULE)====");
 	test = extent.createTest(guiTestCaseName()+" Machine QA label"," Machine QA label should be present ");	
 	machineqa=driver.findElement(By.name("Machine QA"));
 	demo.Textcomparsion(machineqa, "Machine QA", test,driver);
 	}
-@Test(priority =2)
+//@Test(priority =2)
 	public void selectmachine() throws IOException {
 	test = extent.createTest(guiTestCaseName()+" Select Machine label"," Select Machine label should be present ");	
 	selectmachine=driver.findElement(By.name("Select Machine"));
@@ -103,6 +106,7 @@ public void Importclick() throws IOException
 {
 	test = extent.createTest(funTestCaseName()+" Import Button Click"," Tolerance screen should get opened");
 	import1.click();
+	demo.isdisplayed(selecttoltable, "Select Tolerance Table", test,driver);
 }
 
 @Test(priority =4)
@@ -114,8 +118,8 @@ demo.Textcomparsion(selecttoltable, "Select Tolerance Table", test,driver);
 @Test(priority =5)
 public void Tolerancetablelabel() throws IOException {
 test = extent.createTest(guiTestCaseName()+" Tolerance Table label"," Tolerance Table label should be present ");	
-toltable=driver.findElement(By.name("Tolerance Table"));
-demo.Textcomparsion(toltable, "Tolerance Table", test,driver);
+toltable=driver.findElement(By.name("Tolerance Table Name"));
+demo.Textcomparsion(toltable, "Tolerance Table Name", test,driver);
 }
 @Test(priority =6)
 public void Tolerancetablenumber() throws IOException {
@@ -229,13 +233,44 @@ demo.Textcomparsion(description, "*All Linear Motions are in cm and Rotational M
 }
 
 
-@Test(priority =22)// Invalid plan 
+@Test(priority =22)
 
 public void InValid() throws IOException, InterruptedException {
 	test = extent.createTest(funTestCaseName()+"Importing invalid plan","Error message should be displayed");
-	Confrimclick("InValid");
-	Thread.sleep(3000);
-	Sitesave("Machine QA Plan Validation", "Machine QA Plan Validated, Machine QA Plan is invalid, hence cannot be imported.", "Machine QA Plan Validation", "Machine QA Plan Validated, Machine QA Plan is invalid, hence cannot be imported.", 0,driver);
+	Confrimclick("MisMatchPlan");
+	Thread.sleep(5000);
+	Sitesave1("Machine QA Plan Validation", "Machine QA Plan Validated, Machine QA Plan is invalid, hence cannot be imported.", "Machine QA Plan Validation", "Machine QA Plan Validated, Machine QA Plan is invalid, hence cannot be imported.", 0,driver,test);
+	
+	/*
+	test = extent.createTest(funTestCaseName()+"Invalid tag Mismtach error messages pop-up is displayed or not.","Invalid tag Mismtach error messages pop-up is displayed or not.");
+	
+	String Text="VALIDATION REPORT";
+	String Text1="Mismatched or Invalid tags were found in the DICOM Plan.The imported DICOM Plan is Invalid and hence cannot be approved.";
+	String Text2="CLOSE";
+	WebElement Report=driver.findElement(By.name(Text));
+	WebElement Invalidmismatch=driver.findElement(By.name(Text1));
+	WebElement Close=driver.findElement(By.name(Text2));
+	
+	demo.isdisplayed(Report, Text, test, driver);
+	demo.Textcomparsion(Report, "VALIDATION REPORT", test, driver);
+	
+	demo.isdisplayed(Invalidmismatch, "Mismatched or Invalid tags were found in the DICOM Plan.The imported DICOM Plan is Invalid and hence cannot be approved.", test, driver);
+	demo.Textcomparsion(Invalidmismatch, "VALIDATION REPORT", test, driver);
+	
+	demo.isdisplayed(Close, Text2, test, driver);
+	demo.Textcomparsion(Close, "CLOSE", test, driver);
+	if(Close.isEnabled())
+	{
+		test.pass("Close Button is enabled");
+		Close.click();
+	}
+	else
+	{
+		test.fail("Close Button is not enabled");
+	}
+	*/
+	
+	
 }
 
 
@@ -272,7 +307,7 @@ demo.Textcomparsion(TagName,"Tag Name", test,driver);
 }
 @Test(priority =29)
 public void ValidtionExcepted() throws IOException {
-test = extent.createTest(guiTestCaseName()+" Expectedresult Report label "," Expectedresult Report label present ");	
+test = extent.createTest(guiTestCaseName()+" Expected result Report label "," Expected result Report label present ");	
 ExpectedResult=driver.findElement(By.name("Expected Result"));
 demo.Textcomparsion(ExpectedResult,"Expected Result", test,driver);
 }
@@ -294,25 +329,34 @@ demo.isEnabled(Close,"CLOSE", test,driver);
 @Test(priority =32)
 public void ValidationClick() throws IOException {
 test = extent.createTest(funTestCaseName()+" Close Click button"," Close Click");	
-Close.click();
+if(Close.isEnabled())
+{
+	test.pass("Close Button is enabled");
+	Close.click();
+}
+else
+{
+	test.fail("Close Button is not enabled");
+}
 }
 
-@Test(priority =33)// Invalid plan 
+@Test(priority =33) 
 public void Valid() throws IOException, InterruptedException {
 	test = extent.createTest(funTestCaseName()+"Importing Valid plan","Plan should be imported and pop-up should be displayed");
+	Thread.sleep(1000);
 	import1.click();
 	Thread.sleep(1000);
-	Confrimclick("Valid");
+	Confrimclick("ValidPlan");
 	Thread.sleep(1000);
-	Sitesave("Machine QA Plan Import", "Machine QA Plan Imported.", "Machine QA Plan Import", "Machine QA Plan Imported.", 0,driver);
+	Sitesave1("Machine QA Plan Import", "Machine QA Plan Imported.", "Machine QA Plan Import", "Machine QA Plan Imported.", 0,driver,test);
 }
 @Test(priority =34)
 public void Planalreadyexits() throws IOException, InterruptedException {
 	test = extent.createTest(funTestCaseName()+"Importing Valided plan already exits","Plan should be imported and pop-up should be displayed");
 	import1.click();
 	Thread.sleep(1000);
-	Confrimclick("Valid");
-	Sitesave("Machine QA Plan Import", "Machine QA Plan already exists, hence cannot be imported.", "Machine QA Plan Import", "Machine QA Plan already exists, hence cannot be imported.", 0,driver);
+	Confrimclick("PlanValid");
+	Sitesave1("Machine QA Plan Import", "Machine QA Plan already exists, hence cannot be imported.", "Machine QA Plan Import", "Machine QA Plan already exists, hence cannot be imported.", 0,driver,test);
 }
 @Test(priority =35)
 public void Plandelete() throws IOException, InterruptedException {
@@ -320,18 +364,18 @@ public void Plandelete() throws IOException, InterruptedException {
 	WebElement deletebutton=driver.findElement(By.xpath("//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"GeneralSettingsMainView\"]/Custom[@ClassName=\"MachineQASection1View\"]/DataGrid[@ClassName=\"DataGrid\"]/DataItem[@ClassName=\"DataGridRow\"][@Name=\"Presentation.UiElements.ViewModels.TableViewModel\"]/Custom[@ClassName=\"DataGridCell\"][starts-with(@Name,\"Item: Presentation.UiElements.ViewModels.TableViewModel, Column \")]/Button[@ClassName=\"Button\"][1]"));
 	demo.isEnabled(deletebutton, "Delete", test, driver);
 	deletebutton.click();
-	Sitesave("Machine QA Delete", "Do you want to delete the selected Machine QA plan?", "Machine QA Delete", "Do you want to delete the selected Machine QA plan?", 0,driver);
+	Sitesave1("Machine QA Delete", "Do you want to delete the selected Machine QA plan?", "Machine QA Delete", "Do you want to delete the selected Machine QA plan?", 0,driver,test);
 	Thread.sleep(1000);
-	Sitesave("Machine QA Delete", "Selected Machine QA Plan Deleted.", "Machine QA Delete", "Selected Machine QA Plan Deleted.", 0,driver);
+	Sitesave1("Machine QA Delete", "Selected Machine QA Plan Deleted.", "Machine QA Delete", "Selected Machine QA Plan Deleted.", 0,driver,test);
 }
-@Test(priority =36)
+@Test(priority =38)
 public void DeletedPlanimport() throws IOException, InterruptedException{
-	test = extent.createTest(funTestCaseName()+"Importing plan ","Plan should be imported and pop-up should be displayed");
+	test = extent.createTest(funTestCaseName()+"Importing Deleted Plan ","Plan should be imported and pop-up should be displayed");
 	import1.click();
 	Thread.sleep(1000);
-	Confrimclick("Valid");
+	Confrimclick("PlanValid");
 	Thread.sleep(1000);
-	Sitesave("Machine QA Plan Import", "Machine QA Plan Imported.", "Machine QA Plan Import", "Machine QA Plan Imported.", 0,driver);
+	Sitesave1("Machine QA Plan Import", "Machine QA Plan Imported.", "Machine QA Plan Import", "Machine QA Plan Imported.", 0,driver,test);
 	
 }
 public void Confrimclick(String name) throws IOException, InterruptedException {	
@@ -340,8 +384,8 @@ Thread.sleep(2000);
 Actions action=new Actions(driver);
 //Ddrive=driver.findElement(By.name("New Volume (D:)"));
 Ddrivefile=driver.findElement(By.name("New Volume (D:)"));
-action.moveToElement(Ddrivefile).perform();
-Ddrivefile.click();
+action.moveToElement(Ddrivefile).click().perform();
+
 Thread.sleep(1000);
 Plans=driver.findElement(By.name("PLANS"));
 
@@ -355,17 +399,8 @@ WebElement desiredElement = elements.get(1);
 action.moveToElement(desiredElement).doubleClick().perform();
 Thread.sleep(5000);
 }
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
+
+
 
 
 

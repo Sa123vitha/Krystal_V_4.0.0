@@ -145,8 +145,8 @@ public class PlanApprovalPOM {
      	@FindBy(name = "Control Point Index")
      	WebElement control;
      	
-     
-     	
+     	@FindBy (xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"MainContainerView\"]/Custom[@ClassName=\"PlanReviewMainView\"]/Custom[@ClassName=\"PlanReviewSection8View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+     	WebElement Filter;
      	
      	@FindBy (xpath = "//Custom[@ClassName=\"NavigationTopBarView\"]/Text[@ClassName=\"Text\"][@Name=\"Plan Approval\"]/Text[@ClassName=\"TextBlock\"][@Name=\"Plan Approval\"]")
      	WebElement planapproval;

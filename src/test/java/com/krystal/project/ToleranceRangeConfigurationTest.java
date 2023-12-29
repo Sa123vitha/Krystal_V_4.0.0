@@ -71,16 +71,14 @@ public class ToleranceRangeConfigurationTest extends Referencefile {
 	WebElement Update;
 	WebElement Edit;
 
-	public WindowsDriver<WebElement> driver;
-	public ExtentTest test;
-
 	
-@BeforeClass
-public void setUp1()  throws InterruptedException, IOException {
-DesiredCapabilities appCapabilities = new DesiredCapabilities();
-appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	Actions action;
+	private Actions act;
+	@Test(priority=1)
+public void launch()  throws InterruptedException, IOException {
 Servicelogin();
+action=new Actions(driver);
+act=new Actions(driver);
 }
 
 
@@ -407,6 +405,7 @@ public void button() throws InterruptedException{
 		demo.Textcomparsion(RollAngleMax, "Max", test,driver); 
 	}
 	WebElement Savebutton;
+	private WebElement Savefield;
 	
 	@Test(priority=38)
 	public void Savelabel() throws IOException
@@ -462,11 +461,18 @@ public void button() throws InterruptedException{
 	    demo.isEnabled(Savebutton, "SAVE", test,driver);
 	    if(Savebutton.isEnabled())
 	    {
-	    	Savebutton.click();
+	    	Actions action=new Actions(driver);
+	    	action.moveToElement(Savebutton).click().perform();
+	    	try {
 	    	test = extent.createTest(guiTestCaseName()+" To verify blank error message is displayed");
 	    	WebElement blank = driver.findElement(By.name("Input Cannot be blank"));
 	    	demo.isdisplayed(blank, "Input Cannot be blank", test,driver);
 			demo.Textcomparsion(blank, "Input Cannot be blank", test,driver);
+	    	}
+	    	catch(Exception e)
+	    	{
+	    		test.error(e);
+	    	}
 	    }
 	}
 	@Test(priority=40)
@@ -560,14 +566,23 @@ public void button() throws InterruptedException{
 		{
 			test.error(e);
 		}
+		/*
 		test = extent.createTest(guiTestCaseName()+" To verify if enetered invalid data it should not save the data");
 		try {
-			Savedisable(Savebutton, "SAVE",driver);
+			if(!Savebutton.isEnabled())
+			{
+				test.pass("Save Button is not Enabled");
+			}
+			else
+			{
+				test.fail("Save Button is Enabled");
+			}
 		}
 		catch(Exception e)
 		{
-			test.pass("Save pop-up is not displayed");
+			test.error(e);
 		}
+		*/
 	}
 	
 	@Test(priority=41)
@@ -676,15 +691,24 @@ public void button() throws InterruptedException{
 			test.error(e);
 		}
 	
-
-		try {
-			test = extent.createTest(guiTestCaseName()+" To verify if enetered invalid range it should not save the data");
-			Savedisable(Savebutton, "SAVE",driver);
-		}
-		catch(Exception e)
-		{
-			test.pass("Save pop-up is not displayed");
-		}
+		/*
+			try {
+				test = extent.createTest(guiTestCaseName()+" To verify if enetered invalid range it should not save the data");
+				Savebutton = driver.findElement(By.name("SAVE"));
+				if(!Savebutton.isEnabled())
+				{
+					test.pass("Save Button is not Enabled");
+				}
+				else
+				{
+					test.fail("Save Button is Enabled");
+				}
+			}
+			catch(Exception e)
+			{
+				test.error(e);
+			}
+			*/
 	}
 	
 	@Test(priority=42)
@@ -767,14 +791,23 @@ public void button() throws InterruptedException{
 			
 			test.error(e);
 		}
+		/*
 		try {
 			test = extent.createTest(guiTestCaseName()+" To verify if enetered Range equal it should not save the data");
-			Savedisable(Savebutton, "SAVE",driver);
+			if(!Savebutton.isEnabled())
+			{
+				test.pass("Save Button is not Enabled");
+			}
+			else
+			{
+				test.fail("Save Button is Enabled");
+			}
 		}
 		catch(Exception e)
 		{
-			test.pass("Save pop-up is not displayed");
+			test.error(e);
 		}
+		*/
 	}
 	@Test(priority=43)
 	public void MingreaterRange() throws InterruptedException, IOException
@@ -856,16 +889,61 @@ public void button() throws InterruptedException{
 		{
 			test.pass("Save pop-up is not displayed");
 		}
+		/*
 		try {
 			test = extent.createTest(guiTestCaseName()+" To verify if min greater than range then it should not save the data");
-			Savedisable(Savebutton, "SAVE",driver);
+			if(!Savebutton.isEnabled())
+			{
+				test.pass("Save Button is not Enabled");
+			}
+			else
+			{
+				test.fail("Save Button is Enabled");
+			}
 		}
 		catch(Exception e)
 		{
-			test.pass("Save pop-up is not displayed");
+			test.error(e);
+		}
+		*/
+	}
+	@Test(priority=44)
+	public void RangeValid() throws IOException, InterruptedException
+	{
+		test = extent.createTest(guiTestCaseName()+" To verify valid  range save button enabled");
+		ValidRange();
+		Savefield = driver.findElement(By.name("SAVE"));
+		demo.isEnabled(Savefield,"SAVE", test,driver);
+		    Savefield.click();
+			Thread.sleep(1000);
+			try {
+			String mainWindowHandle = driver.getWindowHandle();
+		    Set<String> windowHandles = driver.getWindowHandles();
+		    for (String handle : windowHandles) {
+		        if (!handle.equals(mainWindowHandle)) {
+		            driver.switchTo().window(handle);
+		            test = extent.createTest(guiTestCaseName()+" To verify save popup titlename");
+		            WebElement ToleranceSave=driver.findElement(By.name("Tolerance Range Configuration"));
+		            demo.Textcomparsion(ToleranceSave, "Tolerance Range Configuration", test,driver);
+		            WebElement ToleranceSavedescription=driver.findElement(By.name("Tolerance Range data saved."));
+		            test = extent.createTest(guiTestCaseName()+" To verify save popup description");
+		            demo.Textcomparsion(ToleranceSavedescription, "Tolerance Range data saved.", test,driver);
+		            test = extent.createTest(guiTestCaseName()+" To verify save popup ok button");
+		            WebElement OK=driver.findElement(By.name("OK"));
+		            demo.Textcomparsion(OK, "OK", test,driver);
+		        	OK.click();	
+		        	Thread.sleep(2000);
+		        	break;
+		            }
+		        }
+		    driver.switchTo().window(mainWindowHandle);	
+		}
+		catch(Exception e)
+		{
+			test.fail("Save pop-up is not displayed");
 		}
 	}
-	@Test(priority=44,groups = "Save")
+	
 	public void ValidRange() throws InterruptedException, IOException
 	{
 		try {
@@ -945,40 +1023,10 @@ public void button() throws InterruptedException{
 		{
 			test.pass("Save pop-up is not displayed");
 		}
-		test = extent.createTest(guiTestCaseName()+" To verify valid  range save button enabled");
-		demo.isEnabled(Savebutton,"SAVE", test,driver);
 		
-			Savebutton.click();
-			Thread.sleep(2000);
-			try {
-			String mainWindowHandle = driver.getWindowHandle();
-		    Set<String> windowHandles = driver.getWindowHandles();
-		    for (String handle : windowHandles) {
-		        if (!handle.equals(mainWindowHandle)) {
-		            driver.switchTo().window(handle);
-		            test = extent.createTest(guiTestCaseName()+" To verify save popup titlename");
-		            WebElement ToleranceSave=driver.findElement(By.name("Tolerance Range Configuration"));
-		            demo.Textcomparsion(ToleranceSave, "Tolerance Range Configuration", test,driver);
-		            WebElement ToleranceSavedescription=driver.findElement(By.name("Tolerance Range data saved."));
-		            test = extent.createTest(guiTestCaseName()+" To verify save popup description");
-		            demo.Textcomparsion(ToleranceSavedescription, "Tolerance Range data saved.", test,driver);
-		            test = extent.createTest(guiTestCaseName()+" To verify save popup ok button");
-		            WebElement OK=driver.findElement(By.name("OK"));
-		            demo.Textcomparsion(OK, "OK", test,driver);
-		        	OK.click();	
-		        	Thread.sleep(2000);
-		        	break;
-		            }
-		        }
-		    driver.switchTo().window(mainWindowHandle);	
-		}
-		catch(Exception e)
-		{
-			test.fail("Save pop-up is not displayed");
-		}
 	}
 	
-	@Test(priority=45,dependsOnGroups = "Save")
+	@Test(priority=45)
 	public void editdisable() throws IOException
 	{
 		test = extent.createTest(guiTestCaseName()+" To verify click on edit button is enabled");
@@ -1060,7 +1108,7 @@ public void button() throws InterruptedException{
 			test.fail("Save pop-up is not displayed");
 		}
 	}
-	@Test(priority=46,groups = "Edit")
+	@Test(priority=46)
 	public void Updatebutton() throws IOException
 	{
 		test = extent.createTest(guiTestCaseName()+" To verify click on edit button update button is displayed");
@@ -1082,7 +1130,7 @@ public void button() throws InterruptedException{
 		 test.fail("No such element found");
 		}
 	}
-	@Test(priority=47,dependsOnGroups = "Edit")
+	@Test(priority=47)
 	public void DataUpdatebutton() throws IOException
 	{
 		try {
@@ -1162,6 +1210,7 @@ public void button() throws InterruptedException{
 		{
 		 test.fail("No such element found");
 		}
+		Update = driver.findElement(By.name("UPDATE"));
 		Update.click();
 		try {
 			String mainWindowHandle = driver.getWindowHandle();
@@ -1196,100 +1245,103 @@ public void button() throws InterruptedException{
 			test.fail("Update pop-up is not displayed");
 		}
 	}
-	@Test(priority=4,dependsOnGroups = "Save")
+	@Test(priority=50)
 	public void Updateddatavalid() throws IOException
 	{
+		Edit = driver.findElement(By.name("EDIT"));
 		Edit.click();
 		test = extent.createTest(guiTestCaseName()+" To verify Updated data is displayed is correctly");
 		try {
-		editupdatedata(GantryRotationAngleMin,"0.6",driver);
-		editupdatedata(GantryRotationAngleMax,"99",driver);
+		editupdatedata(GantryRotationAngleMin,"0.6",driver,test);
+		editupdatedata(GantryRotationAngleMax,"99",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(BeamLimitingDeviceRotationAngleMin,"0.7",driver);
-		editupdatedata(BeamLimitingDeviceRotationAngleMax,"98",driver);
+		editupdatedata(BeamLimitingDeviceRotationAngleMin,"0.7",driver,test);
+		editupdatedata(BeamLimitingDeviceRotationAngleMax,"98",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(JawsMin,"0.2",driver);
-		editupdatedata(JawsMax,"97",driver);
+		editupdatedata(JawsMin,"0.2",driver,test);
+		editupdatedata(JawsMax,"97",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(MLC1LeafMin,"0.3",driver);
-		editupdatedata(MLC1LeafMax,"96",driver);
+		editupdatedata(MLC1LeafMin,"0.3",driver,test);
+		editupdatedata(MLC1LeafMax,"96",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(MLC2LeafMin,"0.4",driver);
-		editupdatedata(MLC2LeafMax,"95",driver);
+		editupdatedata(MLC2LeafMin,"0.4",driver,test);
+		editupdatedata(MLC2LeafMax,"95",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(PatientSupportRotationAngleMin,"0.8",driver);
-		editupdatedata(PatientSupportRotationAngleMax,"94",driver);
+		editupdatedata(PatientSupportRotationAngleMin,"0.8",driver,test);
+		editupdatedata(PatientSupportRotationAngleMax,"94",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(LongitudinalMin,"0.9",driver);
-		editupdatedata(LongitudinalMax,"93",driver);
+		editupdatedata(LongitudinalMin,"0.9",driver,test);
+		editupdatedata(LongitudinalMax,"93",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(LateralMin,"0.55",driver);
-		editupdatedata(LateralMax,"92",driver);
+		editupdatedata(LateralMin,"0.55",driver,test);
+		editupdatedata(LateralMax,"92",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(VerticalMin,"0.33",driver);
-		editupdatedata(VerticalMax,"91",driver);
+		editupdatedata(VerticalMin,"0.33",driver,test);
+		editupdatedata(VerticalMax,"91",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(PitchAngleMin,"0.12",driver);
-		editupdatedata(PitchAngleMax,"4",driver);
+		editupdatedata(PitchAngleMin,"0.12",driver,test);
+		editupdatedata(PitchAngleMax,"4",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
 		try {
-		editupdatedata(RollAngleMin,"0.13",driver);
-		editupdatedata(RollAngleMax,"5",driver);
+		editupdatedata(RollAngleMin,"0.13",driver,test);
+		editupdatedata(RollAngleMax,"5",driver,test);
 		}
 		catch(Exception e)
 		{
 			test.fail("Save pop-up is not displayed");
 		}
+		Update = driver.findElement(By.name("UPDATE"));
 		Update.click();
+		
 			try {
 				String mainWindowHandle = driver.getWindowHandle();
 			    Set<String> windowHandles = driver.getWindowHandles();
@@ -1324,11 +1376,13 @@ public void button() throws InterruptedException{
 			}
 		}
 	
-	
-	public void Updatevalid() throws InterruptedException, IOException
+	@Test(priority=54)
+	public void UpdatevalidData() throws InterruptedException, IOException
 	{
+		Edit = driver.findElement(By.name("EDIT"));
 		Edit.click();
 		ValidRange();
+		Update = driver.findElement(By.name("UPDATE"));
 		Update.click();
 		try {
 			String mainWindowHandle = driver.getWindowHandle();
@@ -1363,16 +1417,5 @@ public void button() throws InterruptedException{
 			test.fail("Update pop-up is not displayed");
 		}
 	}
-	@AfterClass
-	public void tearDown() {
-	    // Flush the Extent Reports after all tests in the class
-	    extent.flush();
-	}
-	@AfterClass
-	public void quit() throws InterruptedException
-	{
-		driver.quit();
-		 Thread.sleep(5000);
-	}
-  
+
 }

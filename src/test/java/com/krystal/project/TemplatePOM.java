@@ -55,6 +55,11 @@ WebElement Selectsite;
 @FindBy(xpath = "//Text[@ClassName=\"TextBlock\"][@Name=\"Template Name\"]")
 WebElement TemplateNamelbl;
 
+@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"PrescriptionTemplatesMainView\"]/Custom[@ClassName=\"PrescriptionTemplatesSection2View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+WebElement site;
+
+@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"PrescriptionTemplatesMainView\"]/Custom[@ClassName=\"PrescriptionTemplatesSection2View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+WebElement rad;
 
 @FindBy(xpath = "//Custom[@ClassName=\"PrescriptionTemplatesSection2View\"]/Edit[@ClassName=\"TextBox\"][1]")
  @CacheLookup
@@ -316,6 +321,9 @@ WebElement Inputcontains;
 
 	@FindBy(name = "Please Select any site")
 	 WebElement Siteerror;
+	
+	@FindBy(xpath = "//Window[@ClassName=\"Window\"][@Name=\"Krystal\"]/Custom[@ClassName=\"PrescriptionTemplatesMainView\"]/Custom[@ClassName=\"PrescriptionTemplatesSection2View\"]/ComboBox[@ClassName=\"ComboBox\"]")
+	 WebElement Siteerror1;
 	
 	@FindBy(name = "Please enter a name for the template")
 	 WebElement Templateerror;

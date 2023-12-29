@@ -13,6 +13,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,7 +24,6 @@ import io.appium.java_client.windows.WindowsDriver;
 
 
 public class PrescChemotherapyFun extends ReferencefileChemotheraphy{
-	private Actions act;
 	WarningMesages warn;
 	private ChemoTherapyPOM chemop;
 	private String SiteText6;
@@ -111,18 +111,23 @@ public class PrescChemotherapyFun extends ReferencefileChemotheraphy{
 	private String DrugDose4g;
 	private String DrugDose66;
 	private String Drug66;
+	Actions act;
+	Actions action;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =0)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.ChemotheraphyPrecsription(driver);
 	chemop=new ChemoTherapyPOM(driver);
 	act=new Actions(driver);
 	warn=new WarningMesages();
+	act=new Actions(driver);
+	action=new Actions(driver);
+	
 	}
 	
 	
@@ -145,6 +150,7 @@ public class PrescChemotherapyFun extends ReferencefileChemotheraphy{
 	
 	@Test(priority =1)     // Use try catch block for each message
    	public void toverifyfunctionalityofWarningmessagesafterclickedonsave() throws InterruptedException, IOException{
+		 test = extent.createTest("======PRECRIPTION CHEMOTHERAPHY MODULE=====");
 		 test = extent.createTest(funTestCaseName()+" : To verify the functionality of Warningmessages below dropdowns, radiobuttons and textfield after clicked on save ", "Warning esaages should display for requiewd fields");
 		act.moveToElement(chemop.Save).click().perform();
 		try {
@@ -152,8 +158,8 @@ public class PrescChemotherapyFun extends ReferencefileChemotheraphy{
 	    List(chemop.Rtids, 1,act);
 		}
 		catch(Exception e)
-		{
-			test.error(e);
+		{  catchexceptionscreenshot(test,e);  
+		 
 		}
 		try {
 		
@@ -187,8 +193,8 @@ public class PrescChemotherapyFun extends ReferencefileChemotheraphy{
 		
 		}
 		catch(Exception e)
-		{
-			test.error(e);
+		{ 
+		catchexceptionscreenshot(test,e);
 		}
 }	
 	
@@ -907,6 +913,7 @@ public void delete() throws IOException, InterruptedException
 	catch(Exception e)
 	{
 		test.info("No pop-up is displayed");
+		catchexceptionscreenshot1(test,e);
 	}
 	
 	datagrid(0,"Leg_928363",DrugDose21,"",test,driver);
@@ -936,6 +943,7 @@ public void deleteddataadded() throws IOException, InterruptedException
 	catch(Exception e)
 	{
 		test.info("No pop-up is displayed");
+		catchexceptionscreenshot1(test,e);
 	}
 	Thread.sleep(1000);
 	datadelete(0,test,driver);
@@ -1061,6 +1069,7 @@ public void PostSurgeryEdit() throws IOException, InterruptedException
 @Test(priority =61)
 public void Editcomprasionpost() throws IOException, InterruptedException
 {
+
 	test = extent.createTest(funTestCaseName()+" : Click on the Postsurgery Edit,Update button should be displayed");
 	Thread.sleep(2000);
 	act.moveToElement(chemop.Edit).click().perform();
@@ -1189,7 +1198,7 @@ public void PresurgeryEdit() throws IOException, InterruptedException
 	}
 	catch(Exception e)
 	{
-		test.info("No pop-up is displayed");
+		catchexceptionscreenshot(test,e);
 	}
 	
 	chemop.AddMedications.click();
@@ -1347,7 +1356,8 @@ public void PostRadiationEdit() throws IOException, InterruptedException
 	}
 	catch(Exception e)
 	{
-		test.info("No pop-up is displayed");
+		test.info("No pop-up is displayed"); 
+		catchexceptionscreenshot1(test,e);
 	}
 	
 	Thread.sleep(1000);
@@ -1647,7 +1657,7 @@ public void Concurrent() throws IOException, InterruptedException
 	}
 	catch(Exception e)
 	{
-		test.error(e);
+		catchexceptionscreenshot1(test,e);  
 	}
 	DrugForm4=Roleselection(test, 14);
 	RadioSensitizers=Roleselection(test, 15);
@@ -1781,7 +1791,8 @@ public void datadelete(int i,ExtentTest test,WebDriver driver) throws IOExceptio
 	WebElement element=Listrow.get(i);
 	WebElement Delete=element.findElements(By.className("DataGridCell")).get(0);
 	demo.isEnabled(Delete, "Delete", test, driver);
-	Delete.click();	
+	Thread.sleep(1000);
+	action.moveToElement(Delete).click().perform();
 }
 
 public void InvalidEvery(WebElement element, String Text,WindowsDriver  driver,ExtentTest test) throws IOException
@@ -1866,13 +1877,6 @@ public void InvalidSymptonRemarks(WebElement element, String Text,WebDriver driv
 	demo.Textcomparsion(Remarks, ER, test, driver);
 	//WebElement DateandTime=element.findElements(By.className("DataGridCell")).get(4);
 }	
-		
-
-		
-	@AfterSuite
-    public void tearDown() {
-        extent.flush();
-    }
 	
 	//Pending:
 	// Edit the Each data and save 

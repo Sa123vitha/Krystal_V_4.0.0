@@ -63,7 +63,7 @@ public class ChemotheraphyPOM {
 	@FindBy(name = "Drug Name")
 	WebElement DrugName;
 	
-	@FindBy(name = "Drug Name already exists")
+	@FindBy(name = "Drug Name already exists.")
 	WebElement DrugNameexits;
 	
 	@FindBy(name = "Input cannot be blank")

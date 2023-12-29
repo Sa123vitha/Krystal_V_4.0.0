@@ -1,17 +1,795 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Test(failed)">
+  <test thread-count="5" name="SequentialTest1(failed)">
     <classes>
-      <class name="com.krystal.project.DesignationConfigurationtest">
+      <class name="com.krystal.project.Login">
         <methods>
-          <include name="addDesignationLabel"/>
           <include name="setUp1"/>
-          <include name="designationNameLabel"/>
-          <include name="prescriptionNameLabel"/>
+          <include name="Helpbutton"/>
           <include name="tearDown"/>
+          <include name="setUp"/>
+          <include name="quit"/>
         </methods>
-      </class> <!-- com.krystal.project.DesignationConfigurationtest -->
+      </class> <!-- com.krystal.project.Login -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- SequentialTest1(failed) -->
+  <test thread-count="5" name="SequentialTest3(failed)">
+    <classes>
+      <class name="com.krystal.project.PatientDemographics">
+        <methods>
+          <include name="PermentZipcodevalid"/>
+          <include name="WeightLabelValiddata"/>
+          <include name="IDtypetext"/>
+          <include name="TitlebarPateintmenu"/>
+          <include name="AlternatePhoneNumbertextfield"/>
+          <include name="RemarksValid"/>
+          <include name="PermentZiptext"/>
+          <include name="caretakernumbervalidation"/>
+          <include name="Remarkstext"/>
+          <include name="TitlebarChangepassword"/>
+          <include name="MiddleNameLabel"/>
+          <include name="IDNumberLabel"/>
+          <include name="PermentRegiondatavalid"/>
+          <include name="Languagestext"/>
+          <include name="FemaleGenderselected"/>
+          <include name="WeightLabel"/>
+          <include name="IDNumbertext"/>
+          <include name="Relationshiptext"/>
+          <include name="ValidEmail"/>
+          <include name="RegionLabel"/>
+          <include name="LanguagesKnownLabel"/>
+          <include name="CareTakerAddress"/>
+          <include name="CurrentAddressLabel"/>
+          <include name="ZipcodeLabel"/>
+          <include name="Nationalitytext"/>
+          <include name="patientBasicInformationLabel"/>
+          <include name="IDtypeValid"/>
+          <include name="setUp1"/>
+          <include name="SidebarDemogarphics"/>
+          <include name="MaleLabel"/>
+          <include name="currentAddresstext"/>
+          <include name="PermentRegiontext"/>
+          <include name="Browsebutton"/>
+          <include name="MiddlenameTextbox"/>
+          <include name="OthersLabel"/>
+          <include name="IDNumberValid"/>
+          <include name="caretakerdetailsLabel"/>
+          <include name="TitlebarMenu"/>
+          <include name="ContactdetailsLabel"/>
+          <include name="SidebarScheudling"/>
+          <include name="quit"/>
+          <include name="firstNameLabel"/>
+          <include name="CurrentZipcodevalid"/>
+          <include name="Launch"/>
+          <include name="PermanentAddressLabel"/>
+          <include name="FirstnameTextbox"/>
+          <include name="LastnameTextbox"/>
+          <include name="FemaleLabel"/>
+          <include name="WeightLabelInValiddata"/>
+          <include name="caretakernumbertext"/>
+          <include name="RelationshipLabel"/>
+          <include name="SidebarPlanAprroval"/>
+          <include name="PhoneNumbertextfield"/>
+          <include name="permanentAddress"/>
+          <include name="caretakernameLabel"/>
+          <include name="DefaultFemaleGender"/>
+          <include name="LanguagesValid"/>
+          <include name="MaleGenderselected"/>
+          <include name="caretakerdeatils"/>
+          <include name="setUp"/>
+          <include name="caretakerRelationship"/>
+          <include name="Titlebarname"/>
+          <include name="TitlebarSignout"/>
+          <include name="SidebarReview"/>
+          <include name="AlternateNumberLabel"/>
+          <include name="Addpatient"/>
+          <include name="IDtypeLabel"/>
+          <include name="Emailtext"/>
+          <include name="TitlebarPateintlist"/>
+          <include name="permanenttext"/>
+          <include name="SaveLabel"/>
+          <include name="caretakerNumberLabel"/>
+          <include name="Contactdetails"/>
+          <include name="Gendersave"/>
+          <include name="caretakervalidation"/>
+          <include name="CurrentZiptext"/>
+          <include name="Titlebaraddicon"/>
+          <include name="caretakernametext"/>
+          <include name="OthersGenderselected"/>
+          <include name="DefaultMaleGender"/>
+          <include name="SidebarLabreports"/>
+          <include name="RemarksLabel"/>
+          <include name="SidebarVitals"/>
+          <include name="LastNameLabel"/>
+          <include name="currentAddress"/>
+          <include name="NationalityLabel"/>
+          <include name="TitlebarTheme"/>
+          <include name="PhoneNumberLabel"/>
+          <include name="Titlebarkrystallogo"/>
+          <include name="EmailIDLabel"/>
+          <include name="tearDown"/>
+          <include name="CurrentRegiondatavalid"/>
+          <include name="SidebarPrescription"/>
+          <include name="CurrentRegiontext"/>
+          <include name="DefaultOthersGender"/>
+          <include name="NationalityValid"/>
+          <include name="CareTakerAddresstext"/>
+        </methods>
+      </class> <!-- com.krystal.project.PatientDemographics -->
+    </classes>
+  </test> <!-- SequentialTest3(failed) -->
+  <test thread-count="5" name="SequentialTest4(failed)">
+    <classes>
+      <class name="com.krystal.project.DemographicsSmoketesting">
+        <methods>
+          <include name="tearDown"/>
+          <include name="savedata"/>
+          <include name="Addfield"/>
+          <include name="setUp1"/>
+          <include name="setUp"/>
+          <include name="quit"/>
+        </methods>
+      </class> <!-- com.krystal.project.DemographicsSmoketesting -->
+    </classes>
+  </test> <!-- SequentialTest4(failed) -->
+  <test thread-count="5" name="SequentialTest5(failed)">
+    <classes>
+      <class name="com.krystal.project.PatientListFun">
+        <methods>
+          <include name="UnselectcustomizationAge"/>
+          <include name="MachinefilterSelectAll"/>
+          <include name="UnselectcustomizationCreated"/>
+          <include name="UnselectcustomizationMachine"/>
+          <include name="Selectallclick"/>
+          <include name="Physicianfilter"/>
+          <include name="CreatedDatesort"/>
+          <include name="setUp"/>
+          <include name="Patienttablelist"/>
+          <include name="Unselectcustomizationdate"/>
+          <include name="searchbyotherid"/>
+          <include name="GenderOthersfilter"/>
+          <include name="ModifiedDatesort"/>
+          <include name="OtherIDsort"/>
+          <include name="UnselectMachine"/>
+          <include name="searchbyRTID"/>
+          <include name="Defaultenable"/>
+          <include name="PhysicianSelectAll"/>
+          <include name="Machinefilter"/>
+          <include name="Launch"/>
+          <include name="UnselectcustomizationGender"/>
+          <include name="UnselectcustomizationOtherid"/>
+          <include name="setUp1"/>
+          <include name="searchbyrtid"/>
+          <include name="Namesort"/>
+          <include name="searchbydob"/>
+          <include name="GenderFemalefilter"/>
+          <include name="UnselectGender"/>
+          <include name="GenderMalefilter"/>
+          <include name="quit"/>
+          <include name="UnselectDate"/>
+          <include name="searchbyname"/>
+          <include name="Unselectge"/>
+          <include name="Agesort"/>
+          <include name="tearDown"/>
+          <include name="UnselectOtherid"/>
+          <include name="RTIDsort"/>
+          <include name="Unselectpatientlist"/>
+        </methods>
+      </class> <!-- com.krystal.project.PatientListFun -->
+    </classes>
+  </test> <!-- SequentialTest5(failed) -->
+  <test thread-count="5" name="SequentialTest6(failed)">
+    <classes>
+      <class name="com.krystal.project.PrescriptionGUITestcases">
+        <methods>
+          <include name="ToverifyMRIIDlabel"/>
+          <include name="Titlename"/>
+          <include name="ToverifyPelvicBaseplatelabel"/>
+          <include name="Bridge"/>
+          <include name="ToverifyOARnamelabel"/>
+          <include name="ToverifyChemophaselabel"/>
+          <include name="ToverifyOARlabel"/>
+          <include name="ToverifyOARmindoselabel"/>
+          <include name="Treatmentoverview"/>
+          <include name="Signout"/>
+          <include name="ToverifyOARAddlabel"/>
+          <include name="Planapproval"/>
+          <include name="SKIN_APPOSITION"/>
+          <include name="ISOCENTRIC"/>
+          <include name="ToverifyOARcloselabel"/>
+          <include name="ToverifythePrescriptionTemplatelabel"/>
+          <include name="Launch"/>
+          <include name="Toverifyradiationtypelabel"/>
+          <include name="Toverifypatientimmobilizationlabel"/>
+          <include name="Service"/>
+          <include name="Toverifygatingyeslabel"/>
+          <include name="Prophylactic"/>
+          <include name="setUp1"/>
+          <include name="ToverifyBreastBoardlabel"/>
+          <include name="Demographics"/>
+          <include name="ToverifyOARmaxdoselabel"/>
+          <include name="ExternalBeam"/>
+          <include name="ToverifyBellyBoardlabel"/>
+          <include name="Toverifysetuptechniquelabel"/>
+          <include name="ToverifyOARmeandoselabel"/>
+          <include name="Exportbutton"/>
+          <include name="AddTabs"/>
+          <include name="Curative"/>
+          <include name="ToverifyDoseConstraints"/>
+          <include name="quit"/>
+          <include name="Toverifyboluslabel"/>
+          <include name="ToverifyWingBoardlabel"/>
+          <include name="ToverifyKneefixBaseplatelabel"/>
+          <include name="ToverifyKneefixFeetfixsystemlabel"/>
+          <include name="Labreports"/>
+          <include name="Machine_Qa"/>
+          <include name="Prescription"/>
+          <include name="Patientlist"/>
+          <include name="NewsiteandPhase"/>
+          <include name="SaveButton"/>
+          <include name="Palliative"/>
+          <include name="Toverifybolusyeslabel"/>
+          <include name="ToverifyCtschedulelabel"/>
+          <include name="Toverifynumberoffractionlabel"/>
+          <include name="Toverifyenergylabel"/>
+          <include name="ToverifyTsitelabel"/>
+          <include name="ToverifyOARmaxdosedoselabel"/>
+          <include name="Toverifygatinglabel"/>
+          <include name="setUp"/>
+          <include name="Productlogo"/>
+          <include name="Vitals"/>
+          <include name="Theme"/>
+          <include name="Toverifyprescribedmachinelabel"/>
+          <include name="Toverifytargetprescriptiondoselabel"/>
+          <include name="Toverifychemotherapylabel"/>
+          <include name="AddPatient"/>
+          <include name="PlanIntent"/>
+          <include name="ToverifyMimimumdoselabel"/>
+          <include name="ToverifyOARdescriptionlabel"/>
+          <include name="ToverifyCbccyclelabel"/>
+          <include name="Toverifyigrtlabel"/>
+          <include name="Toverifybolusnolabel"/>
+          <include name="Toverifyphysicianlabel"/>
+          <include name="Verification"/>
+          <include name="ToverifySigmaLiteBoardlabel"/>
+          <include name="Toverifybeamtypelabel"/>
+          <include name="ToverifyOARmeandosedoselabel"/>
+          <include name="Scheduling"/>
+          <include name="ToverifyHeadandShoulderBasePlatelabel"/>
+          <include name="ToverifyPrescribedDeviceTitleButtonlabel"/>
+          <include name="ToverifyFeetfix"/>
+          <include name="ToverifyCTIDlabel"/>
+          <include name="Password"/>
+          <include name="TBI"/>
+          <include name="Toverifyreviewcyclelabel"/>
+          <include name="ToverifyParameterslabel"/>
+          <include name="Toverifygatingnolabel"/>
+          <include name="Menu"/>
+          <include name="ToverifyPETCTIDlabel"/>
+          <include name="ToverifytitleOarconstarintslabel"/>
+          <include name="FIXED_SSD"/>
+          <include name="Patientmenu"/>
+          <include name="ToverifyOARinsertlabel"/>
+          <include name="tearDown"/>
+          <include name="ToverifyMaximumdoselabel"/>
+          <include name="ToverifyKneefix"/>
+          <include name="Research"/>
+          <include name="ToverifyOARdescriptiontxtlabel"/>
+          <include name="ToverifyOARmintxtdoselabel"/>
+        </methods>
+      </class> <!-- com.krystal.project.PrescriptionGUITestcases -->
+    </classes>
+  </test> <!-- SequentialTest6(failed) -->
+  <test thread-count="5" name="SequentialTest7(failed)">
+    <classes>
+      <class name="com.krystal.project.PrescriptionFun">
+        <methods>
+          <include name="minDosetextfieldifenterednumberisempty"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingPROPHYLACTIC"/>
+          <include name="RadiobuttonofBolusNowithoutselecting"/>
+          <include name="maxDosetextfieldifenteredminlessthanmaxc"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisAplphanumeric"/>
+          <include name="Toverifynergydropdownbyselectingstatic"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisempty"/>
+          <include name="ToverifyCTtextfieldifenteredAnynumberintherangeandclickedOnSavebutton"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingCURATIVE"/>
+          <include name="ToverifyOARMIANDmaxDosetextfieldifenterednumberisSAME"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingMACHINE_QA"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisSpaces"/>
+          <include name="Reviewcycletextfieldifenterednumberisempty"/>
+          <include name="ToverifyTechniquedropdownbyselectingSKIN_APPOSITION"/>
+          <include name="maxDosetextfieldifenteredminandmax"/>
+          <include name="ToverifyOARDescriptiontextfieldifenteredminiumvalueand"/>
+          <include name="CBCcycletextfieldifenterednumberisAplphanumeric"/>
+          <include name="CBCcycletextfieldifenterednumberisSpecialCharacters"/>
+          <include name="ToverifyTechniquedropdownbyselectingISOCENTRIC"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisSpecial"/>
+          <include name="ToverifyOARNametextfielifenterALPHANUMERICSPECIALCHARsinthenameName"/>
+          <include name="minDosetextfieldifenteredMaxnumber"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisOutOfrange"/>
+          <include name="ToverifyMRItextfieldifenteredAnynumberintherangeandclickedOnSavebutton"/>
+          <include name="minDosetextfieldifenterednumberisAplphanumeric"/>
+          <include name="ToverifyOARNametextfielifenteranumbersasspecialchartinthenameName"/>
+          <include name="ToverifyPhysiciandropdownbydefault"/>
+          <include name="minDosetextfieldifenterednumberOutOfrangemin"/>
+          <include name="ToverifyOARminDosetextfieldifenteredminiumvalue"/>
+          <include name="ReviewcycleAplphanumeric"/>
+          <include name="quit"/>
+          <include name="Siteselction"/>
+          <include name="ToverifyminDosetextfieldifenteredMaxnumber"/>
+          <include name="maxDosetextfieldifenterednumberisSpecialCharacters"/>
+          <include name="PrescriptionAdd"/>
+          <include name="PrecriptionEditIMD"/>
+          <include name="ToverifyCTtextfieldifisEmptyandclickedOnSavebutton"/>
+          <include name="ToverifyCTtextfieldifenteredalphabetsandclickedOnSavebutton"/>
+          <include name="EditcomprasionIMD"/>
+          <include name="ReviewcycleSpecialCharacter"/>
+          <include name="ToverifyOARDescriptiontextfieldifenteredAnynumberintherange"/>
+          <include name="PrecsriptionOAR"/>
+          <include name="Editcomprasionpost"/>
+          <include name="Toverifyinsertbutton"/>
+          <include name="IGTRtextfieldifenterednumberisAplphanumeric"/>
+          <include name="ToverifyPETCTIDtextfieldifenteredismorethanitsacceptinglengthandclickedOnSavebutton"/>
+          <include name="CBCcycletextfieldifenteredminiumvalue"/>
+          <include name="CBCcycletextfieldifenterednumberisSpaces"/>
+          <include name="Sitedropdowndefault"/>
+          <include name="ToverifyPETCTIDtextfieldifenteredminiumvalueandclickedOnSavebutton"/>
+          <include name="Radiobuttonofbolusyeswithoutselecting"/>
+          <include name="ToverifyminDosetextfieldifenterednumber"/>
+          <include name="noOfFractiontextfieldifenterednumberisSpecialCharacters"/>
+          <include name="ToverifyminDosetextfieldifenteredAnynumberintherange"/>
+          <include name="ToverifyTargetPrescriptionDosetextfieldifenteredAlphabets"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisAlphabets"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingSERVICE"/>
+          <include name="noOfFractiontextfieldifenterednumberisAlphabets"/>
+          <include name="ReviewcycletextfieldifenterednumberisOutOfrange"/>
+          <include name="noOfFractiontextfieldifenterednumberisSpaces"/>
+          <include name="ReviewcycleSpaces"/>
+          <include name="maxDosetextfieldifenterednumberisOutOfrange"/>
+          <include name="TargetPrescriptionDosetextfieldwithoutdata"/>
+          <include name="CBCcycletextfieldifenteredAnynumberintherange"/>
+          <include name="Radiobuttonofgatingyeswithselecting"/>
+          <include name="ToverifyMRItextfieldifenteredismorethanitsacceptinglengthandclickedOnSavebutton"/>
+          <include name="TargetPrescriptionDosetextfieldifenteredlessthanrange"/>
+          <include name="noOfFractiontextfieldifenterednumberisAplphanumeric"/>
+          <include name="noOfFractiontextfieldifenteredMaxnumber"/>
+          <include name="CBCcycletextfieldifenteredMaxnumber"/>
+          <include name="ToverifyPETCTIDtextfieldifenteredAnynumberintherangeandclickedOnSavebutton"/>
+          <include name="TextfieldEnabled"/>
+          <include name="maxDosetextfieldifenteredminandmaxdosevaluessame"/>
+          <include name="ToverifyRadiationTypedropdownbyselectingstatic1"/>
+          <include name="ToverifyMRItextfieldifenteredminiumvalueandclickedOnbutton"/>
+          <include name="TargetPrescriptionDosetextfieldifenteredAplphanumeric"/>
+          <include name="SaveButtonEnable"/>
+          <include name="tearDown"/>
+          <include name="Launch"/>
+          <include name="ReviewcycletextfieldifenteredMaxnumber"/>
+          <include name="ToverifyTechniquedropdownbyselectingBREAST_BRIDGE"/>
+          <include name="maxDosetextfieldifenterednumberisSpaces"/>
+          <include name="ToverifyOARNametextfielifOArNameisEmpty"/>
+          <include name="ToverifyCTtextfieldifenteredalphanumaricandspecialcharactersandclickedOnSavebutton"/>
+          <include name="ToverifyOARmaxDosetextfieldvalid"/>
+          <include name="IGRTtextfieldifenteredoutofrange"/>
+          <include name="ToverifyPETCTIDtextfieldifenterednumberisOutOfrangeandclickedOnSavebutton"/>
+          <include name="ToverifyTOARNametextfieldifenteraproperName"/>
+          <include name="maxDosetextfieldifenterednumberisempty"/>
+          <include name="ToverifyBeamTypedropdownbyselectingDynamic"/>
+          <include name="ReviewcycletextfieldAlphabets"/>
+          <include name="TargetPrescriptionDosetextfieldifenteredSpecialCharacter"/>
+          <include name="IGRTtextfieldifenteredmaximumvalue"/>
+          <include name="noOfFractiontextfieldifenterednumberempty"/>
+          <include name="Radiobuttonofgatingyeswithoutselecting"/>
+          <include name="ToverifyCTtextfieldifenteredisalphanumaricandclickedOnSavebutton"/>
+          <include name="maxDosetextfieldifenteredMaxnumber"/>
+          <include name="ToverifyOARNametextfielifenteraspecailcharas1stletterinthenameName"/>
+          <include name="ToverifyOARNametextfielifenteredAlphanemeric"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingPALLIATIVE"/>
+          <include name="PrescriptionEdit"/>
+          <include name="ToverifyCTtextfieldifenteredismorethanitsacceptinglengthandclickedOnSavebutton"/>
+          <include name="setUp1"/>
+          <include name="ToverifyTechniquedropdownbyselectingFIXED_SSD"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisempty"/>
+          <include name="maxDosetextfieldifenterednumberisAlphabets"/>
+          <include name="cycletextfieldifenterednumberisOutOfrange"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingRESEARCH"/>
+          <include name="maxDosetextfieldifenteredAnynumberintherange"/>
+          <include name="ToverifyTechniquedropdownbydefault"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisSpecialCharacters"/>
+          <include name="SaveDataeditforIMD"/>
+          <include name="TargetPrescriptionDosetextfieldifenteredMaxrange"/>
+          <include name="CBCcycletextfieldifenterednumberisAlphabets"/>
+          <include name="ToverifyEnergydropdownbydefault"/>
+          <include name="ToverifyMRItextfieldifenterednumberisOutOfrangeandclickedOnSavebutton"/>
+          <include name="SaveDataeditforpost"/>
+          <include name="noOfFractiontextfieldifenteredlessthanminrange"/>
+          <include name="ToverifyRadiationTypeedropdownbyselectingStatic"/>
+          <include name="IGRTtextfieldifenteredAlphabets"/>
+          <include name="ToverifyMRItextfieldifisEmptyandclickedOnSavebutton"/>
+          <include name="maxDosetextfieldifenterednumberisAplphanumeric"/>
+          <include name="RadiobuttonofgatingyNowithoutselecting"/>
+          <include name="ToverifyOARDescriptiontextfieldifenteredMaxnumber"/>
+          <include name="minDosetextfieldifenterednumberisSpaces"/>
+          <include name="RadiobuttonofBolusyeswithselecting"/>
+          <include name="ToverifyOARmaxDosetextfieldifenteredMaxnumber"/>
+          <include name="TargetPrescriptionDosetextfieldifenterednumber"/>
+          <include name="ToverifyMRItextfieldifenteredMaxnumberandclickedOnSavebutton"/>
+          <include name="ToverifyPETCTIDtextfieldifisEmptyandclickedOnSavebutton"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumberisAplphanumeric"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisAlphabets"/>
+          <include name="ToverifyTechniquedropdownbyselectingTBI"/>
+          <include name="ToverifyOARmaxDosetextfieldifenteredAnynumberintherangeand"/>
+          <include name="setUp"/>
+          <include name="IGRTtextfieldifenteredanynumberinrange"/>
+          <include name="ToverifyOARNametextfieldifenterednumberisOutOfrange"/>
+          <include name="TargetPrescriptionDosetextfieldifenteredSpaces"/>
+          <include name="ToverifyOARNametextfielifenter2lettersinthenameName"/>
+          <include name="defaultsaveclick"/>
+          <include name="TnoOfFractiontextfieldifenteredminiumvalue"/>
+          <include name="ToverifyOARDescriptiontextfieldifenterednumberisOutOfrange"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisSpaces"/>
+          <include name="ToverifyOARNametextfielifenterNUMBERASsinthenameName"/>
+          <include name="Reviewcycletextfieldifenteredminiumvalue"/>
+          <include name="ToverifyBeamTypedropdownbydefault"/>
+          <include name="TargetPrescriptionDosetextfieldifenterednumberempty"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisOutOfrange"/>
+          <include name="ToverifyOARmaxDosetextfieldifenteredminiumvalue"/>
+          <include name="TargetPrescriptionDosetextfieldifenterednumberOutOfrange"/>
+          <include name="ToverifyPETCTIDtextfieldifenteredMaxnumberandclickedOnSavebutton"/>
+          <include name="ToverifyPlanIntentdropdownbyselectingVERIFICATION"/>
+          <include name="ReviewcycletextfieldifenteredAnynumberintherange"/>
+          <include name="TmaxDosetextfieldifenteredminiumvalue"/>
+          <include name="ToverifyOARmaxDosetextfieldifenterednumber"/>
+          <include name="ToverifyminDosetextfieldifenterednumberisSpecialCharacters"/>
+          <include name="minDosetextfieldifenteredminiumvalue"/>
+          <include name="minDosetextfieldifenteredAnynumber"/>
+          <include name="minDosetextfieldifenterednumberisAlphabets"/>
+          <include name="minDosetextfieldifenterednumberOutOfrange"/>
+          <include name="noOfFractiontextfieldifenterednumberisOutOfrange"/>
+          <include name="CBCcycletextfieldifenterednumberisempty"/>
+        </methods>
+      </class> <!-- com.krystal.project.PrescriptionFun -->
+    </classes>
+  </test> <!-- SequentialTest7(failed) -->
+  <test thread-count="5" name="SequentialTest8(failed)">
+    <classes>
+      <class name="com.krystal.project.ChemoTherapyGUI">
+        <methods>
+          <include name="Toverifygeneraladditionalmedications"/>
+          <include name="ToverifyDrugdoselabel"/>
+          <include name="Toverifypatientheightlabel"/>
+          <include name="Toverifyotherslabel"/>
+          <include name="Prescription"/>
+          <include name="Toverifylicensedtolabel"/>
+          <include name="NewsiteandPhase"/>
+          <include name="Orallabel"/>
+          <include name="SaveButton"/>
+          <include name="Patientlist"/>
+          <include name="Toverifydruglabel"/>
+          <include name="Toverifyconcurrentlabel"/>
+          <include name="Toverifypostsurgerylabel"/>
+          <include name="Toverifysaturdaylabel"/>
+          <include name="ToverifyCloseel"/>
+          <include name="Toverifypresurgerylabel"/>
+          <include name="Labreports"/>
+          <include name="Exportbutton"/>
+          <include name="AddTabs"/>
+          <include name="Injectionlabel"/>
+          <include name="Toverifysoftwareversionlabellabel"/>
+          <include name="Toverifycustomlabel"/>
+          <include name="Demographics"/>
+          <include name="Toverifymondaylabel"/>
+          <include name="ExternalBeam"/>
+          <include name="Toverifylinkprescriptionlabel"/>
+          <include name="Planapproval"/>
+          <include name="setUp1"/>
+          <include name="Toverifyregimenslabel"/>
+          <include name="Toverifysymptomlabel"/>
+          <include name="ToverifyInsertlabel"/>
+          <include name="Toverifyfridaylabel"/>
+          <include name="Toverifysitelabel"/>
+          <include name="Toverifydatelabel"/>
+          <include name="Intrathecallabel"/>
+          <include name="Treatmentoverview"/>
+          <include name="ToverifyPhaselabel"/>
+          <include name="quit"/>
+          <include name="Signout"/>
+          <include name="Toverifythursdaylabel"/>
+          <include name="ToverifyRemarkslabel"/>
+          <include name="Toverifyclassificationlabel"/>
+          <include name="Titlename"/>
+          <include name="Patientmenu"/>
+          <include name="Toverifydoselabel"/>
+          <include name="Toverifysundaylabel"/>
+          <include name="Toverifysoftwareversionnumberlabel"/>
+          <include name="Toverifytreatmenttypelabel"/>
+          <include name="Toverifyweeklylabel"/>
+          <include name="setUp"/>
+          <include name="Toverifypatientbsacalculationlabel"/>
+          <include name="Password"/>
+          <include name="Toverifywednesdaylabel"/>
+          <include name="Toverifyfrequencylabel"/>
+          <include name="Toverifytuesdaylabel"/>
+          <include name="Toverifyeverydropdown"/>
+          <include name="Toverifypatientweightlabel"/>
+          <include name="Menu"/>
+          <include name="ToverifyParameterslabel"/>
+          <include name="Toverifypreradiationlabel"/>
+          <include name="Toverifycycleslabel"/>
+          <include name="ToverifyDruglabel"/>
+          <include name="Addfield"/>
+          <include name="Topicallabel"/>
+          <include name="Toverifyremarkslabel"/>
+          <include name="ToverifyDrugslabel"/>
+          <include name="ToverifyDrugformlabel"/>
+          <include name="IntraPeritoneallabel"/>
+          <include name="Toverifyradiosensitizerslabel"/>
+          <include name="launch"/>
+          <include name="IntraArteriallabel"/>
+          <include name="Scheduling"/>
+          <include name="AddPatient"/>
+          <include name="Toverifychemotherapylabel"/>
+          <include name="Intravenouslabel"/>
+          <include name="Toverifypostradiationlabel"/>
+          <include name="Toverifyeverylabel"/>
+          <include name="Toverifysymptomslabel"/>
+          <include name="Theme"/>
+          <include name="Vitals"/>
+          <include name="Productlogo"/>
+          <include name="Toverifylastmodifieddateandtimelabel"/>
+          <include name="tearDown"/>
+          <include name="Toverifycreateddateandtimelabel"/>
+        </methods>
+      </class> <!-- com.krystal.project.ChemoTherapyGUI -->
+    </classes>
+  </test> <!-- SequentialTest8(failed) -->
+  <test thread-count="5" name="SequentialTest9(failed)">
+    <classes>
+      <class name="com.krystal.project.PrescChemotherapyFun">
+        <methods>
+          <include name="toverifyfunctionalityofclickingSundaycheckboxwithoutchecked"/>
+          <include name="Drug"/>
+          <include name="Regimens"/>
+          <include name="RemarksInvalid"/>
+          <include name="toverifyfunctionalityofclickingSundaycheckboxwithchecked"/>
+          <include name="CustomInvalidRange"/>
+          <include name="Others"/>
+          <include name="Sitedrodpown"/>
+          <include name="Launch"/>
+          <include name="toverifyfunctionalityofclickingWednesdaycheckboxwithchecked"/>
+          <include name="toverifyfunctionalityofclickingSaturdaycheckboxwithchecked"/>
+          <include name="SaveDataeditConcurrent"/>
+          <include name="SaveDataeditPostRadation"/>
+          <include name="toverifyfunctionalityofWarningmessagesafterclickedonsave"/>
+          <include name="Patientweightvalidcases"/>
+          <include name="toverifyfunctionalityofclickingThursdaycheckboxwithoutchecked"/>
+          <include name="PostSurgeryEdit"/>
+          <include name="DrugDose"/>
+          <include name="toverifyfunctionalityofclickingcustomwithchecked"/>
+          <include name="Concurrent"/>
+          <include name="Patientweight"/>
+          <include name="AddmedicationwithoutRamrks"/>
+          <include name="toverifyfunctionalityofclickingcustomwithoutchecked"/>
+          <include name="Radiosentiers"/>
+          <include name="Drug1"/>
+          <include name="toverifyfunctionalityofclickingTuesdaycheckboxwithoutchecked"/>
+          <include name="SaveDataeditPreRadiation"/>
+          <include name="setUp1"/>
+          <include name="PatientweightInvalidcases"/>
+          <include name="SaveDataeditforpre"/>
+          <include name="Toverifyfunctionalityofclickingclassificationdropdown"/>
+          <include name="ToverifyfunctionalityofselectingLegfromthedropdown"/>
+          <include name="PreRadiation"/>
+          <include name="PreEditComparsion"/>
+          <include name="PostSurgery"/>
+          <include name="quit"/>
+          <include name="PostRadiationEdit"/>
+          <include name="RemarksValid"/>
+          <include name="PatientHeightInvalidcases"/>
+          <include name="SaveDataeditforpost"/>
+          <include name="EditPostRadationCompasrion"/>
+          <include name="EditCompasrionPreRadiation"/>
+          <include name="Presurgery"/>
+          <include name="AddMedications"/>
+          <include name="Editcomprasionpost"/>
+          <include name="Symptosdataexits"/>
+          <include name="PatientCyclesvalidcases"/>
+          <include name="setUp"/>
+          <include name="PreRadiationEdit"/>
+          <include name="DrugForm"/>
+          <include name="deletesymptom"/>
+          <include name="toverifyfunctionalityofdropdownsenabledafterselectingpostradiodiation"/>
+          <include name="toverifyfunctionalityofsymptonsTextfieldenteralphabets"/>
+          <include name="toverifyfunctionalityofclickingmondaycheckboxwithoutchecked"/>
+          <include name="Classifcationtype"/>
+          <include name="PresurgeryEdit"/>
+          <include name="deleteddataadded"/>
+          <include name="toverifyfunctionalityofclickingSaturdaycheckboxwithoutchecked"/>
+          <include name="TreatementType"/>
+          <include name="toverifyfunctionalityofclickingWednesdaycheckboxwithoutchecked"/>
+          <include name="toverifyfunctionalityofclickingFridaycheckboxwithoutchecked"/>
+          <include name="PostRadiation"/>
+          <include name="Patientheight"/>
+          <include name="toverifyfunctionalityofclickingWeeklywithchecked"/>
+          <include name="CustomInvalidData"/>
+          <include name="SaveDataeditOthers"/>
+          <include name="SymptomInvalid"/>
+          <include name="delete"/>
+          <include name="CustomDays"/>
+          <include name="toverifyfunctionalityofdropdownsenabledafterselectingpostsurgery"/>
+          <include name="toverifyfunctionalityofclickingThursdaycheckboxwithchecked"/>
+          <include name="Toverifybfunctionalityofclickingsitedropdown"/>
+          <include name="PatientCyclesInvalidcases"/>
+          <include name="SymptomValid"/>
+          <include name="toverifyfunctionalityofclickingFridaycheckboxwithchecked"/>
+          <include name="tearDown"/>
+          <include name="toverifyfunctionalityofclickingmondaycheckboxwithchecked"/>
+          <include name="toverifyfunctionalityofclickingTuesdaycheckboxwithchecked"/>
+        </methods>
+      </class> <!-- com.krystal.project.PrescChemotherapyFun -->
+    </classes>
+  </test> <!-- SequentialTest9(failed) -->
+  <test thread-count="5" name="SequentialTest10(failed)">
+    <classes>
+      <class name="com.krystal.project.PlanApproval">
+        <methods>
+          <include name="ToverifyradiationtypeLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionasymxtoleranceLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionasymyLabel"/>
+          <include name="ToverifybeamnameLabel"/>
+          <include name="ToverifytreatmenttimeminLabel"/>
+          <include name="ToverifyconfirmLabel"/>
+          <include name="ToverifytolerancetablenumberreadLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionmlcxtoleranceLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionmlcyLabel"/>
+          <include name="ToverifycollimatorangledegLabel"/>
+          <include name="ToverifyimporqaLabel"/>
+          <include name="ToverifyplanapprovalLabel"/>
+          <include name="ToverifycreateplanLabel"/>
+          <include name="ToverifyplannameLabel"/>
+          <include name="ToverifytabletoppitchangletLabel"/>
+          <include name="ToverifytreatmentmachineLabel"/>
+          <include name="setUp1"/>
+          <include name="ToverifytabletoprollangletolerancetLabel"/>
+          <include name="ToverifyimportrtplanLabel"/>
+          <include name="Launch"/>
+          <include name="ToverifynumberoffrcationpllannedLabel"/>
+          <include name="ToverifytolerancetablenumberLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionmlcytoleranceLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionmlcxLabel"/>
+          <include name="ToverifygantryangledegLabel"/>
+          <include name="ToverifygantryangleLabel"/>
+          <include name="ToverifytabletoppitchangletolerancetLabel"/>
+          <include name="quit"/>
+          <include name="ToverifygantryangleReadLabel"/>
+          <include name="ToverifyalllinearmotionsareincmandrotationalmotionsareindegreesLabel"/>
+          <include name="ToverifytabletoplateralpositiontoleranceLabel"/>
+          <include name="ToverifyplandetailssLabel"/>
+          <include name="ToverifytabletoplongitudinalpositionLabel"/>
+          <include name="ToverifyplandescriptionLabel"/>
+          <include name="ToverifypatientpositionLabel"/>
+          <include name="ToverifyfilterttypeLabel"/>
+          <include name="ToverifybeamlimitingdeviceangleLabel"/>
+          <include name="ToverifynumberofbeamsLabel"/>
+          <include name="ToverifytabletopverticalpositiontLabel"/>
+          <include name="ToverifyplannedbyLabel"/>
+          <include name="ToverifyfieldtypeLabel"/>
+          <include name="ToverifypatientsupportangleLabel"/>
+          <include name="ToverifytabletopverticalpositiontolerancetLabel"/>
+          <include name="ToverifyDoserateLabel"/>
+          <include name="ToverifypatientsupportangletoleranceLabel"/>
+          <include name="ToverifybeamsequenceLabel"/>
+          <include name="ToverifytolerancetableLabel"/>
+          <include name="setUp"/>
+          <include name="ToverifyclosebuttonLabel"/>
+          <include name="ToverifytolerancesLabel"/>
+          <include name="ToverifyenergyMeVLabel"/>
+          <include name="ToverifybeamlimitingdeviceanglereadLabel"/>
+          <include name="ToverifytabletoplateralpositionLabel"/>
+          <include name="ToverifyselecttolerancetableLabel"/>
+          <include name="ToverifynumberoffractionsLabel"/>
+          <include name="ToverifyaddbeamLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionasymytoleranceLabel"/>
+          <include name="ToverifyfxcmLabel"/>
+          <include name="ToverifytabletoprollangleLabel"/>
+          <include name="ToverifybolusLabel"/>
+          <include name="ToverifyfycmLabel"/>
+          <include name="ToverifyDoseLabel"/>
+          <include name="ToverifytabletoplongitudinalpositiontoleranceLabel"/>
+          <include name="ToverifybeamlimitingdevicepositionasymxLabel"/>
+          <include name="tearDown"/>
+          <include name="ToverifyattributesLabel"/>
+        </methods>
+      </class> <!-- com.krystal.project.PlanApproval -->
+    </classes>
+  </test> <!-- SequentialTest10(failed) -->
+  <test thread-count="5" name="SequentialTest11(failed)">
+    <classes>
+      <class name="com.krystal.project.Vitals">
+        <methods>
+          <include name="bloodpressureLabel"/>
+          <include name="deleteCancelbutton"/>
+          <include name="Toverifyaddblood"/>
+          <include name="deleteenterdata"/>
+          <include name="heightLabel"/>
+          <include name="validdatanextsave"/>
+          <include name="vitaltrendLabel"/>
+          <include name="ToverifysystolicLabel"/>
+          <include name="setUp"/>
+          <include name="ToverifyweightLabel"/>
+          <include name="ToverifypulserateLabel"/>
+          <include name="ToverifyrespiratoryrateLabel"/>
+          <include name="Toverifyaddsave"/>
+          <include name="Launch"/>
+          <include name="Editclick"/>
+          <include name="datetimeLabel"/>
+          <include name="Toverifyaddclose"/>
+          <include name="temperatureLabel"/>
+          <include name="Textfieldvalidadata"/>
+          <include name="ToverifyheightLabel"/>
+          <include name="InvalidData"/>
+          <include name="ToverifydiastolicLabel"/>
+          <include name="Toverifyaddtemperature"/>
+          <include name="setUp1"/>
+          <include name="Toverifyaddheight"/>
+          <include name="Toverifyaddpulserate"/>
+          <include name="Emptydatasave"/>
+          <include name="ToverifytemperatureLabel"/>
+          <include name="Editdata"/>
+          <include name="defaultbuttonenable"/>
+          <include name="Toverifyaddrespiratoryrate"/>
+          <include name="Toverifyaddweight"/>
+          <include name="addclick"/>
+          <include name="quit"/>
+          <include name="respiratoryrateLabe"/>
+          <include name="vitalsLabel"/>
+          <include name="gettext"/>
+          <include name="vitalsTitleLabel"/>
+          <include name="weightLabel"/>
+          <include name="invaliddatasave"/>
+          <include name="tearDown"/>
+          <include name="validdatasave"/>
+          <include name="deleteOKbutton"/>
+          <include name="validedit"/>
+          <include name="InvalidRange"/>
+          <include name="pulserateLabel"/>
+        </methods>
+      </class> <!-- com.krystal.project.Vitals -->
+    </classes>
+  </test> <!-- SequentialTest11(failed) -->
+  <test thread-count="5" name="SequentialTest12(failed)">
+    <classes>
+      <class name="com.krystal.project.LabRepots">
+        <methods>
+          <include name="Currentday"/>
+          <include name="databaseconnectionsavecheck"/>
+          <include name="delete"/>
+          <include name="Fridaylabel"/>
+          <include name="databaseconnectionimportagain"/>
+          <include name="Wednesdaylabel"/>
+          <include name="setUp"/>
+          <include name="deletedimport"/>
+          <include name="Mondaylabel"/>
+          <include name="Previousdayreport"/>
+          <include name="Previousday"/>
+          <include name="filerangeexits"/>
+          <include name="Thursdaylabel"/>
+          <include name="setUp1"/>
+          <include name="Launch"/>
+          <include name="Reportopen"/>
+          <include name="Sundaylabel"/>
+          <include name="ImportOne"/>
+          <include name="quit"/>
+          <include name="Nextday"/>
+          <include name="tearDown"/>
+          <include name="Currentdayandmonth"/>
+          <include name="Titlename"/>
+          <include name="databaseforprevious"/>
+          <include name="Saturadaylabel"/>
+          <include name="Tuesdaylabel"/>
+          <include name="ImportSame"/>
+        </methods>
+      </class> <!-- com.krystal.project.LabRepots -->
+    </classes>
+  </test> <!-- SequentialTest12(failed) -->
 </suite> <!-- Failed suite [Suite] -->

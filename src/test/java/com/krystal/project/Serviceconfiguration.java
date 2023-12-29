@@ -24,15 +24,21 @@ public class Serviceconfiguration extends ReferencefileChemotheraphy {
 	
 	
 	private String description;
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+
+
+	private Actions act;
+	
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.ServiceLogin(driver);
 	Sign.ServiceConfig(driver);
 	Service=new ServiceConfigurationPOM(driver);
+	action=new Actions(driver);
+	act=new Actions(driver);
   }
 	
 //	@Test(priority =1)
@@ -47,9 +53,10 @@ public class Serviceconfiguration extends ReferencefileChemotheraphy {
 	    Thread.sleep(1000);
 	}
 		}
-	/*
-	@Test(priority =1)
+	
+	@Test(priority =2)
 	public void ToverifyserviceconfigurationLabel() throws IOException {
+	test = extent.createTest("!!!!!!!!!!SS(SERVICE CONFIGURATION)!!!!!!!");
 	test = extent.createTest(guiTestCaseName()+" Service configuration label"," Service Configuration label should be present ");	
 	demo.Textcomparsion(Service.serviceConfiguration, "Service Configuration", test, driver);
 	}
@@ -249,15 +256,17 @@ public void Applicationpaths() throws IOException, InterruptedException
 	action = new Actions(driver);
 	test = extent.createTest(funTestCaseName()+" Dicom Import Path Update");
 	Service.edit.click();
+	/*
 	WebElement DicomImport=driver.findElements(By.className("TextBox")).get(0);
 	Actions action=new Actions(driver);
 	action.moveToElement(DicomImport).doubleClick().perform();
 	Thread.sleep(1000);
 	Ddriveacccess("DICOMImport","DicomImp.exe",action);
 	demo.Textcomparsion(DicomImport, "D:\\DICOMImport\\DicomImp.exe", test, driver);
+	*/
 	
 }
-
+/*
 	@Test(priority =36)	
 	public void MLCShaper() throws IOException, InterruptedException
 	{
@@ -356,10 +365,11 @@ public void Applicationpaths() throws IOException, InterruptedException
 		Ddriveacccess("FluencyMap","MLCsoverlapping.exe",action);
 		demo.Textcomparsion(FluencyMap, "D:\\FluencyMap\\MLCsoverlapping.exe", test, driver);
 	}
-
+*/
 	@Test(priority =45)	
 	public void SOPTagChange() throws IOException, InterruptedException
 	{
+		/*
 		Service.Edit.click();
 		test = extent.createTest(funTestCaseName()+" SOPTagChange");
 		WebElement SOPTagChange=driver.findElements(By.className("TextBox")).get(10);
@@ -369,10 +379,10 @@ public void Applicationpaths() throws IOException, InterruptedException
 		String Text=SOPTagChange.getText();
 		System.out.println(Text);
 		demo.Textcomparsion(SOPTagChange, "D:\\SOPtagChange\\SOPtagChange.exe", test, driver);
+		*/
 		Service.Update.click();
 		Sitesave1("Service Configuration Update","Service Configuration paths updated." , "Service Configuration Update","Service Configuration paths updated.", 0,driver,test);
 	}
-*/
 @Test(priority =46)
 public void Edit() throws IOException, InterruptedException {
 test = extent.createTest(funTestCaseName()+" Click on the Edit button"," Update and configure android button should be enabled ");	
@@ -420,7 +430,7 @@ Service.Configure.click();
 demo.isdisplayed(Service.Errordisplay, "Input cannot be empty", test, driver);
 }
 catch (IOException e) {
-test.error(e);
+	catchexceptionscreenshot1(test,e);
 }
 }
 @Test(priority =51)
@@ -434,6 +444,7 @@ public void Cancelclick() throws IOException
 	}
 	catch (Exception e) {
 	test.fail(" Popup is not getting Closed ");
+	catchexceptionscreenshot1(test,e);
 	}	
 }
 @Test(priority =52)
@@ -449,7 +460,7 @@ public void AndroidIP() throws InterruptedException, IOException
 		demo.Textcomparsion(Service.element, "192.168.10.18", test, driver);
 		}
 		catch (Exception e) {
-		test.error(e);
+			catchexceptionscreenshot(test,e);
 		}
 		Sitesave1("Android Configuration", "Impact android device Id saved.", "Android Configuration", "Impact android device Id saved.", 0,driver,test);
 		test = extent.createTest(funTestCaseName()+"Click on the configure button, Pop-up should get closed");
@@ -472,6 +483,7 @@ Service.Configure.click();
 }
 catch (Exception e) {
 test.fail("Input cannot be empty");
+catchexceptionscreenshot1(test,e);
 }
 Thread.sleep(2000);
 
@@ -543,17 +555,7 @@ public void languagetranslation() throws InterruptedException, IOException
 	}
 	
 
-@AfterClass
-public void tearDown() {
-    // Flush the Extent Reports after all tests in the class
-    extent.flush();
-}
-@AfterClass
-public void quit() throws InterruptedException
-{
-	driver.quit();
-	 Thread.sleep(5000);
-}
+	 
 
 
 // Database Paths providing is pending

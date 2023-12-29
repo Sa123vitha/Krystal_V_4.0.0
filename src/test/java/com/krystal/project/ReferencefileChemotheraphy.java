@@ -1,5 +1,6 @@
 package com.krystal.project;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.security.SecureRandom;
@@ -26,6 +27,8 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -45,15 +48,11 @@ public class ReferencefileChemotheraphy {
 	public ExtentTest subtest;
 	public static int testCaseCount = 1;
 	public  WindowsDriver<WebElement> driver;
-	 
-
-
-	public void setUp1()  throws InterruptedException, IOException {
+	 @BeforeClass
+		public void setUp1()  throws InterruptedException, IOException {
 		DesiredCapabilities appCapabilities = new DesiredCapabilities();
 		appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
 		driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
-		
-
 		}
 	public String guiTestCaseName() throws IOException {
 	    return "STC_GUI_" + String.format("%02d", testCaseCount++);
@@ -78,9 +77,11 @@ public class ReferencefileChemotheraphy {
 	@BeforeClass
 		public void setUp() {
 			extent = ExtendManager.getInstance();
+			
 		}
 		
 	DemographicsExternal demo=new DemographicsExternal() ;
+	
 	
 	
 	WebElement Savebutton;
@@ -123,15 +124,10 @@ public class ReferencefileChemotheraphy {
 			test.fail("Save pop-up is not displayed");
 		}
 	}
-	
-
-	
-
-	
 	public final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&_*()";
 	public  String generateRandomString(int i) {
 	    SecureRandom random = new SecureRandom();
-	    int length = random.nextInt(i) + 1; 
+	    int length = random.nextInt(i) + 3; 
 
 	    StringBuilder sb = new StringBuilder(length);
 	    for (i = 3; i < length; i++) {
@@ -219,23 +215,56 @@ public class ReferencefileChemotheraphy {
 	
 	
 	
-	public  final String CharOutOfRange = "!@#$%^&_*() ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&_*() abcdefghijklmnopqrstuvwxyz!@#$%^&_*() 0123456789!@#$%^&_*()";
+	 public final String CharOutOfRange = "ABCDEFGHIJKLMNOPQRS!@#$%^&_*()TUVWXYZ!@#$%^&_*()abcdefghijklmnopqrstuvwxyz!@#$%^&_*()0123456789!@#$%^&_*()";
+	public String randomcharString;
 
-    public  String generateCharOutOfRange(int i) {
-        SecureRandom random = new SecureRandom();
-        int length = random.nextInt(i) + 3;
+	    public String generateCharOutOfRange(int minLength) {
+	        SecureRandom random = new SecureRandom();
+	        int length = random.nextInt(100) + minLength; // Ensure the length is at least minLength
 
-        StringBuilder sb = new StringBuilder(length);
-        for (i = 0; i < length; i++) {
-            int index = random.nextInt(CharOutOfRange.length());
-            sb.append(CharOutOfRange.charAt(index));
-        }
-        return sb.toString();
-    }
-    String randomcharString;
-	public void randomCharOutOfRange(int j) {
-       randomcharString = generateCharOutOfRange(j);  
-    }
+	        StringBuilder sb = new StringBuilder(length);
+	        for (int i = 0; i < length; i++) {
+	            int index = random.nextInt(CharOutOfRange.length());
+	            sb.append(CharOutOfRange.charAt(index));
+	        }
+	        return sb.toString();
+	    }
+
+	    public void randomCharOutOfRange(int minLength) {
+	        randomcharString = generateCharOutOfRange(minLength);
+	    }
+
+	    
+	    
+	    public final String CharOutOfRange1 = "ABCDEFGHIJKLMNOPQRS!@#$%^&_*()TUVWXYZ!@#$%^&_*()abcdefghijklmnopqrstuvwxyz!@#$%^&_*()0123456789!@#$%^&_*()";
+	    public String randomcharString1;
+
+	    public String generateCharOutOfRange1(int minLength) {
+	        SecureRandom random = new SecureRandom();
+	        int length;
+	        do {
+	            length = random.nextInt(100) + minLength; // Ensure the length is at least minLength
+	        } while (length <= 40);
+
+	        StringBuilder sb = new StringBuilder(length);
+	        for (int i = 0; i < length; i++) {
+	            int index = random.nextInt(CharOutOfRange.length());
+	            sb.append(CharOutOfRange.charAt(index));
+	        }
+	        return sb.toString();
+	    }
+
+	    public void randomCharOutOfRange1(int minLength) {
+	        randomcharString = generateCharOutOfRange(minLength);
+	    } 
+	    
+	    
+	    
+	    
+	    
+	    
+	
+	
 	int randomNumber;
 	public void randomrange()
 	{
@@ -339,16 +368,27 @@ public class ReferencefileChemotheraphy {
 	public void Validatachars(String Text) throws IOException, InterruptedException 
 	{
 		 test = extent.createTest(funTestCaseName() +Text+" textbox is accepting the Alpha,numbers, specialchars,and spaces");
+		 randomstringtext(20);
+		 Thread.sleep(1000);
 		 SiteName = driver.findElement(By.name(Text));
 		 validatachars(SiteName,randomString,driver);
 	}
 	public void InValidataRange(String Text) throws IOException, InterruptedException 
 	{
 		 test = extent.createTest(funTestCaseName() +Text+" textbox is not accepting range if above 40");
-		 randomCharOutOfRange(15);
+		 randomCharOutOfRange(40);
 		 SiteName = driver.findElement(By.name(Text));
 		 Thread.sleep(1000);
 		 Invalidrange(SiteName,randomcharString,driver);
+	}
+	
+	public void InValidataDesign(String Text) throws IOException, InterruptedException 
+	{
+		 test = extent.createTest(funTestCaseName() +Text+" textbox is not accepting range if above 64chars");
+		 
+		 SiteName = driver.findElement(By.name(Text));
+		 Thread.sleep(1000);
+		 InvalidrangeDesign(SiteName,randomcharString,driver);
 	}
 	public void InValidatachars(String Text) throws IOException
 	{
@@ -360,7 +400,7 @@ public class ReferencefileChemotheraphy {
 	{
 		 test = extent.createTest(funTestCaseName() +Text+" textbox is not accepting specialchars and displaying error message");
 		 SiteName = driver.findElement(By.name(Text));
-		 Specialchar(SiteName,randomString,driver);
+		 Specialchar(SiteName,randomString,driver,test);
 		 test = extent.createTest(funTestCaseName() +Text+" save button disabled when enter the specialchars");
 		 demo.BydefaultisEnabled(Savebutton,"SAVE", test,driver);
 		 driver.switchTo().activeElement().clear();
@@ -376,7 +416,7 @@ public class ReferencefileChemotheraphy {
 	public void Invalidatachars(WebElement element) throws IOException
 	{
 		 test = extent.createTest(funTestCaseName() +element.getText()+" textbox is not accepting specialchars and displaying error message");
-		 Specialchar(element,"Text",driver);
+		 Specialchar(element,"Text",driver,test);
 	}
 	public void validatachars(WebElement Validdatachars, String Text, WebDriver driver) throws IOException, InterruptedException
 	{
@@ -386,6 +426,11 @@ public class ReferencefileChemotheraphy {
 	public void Invalidrange(WebElement Validdatachars, String Text, WebDriver driver) throws IOException
 	{
 		ValiddataRange(Validdatachars,Text,driver);
+	}
+	
+	public void InvalidrangeDesign(WebElement Validdatachars, String Text, WebDriver driver) throws IOException
+	{
+		ValiddataRangeDesign(Validdatachars,Text,driver);
 	}
 	public void Validdata(WebElement Name, String Text,WebDriver driver) throws IOException, InterruptedException
 	{
@@ -408,7 +453,7 @@ public class ReferencefileChemotheraphy {
 		driver.switchTo().activeElement().sendKeys(Text);
 	}
 
-	public void Specialchar(WebElement InValiddatachars, String Text, WebDriver driver) throws IOException
+	public void Specialchar(WebElement InValiddatachars, String Text, WebDriver driver,ExtentTest test) throws IOException
 	{
 		InValiddatachars.click();
 		driver.switchTo().activeElement().sendKeys("\\,");
@@ -617,8 +662,24 @@ public class ReferencefileChemotheraphy {
 	public void ValiddataRange(WebElement Name,String Text,WebDriver driver) throws IOException
 	{
 		Name.click();
+		driver.switchTo().activeElement().sendKeys(Text);
 		String data=driver.switchTo().activeElement().getText();
 		if(data.length()<=40)
+		{
+			test.log(Status.PASS,"Textbox accepted is:"+data.length()+"enetred range is:"+Text.length());
+		}
+		else
+		{
+			test.log(Status.FAIL,"Textbox accepted is:"+data.length()+"enetred range is:"+Text.length());
+		}
+	}
+	
+	public void ValiddataRangeDesign(WebElement Name,String Text,WebDriver driver) throws IOException
+	{
+		Name.click();
+		driver.switchTo().activeElement().sendKeys(Text);
+		String data=driver.switchTo().activeElement().getText();
+		if(data.length()<=64)
 		{
 			test.log(Status.PASS,"Textbox accepted is:"+data.length()+"enetred range is:"+Text.length());
 		}
@@ -841,7 +902,7 @@ public void errormessagedisplayed(String Text,String ExceptedMsgDescription) thr
     demo.isdisplayed(element, ExceptedMsgDescription, test, driver);
     demo.Textcomparsion(element, ExceptedMsgDescription, test, driver);
 }
-Actions action;
+
 public void guilabelindex(String Text, int i, String Excepted) throws InterruptedException, IOException
 {
 	 By locator = By.name(Text);
@@ -851,7 +912,8 @@ public void guilabelindex(String Text, int i, String Excepted) throws Interrupte
    	if (desiredIndex < elements.size()) {
    		Thread.sleep(2000);
    	    WebElement element = elements.get(desiredIndex);
-   	    action=new Actions(driver);
+ 	Actions action=new Actions(driver);
+   	 action=new Actions(driver);
    	    action.moveToElement(element).perform();
    	    demo.Textcomparsion(element, Excepted, test,driver);
    	}
@@ -1006,7 +1068,7 @@ public void invalidrange(int i, double j)
 	int lowerBound = i;
     double upperBound = j;
     
-    randominvalidfield1 = lowerBound + random.nextDouble(upperBound - lowerBound);
+    randominvalidfield1 = lowerBound + random.nextDouble();
     randomrangefield1 = String.valueOf(randominvalidfield1);
 }
 
@@ -1761,7 +1823,7 @@ public void Editdrug(String Classtext,ExtentTest test) throws IOException, Inter
 	
 }
 
-private Actions act;
+
 public void edit(String Name) throws IOException, FindFailed
 {
 	      
@@ -1946,6 +2008,71 @@ private int OardeleteNUm;
   	}
   
   
+  public String RoleselectionText(ExtentTest test, int i) throws InterruptedException, IOException {
+	    WebElement element = driver.findElements(By.className("ComboBox")).get(i);
+	    element.click();
+	    Thread.sleep(1000);
+	    List<WebElement> element1 = element.findElements(By.className("TextBlock"));
+
+	    int size = element1.size();
+	    System.out.println("Size of element1: " + size);
+
+	    if (size > 0) {
+	        Random rand = new Random();
+	        int randomIndex;
+
+	        do {
+	            randomIndex = rand.nextInt(size);
+	            System.out.println("Random index: " + randomIndex);
+
+	        } while (randomIndex == 0);
+
+	        String ColorIndex = Integer.toString(randomIndex);
+	        WebElement elementcolor = element1.get(randomIndex);
+	        Text = elementcolor.getText();
+	        test.info(Text);
+	        Actions action = new Actions(driver);
+	        action.moveToElement(elementcolor).click().perform();
+	        
+	        if(element.getText().equals(Text))
+	        {
+	        	 demo.Textcomparsion(element, Text, test, driver);
+	        }
+	        else
+	        {
+	        	 element.click();
+		           WebElement Scroll = driver.findElement(By.className("Thumb"));
+		           WebElement Scroll1 = driver.findElements(By.className("RepeatButton")).get(1);
+		           Thread.sleep(3000);
+	           action.dragAndDrop(Scroll,Scroll1).perform();
+	           Thread.sleep(3000);
+	           action.moveToElement(elementcolor).click().perform();
+	        }
+	        if(element.getText().equals(Text))
+	        {
+	        	 demo.Textcomparsion(element, Text, test, driver);
+	        }
+	        else
+	        {
+	        	  element.click();
+		           WebElement Scroll = driver.findElement(By.className("Thumb"));
+		           WebElement Scroll1 = driver.findElements(By.className("RepeatButton")).get(0);
+		           Thread.sleep(3000);
+	           action.dragAndDrop(Scroll,Scroll1).perform();
+	           Thread.sleep(3000);
+	           action.moveToElement(elementcolor).click().perform();
+	        }
+	        
+	        
+	    } else {
+	        System.out.println("No TextBlock elements found within ComboBox.");
+	    }
+	    return Text;
+	}
+  
+  
+  
+  
   
 	public  int List(List<WebElement> text, int val, Actions action) throws InterruptedException {
 		int count=0;
@@ -2041,13 +2168,52 @@ private int OardeleteNUm;
 			      
 			      return OARName;
 		}
+	 
+	 public void catchexceptionscreenshot(ExtentTest test,Exception e) throws IOException
+		{
+			test.error("An error occurred: " + e.getMessage());
+	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	        String screenshotName = "D:\\Krystalnew\\error_screenshot_" + timestamp + ".png";
+	        captureScreenshot(screenshotName);
+	        test.addScreenCaptureFromPath(screenshotName);
+		}
+	 
+	 public void catchexceptionscreenshot1(ExtentTest test,Exception e) throws IOException
+		{
+	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	        String screenshotName = "D:\\Krystalnew\\error_screenshot_" + timestamp + ".png";
+	        captureScreenshot(screenshotName);
+	        test.addScreenCaptureFromPath(screenshotName);
+		}
+		
+		public void captureScreenshot(String screenshotName) {
+		    try {
+		        TakesScreenshot screenshot = (TakesScreenshot) driver;
+		        File source = screenshot.getScreenshotAs(OutputType.FILE);
+		        File destination = new File(screenshotName);
+		        FileUtils.copyFile(source, destination);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
   
-  
-  
-  
-  
-  
-  
+	 @AfterClass
+	   public void tearDown() {
+	       // Flush the Extent Reports after all tests in the class
+	       extent.flush();
+	   }
+	 
+	 @AfterClass
+	 public void quit() throws InterruptedException 
+	 {
+		        driver.quit();
+		        Thread.sleep(7000);
+	}
+
+
+	
+
+
   
   
   

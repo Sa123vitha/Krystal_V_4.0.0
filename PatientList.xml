@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+         <test name="SequentialTest1" parallel="false">
+        <classes>
+            <class name="com.krystal.project.Login"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest2" parallel="false">
+        <classes>
+            <class name="com.krystal.project.PatientListGUI"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest3" parallel="false">
+        <classes>
+               <class name="com.krystal.project.PatientDemographics"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest4" parallel="false">
+        <classes>
+                <class name="com.krystal.project.DemographicsSmoketesting"/>
+        </classes>
+    </test>
+     
+         
+         <test name="SequentialTest5" parallel="false">
+        <classes>
+                 <class name="com.krystal.project.PatientListFun"/>
+        </classes>
+    </test>
+    
+    <test name="SequentialTest6" parallel="false">
+        <classes>
+                  <class name="com.krystal.project.PrescriptionGUITestcases"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest7" parallel="false">
+        <classes>
+                 <class name="com.krystal.project.PrescriptionFun"/>
+        </classes>
+    </test>
+    <test name="SequentialTest8" parallel="false">
+        <classes>
+                <class name="com.krystal.project.ChemoTherapyGUI"/>
+        </classes>
+    </test>
+     <test name="SequentialTest9" parallel="false">
+        <classes>
+                 <class name="com.krystal.project.PrescChemotherapyFun"/>
+        </classes>
+    </test>
+     <test name="SequentialTest10" parallel="false">
+        <classes>
+                   <class name="com.krystal.project.PlanApproval"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest11" parallel="false">
+        <classes>
+                    <class name="com.krystal.project.Vitals"/>
+        </classes>
+    </test>
+    
+     <test name="SequentialTest12" parallel="false">
+        <classes>
+                    <class name="com.krystal.project.LabRepots"/>
+        </classes>
+    </test>
+    
+  
+</suite> 

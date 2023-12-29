@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -45,14 +46,18 @@ public class PatientDemographics extends ReferencefileChemotheraphy {
 	 WebElement PS;
 	private WebElement bloodgroup;
 	private WebElement PatientSize;
+	private Actions action;
+	private Actions act;
 
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	navigation();
 	Addfield();
+	action=new Actions(driver);
+	act=new Actions(driver);
 	}
 	
 	
@@ -90,143 +95,11 @@ public class PatientDemographics extends ReferencefileChemotheraphy {
    }
 	
 	
-	
-// To verify the Title bar in the Demographics 
-	 
- 
-
-	 @Test(priority =2)
-	public void Menu() throws InterruptedException, IOException
-	{
-		 test = extent.createTest("==========TITLE BAR ICONS========");
-		 test = extent.createTest(guiTestCaseName()+" To Verify Menu icon displayed and enabled");
-		 demo.isdisplayed(demog.Menu, "Menu icon", test, driver);
-		 demo.isEnabled(demog.Menu, "Menu icon", test, driver);
-	}
- 
-		
-	 @Test(priority =2)
-		public void Signout() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Signout icon displayed and enabled");
-			 demo.isdisplayed(demog.Signout, "Signout", test, driver);
-			 demo.isEnabled(demog.Signout, "Signout", test, driver);
-		}
-		
-	 @Test(priority =3)
-		public void Theme() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Theme Icon displayed and enabled");
-			 demo.isdisplayed(demog.Theme, "Theme", test, driver);
-			 demo.isEnabled(demog.Theme, "Theme", test, driver);
-		}
-		
-		
-	 @Test(priority =4)
-		public void Password() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Password Icon displayed and enabled");
-			 demo.isdisplayed(demog.Password, "Password", test, driver);
-				demo.isEnabled(demog.Password, "Password", test, driver);
-		}
-		
-	 @Test(priority =5)
-		public void Titlename() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Title Name label ");
-			 demo.isdisplayed(demog.Titlename, "Demographics", test, driver);
-				demo.Textcomparsion(demog.Titlename, "Demographics", test, driver);
-		}
-		
-		
-	 @Test(priority =6)
-		public void Productlogo() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Product Logo  ");
-			 demo.isdisplayed(demog.Productlogo, "Logo", test, driver);
-		}
-		
-	 @Test(priority =7)
-		public void Patientlist() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Patient List  ");
-			 demo.isdisplayed(demog.Patientlist, "Patientlist", test, driver);
-			 demo.BydefaultisEnabled(demog.Patientlist, "Patientlist", test, driver);
-		}
-		
-		
-	 @Test(priority =8)
-		public void AddPatient() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Add Patient Label  ");
-			 demo.isdisplayed(demog.Patientlist, "Patient list ", test, driver);
-			 demo.BydefaultisEnabled(demog.Patientlist, "Patient list ", test, driver);
-			
-		}
-		
-	 @Test(priority =9)
-		public void Patientmenu() throws InterruptedException, IOException
-		{
-		    test = extent.createTest("==========SIDE BAR MENU ICONS=========");
-			 test = extent.createTest(guiTestCaseName()+" To Verify Patient Menu Label  ");
-			 demo.isdisplayed(demog.PatientMenu, "Patient Menu", test, driver);
-			demo.Textcomparsion(demog.PatientMenu, "Patient Menu", test, driver);
-		}
-		
-	 @Test(priority =10)
-		public void Demographics() throws InterruptedException, IOException
-		{
-		     
-			 test = extent.createTest(guiTestCaseName()+" To Verify Demographics Label  ");
-			 demo.Textcomparsion(demog.Demographics,"DEMOGRAPHICS", test, driver);
-		}
-	 
-	 @Test(priority =11)
-		public void Prescription() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Prescription Label  ");
-			 demo.Textcomparsion(demog.Prescription,"PRESCRIPTION", test, driver);
-		}
-	 
-	 @Test(priority =12)
-		public void Planapproval() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Plan Approval Label  ");
-			 demo.Textcomparsion(demog.PlanAprroval,"PLAN APPROVAL", test, driver);
-		}
-	 
-	 
-	 @Test(priority =13)
-		public void Scheduling() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Scheduling Label  ");
-			 demo.Textcomparsion(demog.Scheudling,"SCHEDULING", test, driver);
-		}
-	
-	 @Test(priority =14)
-		public void Vitals() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Vitals Label  ");
-			 demo.Textcomparsion(demog.Vitals,"VITALS", test, driver);
-		}
-	 
-	 @Test(priority =15)
-		public void Labreports() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify LabReports Label  ");
-			 demo.Textcomparsion(demog.LabReports,"LAB REPORTS", test, driver);
-		}
-	 
-	 @Test(priority =16)
-		public void Treatmentoverview() throws InterruptedException, IOException
-		{
-			 test = extent.createTest(guiTestCaseName()+" To Verify Treatment Review Label  ");
-			 demo.Textcomparsion(demog.TreatmentReview, "TREATMENT REVIEW", test, driver);
-		}
-	
 	@Test(priority=17)
 	public void TitlebarMenu() throws IOException
 	{
+		test = extent.createTest("!!!!!!!!!!!!!!!!!DEMOGRAPHICS MODULE!!!!!!!!!!!!");
+		test = extent.createTest("================TitleBar=================");
 		test = extent.createTest(guiTestCaseName()+" To Verify Menu icon displayed and enabled");
 		 demo.isdisplayed(demog.Menu, "Menu icon", test, driver);
 		 demo.isEnabled(demog.Menu, "Menu icon", test, driver);
@@ -353,8 +226,6 @@ public class PatientDemographics extends ReferencefileChemotheraphy {
 	{
 		test = extent.createTest(guiTestCaseName()+" To Verify Add Patient Click ");
 		demo.isdisplayed(demog.Addpatient, "Add Patient", test, driver);
-		Thread.sleep(2000);
-		Addpatient.click();
 	}
 	//---------------------------------First Name Functionality---------------------------------------	
 	@Test(priority =34)
@@ -542,6 +413,7 @@ public void Camerabutton() throws IOException
 	catch(Exception e)
 	{
 		test.pass("Camera button is not displayed");
+		catchexceptionscreenshot1(test,e);
 	}
 }
 @Test(priority =62)
@@ -665,7 +537,7 @@ public void DefaultGenderradiobutton(String Text, String ExceptedText) throws IO
 }
 
 //---------------------------------Patient Weight---------------------------------------
-@Test(priority =80,invocationCount = 1)
+@Test(priority =80)
 public  void WeightLabelValiddata() throws IOException  {
 	test = extent.createTest("=================PATIENT WEIGHT===========");
 test = extent.createTest(funTestCaseName()+" Patient weight enetered is correct");
@@ -675,7 +547,7 @@ driver.switchTo().activeElement().sendKeys(randomweightNumberText);
 save();
 clear(demog.Weight);
 }
-@Test(priority =81,invocationCount = 2)
+@Test(priority =81)
 public  void WeightLabelInValiddata() throws IOException  {
 test = extent.createTest(funTestCaseName()+" Patient weight enetered data is not correct");
 invalidweightrange(1,300);
@@ -688,7 +560,7 @@ clear(demog.Weight);
 }
 catch(Exception e)
 {
-	test.pass("No such Element found");
+	catchexceptionscreenshot(test,e);
 	
 }
 finally {
@@ -1136,13 +1008,5 @@ public void clear(WebElement element)
 	driver.switchTo().activeElement().clear();
 }
 
-
-
-  
-@AfterSuite
-public void tearDown() {
-    extent.flush();
-
-}
 	
 }

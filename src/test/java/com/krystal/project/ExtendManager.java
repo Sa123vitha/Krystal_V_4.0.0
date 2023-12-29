@@ -9,6 +9,8 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+
+
 public class ExtendManager {
 	private static ExtentReports extent;
 
@@ -40,5 +42,6 @@ public class ExtendManager {
         extent.setSystemInfo("Operating system", "windows 10 pro");
         return extent;
     }
+
 
 }

@@ -29,11 +29,11 @@ public class MachineSlot extends ReferencefileChemotheraphy {
 	private WebElement frcationsupdated;
 	private WebElement ok;
 	
-	@BeforeClass
-	public void setUp1()  throws InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+//	appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	Thread.sleep(5000);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
@@ -88,10 +88,7 @@ public class MachineSlot extends ReferencefileChemotheraphy {
      Match match = screen.find(pattern);
      match.click();
 }
- @AfterSuite
- public void tearDown() {
-     extent.flush();
- }
+
 
  // Increment of fractions per hour not Possible to perform
 	

@@ -28,6 +28,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sikuli.hotkey.Keys;
 import org.sikuli.script.FindFailed;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -62,11 +63,8 @@ public class HolidaySettings extends ReferencefileChemotheraphy  {
 	WebElement addfield1;
 	private HolidaySettingsPOM holiday;
 	public static int testCaseCount = 1;
-
-	
 	private int count;
 	private WebElement Addfield;
-
 	DemographicsExternal demo;
 	private LocalDate currentDate;
 	private int day1;
@@ -77,20 +75,22 @@ public class HolidaySettings extends ReferencefileChemotheraphy  {
 	WebElement weekly;
 	private WebElement  Reset;
 	private WebElement Addiconnew;
+	private Actions act;
 
 
 	
-	@BeforeClass
-	public void setUp1() throws  InterruptedException, IOException {
-	DesiredCapabilities appCapabilities = new DesiredCapabilities();
-    appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
-	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
+	@Test(priority =1)
+	public void Launch()  throws InterruptedException, IOException {
+//	DesiredCapabilities appCapabilities = new DesiredCapabilities();
+ //   appCapabilities.setCapability("app", "C:\\Program Files\\Panacea Medical Technologies\\Krystal\\Krystal.exe");
+//	driver = new WindowsDriver<WebElement>(new URL("http://127.0.0.1:4723"), appCapabilities);
 	ReferenceSigin Sign=new ReferenceSigin();
 	Sign.Login(driver);
 	Sign.HolidaySettings(driver);
 	holiday=new HolidaySettingsPOM(driver);
 	demo=new DemographicsExternal() ;
 	action=new Actions(driver);
+	act=new Actions(driver);
   }
 	
 	
@@ -113,6 +113,7 @@ public class HolidaySettings extends ReferencefileChemotheraphy  {
 	
 	@Test(priority =1)
 	public void ToverifyholidaysettingsLabel() throws IOException {
+		test = extent.createTest("!!!!!!!!!!HOLIDAY SETTINGS MODULE!!!!!!!");
 		test = extent.createTest("============GUI=====================");
 	test = extent.createTest(guiTestCaseName()+" Holiday settings Label");	
 	demo.Textcomparsion(holiday.holidaysettings, "Holiday Settings", test,driver);
@@ -360,7 +361,7 @@ public void HolidaynameValidtextcases() throws InterruptedException, IOException
 	}
 	catch(Exception e)
 	{
-	 test.error(e);
+	 catchexceptionscreenshot(test,e);
 	}
 		try {
 		randomLower(15);
@@ -370,7 +371,7 @@ public void HolidaynameValidtextcases() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-		 test.error(e);
+		 catchexceptionscreenshot(test,e);
 		}
 		try {
 		randomalpha(15);
@@ -380,7 +381,7 @@ public void HolidaynameValidtextcases() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-		 test.error(e);
+		 catchexceptionscreenshot(test,e);
 		}
 		try {
 		randomNumber(15);
@@ -390,7 +391,7 @@ public void HolidaynameValidtextcases() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-		 test.error(e);
+		 catchexceptionscreenshot(test,e);
 		}
 		try {
 		randomstringtext(15);
@@ -400,7 +401,7 @@ public void HolidaynameValidtextcases() throws InterruptedException, IOException
 		}
 		catch(Exception e)
 		{
-		 test.error(e);
+		 catchexceptionscreenshot(test,e);
 		}
 }
 
@@ -1082,7 +1083,7 @@ public void Addconsectuive()throws IOException, InterruptedException
 
 
 @Test(priority=76)
-public void Editenable()
+public void Editenable() throws IOException
 {
 	try {
 		test = extent.createTest("===============EDIT==========");
@@ -1092,6 +1093,7 @@ public void Editenable()
 		catch(Exception e)
 		{
 			test.fail("Edit Button is not enabled");
+			catchexceptionscreenshot1(test,e);
 		}
 }
 
@@ -1105,6 +1107,7 @@ public void EditHolidayok() throws InterruptedException, IOException, FindFailed
 		catch(Exception e)
 		{
 			test.fail("Edit Button is not enabled");
+			catchexceptionscreenshot1(test,e);
 		}
 	try {
 		demo.isdisplayed(holiday.Update, "UPDATE", test, driver);
@@ -1113,7 +1116,7 @@ public void EditHolidayok() throws InterruptedException, IOException, FindFailed
 	}
 	catch(Exception e)
 	{
-		test.fail(e);
+		catchexceptionscreenshot(test,e);
 	}	
 }
 
@@ -1127,6 +1130,7 @@ public void ModifyHolidayok() throws InterruptedException, IOException, FindFail
 		catch(Exception e)
 		{
 			test.fail("Edit Button is not enabled");
+			catchexceptionscreenshot1(test,e);
 		}
 	try {
 		demo.isdisplayed(holiday.Update, "UPDATE", test, driver);
@@ -1135,13 +1139,13 @@ public void ModifyHolidayok() throws InterruptedException, IOException, FindFail
 	}
 	catch(Exception e)
 	{
-		test.fail(e);
+		catchexceptionscreenshot(test,e);
 	}	
 }
 
 String Holidayname;
 @Test(priority=80)
-public void Deleteenable()
+public void Deleteenable() throws IOException
 {
 	try {
 		test = extent.createTest("=============DELETE==========");
@@ -1154,6 +1158,7 @@ public void Deleteenable()
 		catch(Exception e)
 		{
 			test.fail("Edit Button is not enabled");
+			catchexceptionscreenshot1(test,e);
 		}
 }
 
@@ -1167,6 +1172,7 @@ public void DeleteHolidayok() throws InterruptedException, IOException, FindFail
 		catch(Exception e)
 		{
 			test.fail("Delete Button is not enabled");
+			catchexceptionscreenshot1(test,e);
 		}
 	try {
 		
@@ -1174,7 +1180,7 @@ public void DeleteHolidayok() throws InterruptedException, IOException, FindFail
 	}
 	catch(Exception e)
 	{
-		test.fail(e);
+		catchexceptionscreenshot(test,e);
 	}	
 	
 	try {
@@ -1184,7 +1190,7 @@ public void DeleteHolidayok() throws InterruptedException, IOException, FindFail
 	}
 	catch(Exception e)
 	{
-		test.fail(e);
+		catchexceptionscreenshot(test,e);
 	}	
 	
 	}
@@ -1481,7 +1487,7 @@ WebElement  AddHolidaydescription;
 	        File destination = new File(screenshotName);
 	        FileUtils.copyFile(source, destination);
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	    	test.fail(e);
 	    }
 	}
 	
@@ -1514,10 +1520,7 @@ WebElement  AddHolidaydescription;
 		    }
 		}
 
-@AfterSuite
-public void tearDown() {
-    extent.flush();
-}
+	  
 	
 	
 // Note: Color dropdown selcting is pending no particular elements are there for that	
